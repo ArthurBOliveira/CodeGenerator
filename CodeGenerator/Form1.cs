@@ -54,6 +54,7 @@ namespace CodeGenerator
 
                 aux.Type = cbbType1.Text;
                 aux.Name = textBox1.Text;
+                aux.IsList = checkBox1.Checked;
 
                 Properties.Add(aux);
             }
@@ -65,6 +66,7 @@ namespace CodeGenerator
 
                 aux.Type = cbbType2.Text;
                 aux.Name = textBox2.Text;
+                aux.IsList = checkBox2.Checked;
 
                 Properties.Add(aux);
             }
@@ -77,6 +79,7 @@ namespace CodeGenerator
 
                 aux.Type = cbbType3.Text;
                 aux.Name = textBox3.Text;
+                aux.IsList = checkBox3.Checked;
 
                 Properties.Add(aux);
             }
@@ -88,6 +91,7 @@ namespace CodeGenerator
 
                 aux.Type = cbbType4.Text;
                 aux.Name = textBox4.Text;
+                aux.IsList = checkBox4.Checked;
 
                 Properties.Add(aux);
             }
@@ -99,6 +103,7 @@ namespace CodeGenerator
 
                 aux.Type = cbbType5.Text;
                 aux.Name = textBox5.Text;
+                aux.IsList = checkBox5.Checked;
 
                 Properties.Add(aux);
             }
@@ -110,6 +115,7 @@ namespace CodeGenerator
 
                 aux.Type = cbbType6.Text;
                 aux.Name = textBox6.Text;
+                aux.IsList = checkBox6.Checked;
 
                 Properties.Add(aux);
             }
@@ -121,6 +127,7 @@ namespace CodeGenerator
 
                 aux.Type = cbbType7.Text;
                 aux.Name = textBox7.Text;
+                aux.IsList = checkBox7.Checked;
 
                 Properties.Add(aux);
             }
@@ -133,6 +140,7 @@ namespace CodeGenerator
 
                 aux.Type = cbbType8.Text;
                 aux.Name = textBox8.Text;
+                aux.IsList = checkBox8.Checked;
 
                 Properties.Add(aux);
             }
@@ -144,6 +152,7 @@ namespace CodeGenerator
 
                 aux.Type = cbbType9.Text;
                 aux.Name = textBox9.Text;
+                aux.IsList = checkBox9.Checked;
 
                 Properties.Add(aux);
             }
@@ -155,6 +164,7 @@ namespace CodeGenerator
 
                 aux.Type = cbbType10.Text;
                 aux.Name = textBox10.Text;
+                aux.IsList = checkBox10.Checked;
 
                 Properties.Add(aux);
             }
