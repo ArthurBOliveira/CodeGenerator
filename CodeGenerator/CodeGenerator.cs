@@ -15,8 +15,6 @@ namespace CodeGenerator
         public CodeGenerator()
         {
             InitializeComponent();
-
-            CloseDialog();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -25,26 +23,23 @@ namespace CodeGenerator
             List<Property> Properties = new List<Property>();
             Property aux;
 
-            Loading();
-
             //Model Name
             if (!String.IsNullOrEmpty(txtModelName.Text))
                 m.Name = txtModelName.Text;
             else
             {
                 txtModelName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(84)))), ((int)(((byte)(84)))));
-                CallError();
                 return;
             }
 
-            //Project Name
-            if (!String.IsNullOrEmpty(txtProjectName.Text))
-                m.NameProject = txtProjectName.Text;
-            else
+            //Identity
+            if (chkIdentity.Checked)
             {
-                txtProjectName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(84)))), ((int)(((byte)(84)))));
-                CallError();
-                return;
+                aux = new Property();
+                aux.Type = "int";
+                aux.Name = "id" + m.Name;
+
+                Properties.Add(aux);
             }
 
             //Prop 1
@@ -171,63 +166,11 @@ namespace CodeGenerator
 
             m.Properties = Properties;
 
-            ModelGenerator.Generate(m);
-            StoredProceduresGenerator.Generate(m);
-            APIControllerGenerator.Generate(m);
-            DALGenerator.Generate(m);
-            BLLGenerator.Generate(m);
-            TableGenerator.Generate(m);
+            m.NameProject = Program.project.Name;
 
-            Success();
-        }
+            Program.project.Models.Add(m);
 
-        private void Success()
-        {
-            OpenDialog();
-
-            lblResult.Text = "Funcionou!";
-            lblResult.ForeColor = Color.Green;
-        }
-
-        private void CallError()
-        {
-            OpenDialog();
-
-            lblResult.Text = "Ocorreu algum Erro!";
-            lblResult.ForeColor = Color.Red;            
-        }
-
-        private void Loading()
-        {
-            OpenDialog();
-
-            btnOk.Visible = false;
-
-            lblResult.Text = "Carregando...";
-            lblResult.ForeColor = Color.Black;
-        }
-
-        private void OpenDialog()
-        {
-            panel1.Visible = true;
-            lblResult.Visible = true;
-            btnOk.Visible = true;
-
-            btnCreate.Visible = false;
-        }
-
-        private void CloseDialog()
-        {
-            panel1.Visible = false;
-            lblResult.Visible = false;
-            btnOk.Visible = false;
-
-            btnCreate.Visible = true;
-        }
-
-        private void btnOk_Click(object sender, EventArgs e)
-        {
-            CloseDialog();
+            Close();
         }
     }
 }

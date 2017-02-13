@@ -46,25 +46,45 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="APIControllerGenerator.cs" />
-    <Compile Include="BLLGenerator.cs" />
-    <Compile Include="DALGenerator.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Generators\APIControllerGenerator.cs" />
+    <Compile Include="Generators\BLLGenerator.cs" />
+    <Compile Include="Generators\DALGenerator.cs" />
+    <Compile Include="CodeGenerator.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="CodeGenerator.Designer.cs">
+      <DependentUpon>CodeGenerator.cs</DependentUpon>
     </Compile>
     <Compile Include="Generator.cs" />
-    <Compile Include="Model.cs" />
+    <Compile Include="Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model.cs" />
     <Compile Include="ModelGenerator.cs" />
+    <Compile Include="Generators\MVCControllerGenerator.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Models\Project.cs" />
+    <Compile Include="ProjectName.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectName.Designer.cs">
+      <DependentUpon>ProjectName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Property.cs" />
-    <Compile Include="StoredProceduresGenerator.cs" />
-    <Compile Include="TableGenerator.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Models\Property.cs" />
+    <Compile Include="Generators\StoredProceduresGenerator.cs" />
+    <Compile Include="Generators\TableGenerator.cs" />
+    <EmbeddedResource Include="CodeGenerator.resx">
+      <DependentUpon>CodeGenerator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectName.resx">
+      <DependentUpon>ProjectName.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -48,21 +48,21 @@ namespace CodeGenerator
             for (int i = 0; i < m.Properties.Count; i++)
             {
                 if (i == (m.Properties.Count - 1))
-                    text += LowercaseFirst(m.Properties[i].Name);
+                    text += ConvertNameToSQL(m.Properties[i].Name);
                 else
-                    text += LowercaseFirst(m.Properties[i].Name) + ", ";
+                    text += ConvertNameToSQL(m.Properties[i].Name) + ", ";
             }
 
             text += ")\r\n";
 
-            text += "\tVALUES(";
+            text += "\tVALUES (";
 
             for (int i = 0; i < m.Properties.Count; i++)
             {
                 if (i == (m.Properties.Count - 1))
-                    text += "@" + LowercaseFirst(m.Properties[i].Name);
+                    text += "@" + ConvertNameToSQL(m.Properties[i].Name);
                 else
-                    text += "@" + LowercaseFirst(m.Properties[i].Name) + ", ";
+                    text += "@" + ConvertNameToSQL(m.Properties[i].Name) + ", ";
             }
 
             text += ")\r\n";
@@ -156,9 +156,9 @@ namespace CodeGenerator
             for (int i = 1; i < m.Properties.Count; i++)
             {
                 if (i == (m.Properties.Count - 1))
-                    text += LowercaseFirst(m.Properties[i].Name) + " = @" + LowercaseFirst(m.Properties[i].Name) + "\r\n";
+                    text += ConvertNameToSQL(m.Properties[i].Name) + " = @" + ConvertNameToSQL(m.Properties[i].Name) + "\r\n";
                 else
-                    text += LowercaseFirst(m.Properties[i].Name) + " = @" + LowercaseFirst(m.Properties[i].Name) + ", ";
+                    text += ConvertNameToSQL(m.Properties[i].Name) + " = @" + ConvertNameToSQL(m.Properties[i].Name) + ", ";
             }
 
 

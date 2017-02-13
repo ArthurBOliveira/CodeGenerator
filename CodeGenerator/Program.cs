@@ -8,15 +8,18 @@ namespace CodeGenerator
 {
     static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
+        public static Project project;
+
+
         [STAThread]
         static void Main()
         {
+            project = new Project();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CodeGenerator());
+
+            Application.Run(new Main());
         }
     }
 }

@@ -31,8 +31,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnCreate = new System.Windows.Forms.Button();
             this.txtModelName = new System.Windows.Forms.TextBox();
-            this.txtProjectName = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.cbbType1 = new System.Windows.Forms.ComboBox();
@@ -62,9 +60,6 @@
             this.cbbType9 = new System.Windows.Forms.ComboBox();
             this.textBox9 = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnOk = new System.Windows.Forms.Button();
-            this.lblResult = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
@@ -76,60 +71,53 @@
             this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.checkBox9 = new System.Windows.Forms.CheckBox();
             this.checkBox10 = new System.Windows.Forms.CheckBox();
-            this.panel1.SuspendLayout();
+            this.chkIdentity = new System.Windows.Forms.CheckBox();
+            this.chkDAL = new System.Windows.Forms.CheckBox();
+            this.chkBLL = new System.Windows.Forms.CheckBox();
+            this.chkAPI = new System.Windows.Forms.CheckBox();
+            this.chkMVC = new System.Windows.Forms.CheckBox();
+            this.chkTable = new System.Windows.Forms.CheckBox();
+            this.chkProc = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(12, 24);
+            this.label1.Location = new System.Drawing.Point(7, 15);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 23);
+            this.label1.Size = new System.Drawing.Size(89, 23);
             this.label1.TabIndex = 0;
             this.label1.Text = "Nome do Objeto";
             // 
             // btnCreate
             // 
-            this.btnCreate.Location = new System.Drawing.Point(635, 294);
+            this.btnCreate.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnCreate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCreate.Location = new System.Drawing.Point(247, 342);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(166, 46);
             this.btnCreate.TabIndex = 1;
-            this.btnCreate.Text = "Criar";
+            this.btnCreate.Text = "Finalizar";
             this.btnCreate.UseVisualStyleBackColor = true;
             this.btnCreate.Click += new System.EventHandler(this.button1_Click);
             // 
             // txtModelName
             // 
             this.txtModelName.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtModelName.Location = new System.Drawing.Point(118, 21);
+            this.txtModelName.Location = new System.Drawing.Point(89, 12);
             this.txtModelName.Name = "txtModelName";
-            this.txtModelName.Size = new System.Drawing.Size(287, 20);
+            this.txtModelName.Size = new System.Drawing.Size(233, 20);
             this.txtModelName.TabIndex = 2;
-            // 
-            // txtProjectName
-            // 
-            this.txtProjectName.Location = new System.Drawing.Point(498, 21);
-            this.txtProjectName.Name = "txtProjectName";
-            this.txtProjectName.Size = new System.Drawing.Size(303, 20);
-            this.txtProjectName.TabIndex = 5;
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(411, 24);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(100, 23);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Nome do Projeto";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(205, 82);
+            this.textBox1.Location = new System.Drawing.Point(216, 38);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(149, 20);
             this.textBox1.TabIndex = 7;
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(3, 85);
+            this.label4.Location = new System.Drawing.Point(14, 41);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(74, 23);
             this.label4.TabIndex = 6;
@@ -144,7 +132,7 @@
             "string",
             "DateTime",
             "bool"});
-            this.cbbType1.Location = new System.Drawing.Point(78, 82);
+            this.cbbType1.Location = new System.Drawing.Point(89, 38);
             this.cbbType1.Name = "cbbType1";
             this.cbbType1.Size = new System.Drawing.Size(121, 21);
             this.cbbType1.TabIndex = 8;
@@ -158,21 +146,21 @@
             "string",
             "DateTime",
             "bool"});
-            this.cbbType2.Location = new System.Drawing.Point(486, 82);
+            this.cbbType2.Location = new System.Drawing.Point(89, 65);
             this.cbbType2.Name = "cbbType2";
-            this.cbbType2.Size = new System.Drawing.Size(109, 21);
+            this.cbbType2.Size = new System.Drawing.Size(121, 21);
             this.cbbType2.TabIndex = 11;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(601, 82);
+            this.textBox2.Location = new System.Drawing.Point(216, 64);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(149, 20);
             this.textBox2.TabIndex = 10;
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(408, 85);
+            this.label5.Location = new System.Drawing.Point(14, 68);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(79, 23);
             this.label5.TabIndex = 9;
@@ -187,21 +175,21 @@
             "string",
             "DateTime",
             "bool"});
-            this.cbbType4.Location = new System.Drawing.Point(486, 130);
+            this.cbbType4.Location = new System.Drawing.Point(89, 117);
             this.cbbType4.Name = "cbbType4";
-            this.cbbType4.Size = new System.Drawing.Size(109, 21);
+            this.cbbType4.Size = new System.Drawing.Size(121, 21);
             this.cbbType4.TabIndex = 17;
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(601, 130);
+            this.textBox4.Location = new System.Drawing.Point(216, 117);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(149, 20);
             this.textBox4.TabIndex = 16;
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(408, 133);
+            this.label2.Location = new System.Drawing.Point(14, 120);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(79, 23);
             this.label2.TabIndex = 15;
@@ -216,21 +204,21 @@
             "string",
             "DateTime",
             "bool"});
-            this.cbbType3.Location = new System.Drawing.Point(78, 130);
+            this.cbbType3.Location = new System.Drawing.Point(89, 90);
             this.cbbType3.Name = "cbbType3";
             this.cbbType3.Size = new System.Drawing.Size(121, 21);
             this.cbbType3.TabIndex = 14;
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(205, 130);
+            this.textBox3.Location = new System.Drawing.Point(216, 90);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(149, 20);
             this.textBox3.TabIndex = 13;
             // 
             // label6
             // 
-            this.label6.Location = new System.Drawing.Point(3, 133);
+            this.label6.Location = new System.Drawing.Point(14, 93);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(74, 23);
             this.label6.TabIndex = 12;
@@ -245,14 +233,14 @@
             "string",
             "DateTime",
             "bool"});
-            this.cbbType6.Location = new System.Drawing.Point(486, 169);
+            this.cbbType6.Location = new System.Drawing.Point(89, 173);
             this.cbbType6.Name = "cbbType6";
-            this.cbbType6.Size = new System.Drawing.Size(109, 21);
+            this.cbbType6.Size = new System.Drawing.Size(121, 21);
             this.cbbType6.TabIndex = 23;
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(601, 169);
+            this.textBox6.Location = new System.Drawing.Point(216, 173);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(149, 20);
             this.textBox6.TabIndex = 22;
@@ -266,21 +254,21 @@
             "string",
             "DateTime",
             "bool"});
-            this.cbbType5.Location = new System.Drawing.Point(78, 169);
+            this.cbbType5.Location = new System.Drawing.Point(89, 146);
             this.cbbType5.Name = "cbbType5";
             this.cbbType5.Size = new System.Drawing.Size(121, 21);
             this.cbbType5.TabIndex = 20;
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(205, 169);
+            this.textBox5.Location = new System.Drawing.Point(216, 146);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(149, 20);
             this.textBox5.TabIndex = 19;
             // 
             // label8
             // 
-            this.label8.Location = new System.Drawing.Point(3, 172);
+            this.label8.Location = new System.Drawing.Point(14, 149);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(74, 23);
             this.label8.TabIndex = 18;
@@ -295,21 +283,21 @@
             "string",
             "DateTime",
             "bool"});
-            this.cbbType8.Location = new System.Drawing.Point(486, 207);
+            this.cbbType8.Location = new System.Drawing.Point(89, 226);
             this.cbbType8.Name = "cbbType8";
-            this.cbbType8.Size = new System.Drawing.Size(109, 21);
+            this.cbbType8.Size = new System.Drawing.Size(121, 21);
             this.cbbType8.TabIndex = 29;
             // 
             // textBox8
             // 
-            this.textBox8.Location = new System.Drawing.Point(601, 207);
+            this.textBox8.Location = new System.Drawing.Point(216, 226);
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(149, 20);
-            this.textBox8.TabIndex = 28;
+            this.textBox8.TabIndex = 28;           
             // 
             // label9
             // 
-            this.label9.Location = new System.Drawing.Point(408, 210);
+            this.label9.Location = new System.Drawing.Point(16, 229);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(79, 23);
             this.label9.TabIndex = 27;
@@ -324,21 +312,21 @@
             "string",
             "DateTime",
             "bool"});
-            this.cbbType7.Location = new System.Drawing.Point(78, 207);
+            this.cbbType7.Location = new System.Drawing.Point(89, 199);
             this.cbbType7.Name = "cbbType7";
             this.cbbType7.Size = new System.Drawing.Size(121, 21);
             this.cbbType7.TabIndex = 26;
             // 
             // textBox7
             // 
-            this.textBox7.Location = new System.Drawing.Point(205, 207);
+            this.textBox7.Location = new System.Drawing.Point(216, 199);
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(149, 20);
             this.textBox7.TabIndex = 25;
             // 
             // label10
             // 
-            this.label10.Location = new System.Drawing.Point(3, 210);
+            this.label10.Location = new System.Drawing.Point(14, 202);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(74, 23);
             this.label10.TabIndex = 24;
@@ -353,21 +341,21 @@
             "string",
             "DateTime",
             "bool"});
-            this.cbbType10.Location = new System.Drawing.Point(486, 250);
+            this.cbbType10.Location = new System.Drawing.Point(89, 278);
             this.cbbType10.Name = "cbbType10";
-            this.cbbType10.Size = new System.Drawing.Size(109, 21);
+            this.cbbType10.Size = new System.Drawing.Size(121, 21);
             this.cbbType10.TabIndex = 35;
             // 
             // textBox10
             // 
-            this.textBox10.Location = new System.Drawing.Point(601, 250);
+            this.textBox10.Location = new System.Drawing.Point(216, 278);
             this.textBox10.Name = "textBox10";
             this.textBox10.Size = new System.Drawing.Size(149, 20);
             this.textBox10.TabIndex = 34;
             // 
             // label11
             // 
-            this.label11.Location = new System.Drawing.Point(408, 253);
+            this.label11.Location = new System.Drawing.Point(9, 282);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(79, 23);
             this.label11.TabIndex = 33;
@@ -382,61 +370,30 @@
             "string",
             "DateTime",
             "bool"});
-            this.cbbType9.Location = new System.Drawing.Point(78, 250);
+            this.cbbType9.Location = new System.Drawing.Point(89, 252);
             this.cbbType9.Name = "cbbType9";
             this.cbbType9.Size = new System.Drawing.Size(121, 21);
             this.cbbType9.TabIndex = 32;
             // 
             // textBox9
             // 
-            this.textBox9.Location = new System.Drawing.Point(205, 250);
+            this.textBox9.Location = new System.Drawing.Point(216, 252);
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new System.Drawing.Size(149, 20);
             this.textBox9.TabIndex = 31;
             // 
             // label12
             // 
-            this.label12.Location = new System.Drawing.Point(3, 253);
+            this.label12.Location = new System.Drawing.Point(14, 255);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(74, 23);
             this.label12.TabIndex = 30;
             this.label12.Text = "Propriedade 9";
             // 
-            // panel1
-            // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.btnOk);
-            this.panel1.Controls.Add(this.lblResult);
-            this.panel1.Location = new System.Drawing.Point(411, 85);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(295, 188);
-            this.panel1.TabIndex = 36;
-            // 
-            // btnOk
-            // 
-            this.btnOk.Location = new System.Drawing.Point(114, 151);
-            this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(75, 23);
-            this.btnOk.TabIndex = 1;
-            this.btnOk.Text = "Ok";
-            this.btnOk.UseVisualStyleBackColor = true;
-            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
-            // 
-            // lblResult
-            // 
-            this.lblResult.AutoSize = true;
-            this.lblResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblResult.Location = new System.Drawing.Point(107, 54);
-            this.lblResult.Name = "lblResult";
-            this.lblResult.Size = new System.Drawing.Size(82, 20);
-            this.lblResult.TabIndex = 0;
-            this.lblResult.Text = "Resultado";
-            this.lblResult.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(360, 84);
+            this.checkBox1.Location = new System.Drawing.Point(371, 40);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(42, 17);
             this.checkBox1.TabIndex = 37;
@@ -446,7 +403,7 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(757, 84);
+            this.checkBox2.Location = new System.Drawing.Point(371, 67);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(42, 17);
             this.checkBox2.TabIndex = 38;
@@ -456,7 +413,7 @@
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(360, 132);
+            this.checkBox3.Location = new System.Drawing.Point(371, 92);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(42, 17);
             this.checkBox3.TabIndex = 39;
@@ -466,7 +423,7 @@
             // checkBox4
             // 
             this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(756, 132);
+            this.checkBox4.Location = new System.Drawing.Point(371, 117);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(42, 17);
             this.checkBox4.TabIndex = 40;
@@ -476,7 +433,7 @@
             // checkBox5
             // 
             this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(360, 171);
+            this.checkBox5.Location = new System.Drawing.Point(371, 148);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.Size = new System.Drawing.Size(42, 17);
             this.checkBox5.TabIndex = 41;
@@ -485,7 +442,7 @@
             // 
             // label7
             // 
-            this.label7.Location = new System.Drawing.Point(408, 172);
+            this.label7.Location = new System.Drawing.Point(14, 176);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(79, 23);
             this.label7.TabIndex = 21;
@@ -494,7 +451,7 @@
             // checkBox6
             // 
             this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(756, 172);
+            this.checkBox6.Location = new System.Drawing.Point(371, 176);
             this.checkBox6.Name = "checkBox6";
             this.checkBox6.Size = new System.Drawing.Size(42, 17);
             this.checkBox6.TabIndex = 42;
@@ -504,7 +461,7 @@
             // checkBox7
             // 
             this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(360, 209);
+            this.checkBox7.Location = new System.Drawing.Point(371, 201);
             this.checkBox7.Name = "checkBox7";
             this.checkBox7.Size = new System.Drawing.Size(42, 17);
             this.checkBox7.TabIndex = 43;
@@ -514,7 +471,7 @@
             // checkBox8
             // 
             this.checkBox8.AutoSize = true;
-            this.checkBox8.Location = new System.Drawing.Point(756, 209);
+            this.checkBox8.Location = new System.Drawing.Point(371, 228);
             this.checkBox8.Name = "checkBox8";
             this.checkBox8.Size = new System.Drawing.Size(42, 17);
             this.checkBox8.TabIndex = 44;
@@ -524,7 +481,7 @@
             // checkBox9
             // 
             this.checkBox9.AutoSize = true;
-            this.checkBox9.Location = new System.Drawing.Point(360, 253);
+            this.checkBox9.Location = new System.Drawing.Point(371, 255);
             this.checkBox9.Name = "checkBox9";
             this.checkBox9.Size = new System.Drawing.Size(42, 17);
             this.checkBox9.TabIndex = 45;
@@ -534,18 +491,110 @@
             // checkBox10
             // 
             this.checkBox10.AutoSize = true;
-            this.checkBox10.Location = new System.Drawing.Point(756, 254);
+            this.checkBox10.Location = new System.Drawing.Point(371, 282);
             this.checkBox10.Name = "checkBox10";
             this.checkBox10.Size = new System.Drawing.Size(42, 17);
             this.checkBox10.TabIndex = 46;
             this.checkBox10.Text = "List";
             this.checkBox10.UseVisualStyleBackColor = true;
             // 
+            // chkIdentity
+            // 
+            this.chkIdentity.AutoSize = true;
+            this.chkIdentity.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.chkIdentity.Checked = true;
+            this.chkIdentity.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkIdentity.Location = new System.Drawing.Point(337, 15);
+            this.chkIdentity.Name = "chkIdentity";
+            this.chkIdentity.Size = new System.Drawing.Size(76, 17);
+            this.chkIdentity.TabIndex = 47;
+            this.chkIdentity.Text = "Identidade";
+            this.chkIdentity.UseVisualStyleBackColor = true;
+            // 
+            // chkDAL
+            // 
+            this.chkDAL.AutoSize = true;
+            this.chkDAL.Checked = true;
+            this.chkDAL.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkDAL.Location = new System.Drawing.Point(21, 319);
+            this.chkDAL.Name = "chkDAL";
+            this.chkDAL.Size = new System.Drawing.Size(47, 17);
+            this.chkDAL.TabIndex = 48;
+            this.chkDAL.Text = "DAL";
+            this.chkDAL.UseVisualStyleBackColor = true;
+            // 
+            // chkBLL
+            // 
+            this.chkBLL.AutoSize = true;
+            this.chkBLL.Checked = true;
+            this.chkBLL.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkBLL.Location = new System.Drawing.Point(74, 319);
+            this.chkBLL.Name = "chkBLL";
+            this.chkBLL.Size = new System.Drawing.Size(45, 17);
+            this.chkBLL.TabIndex = 49;
+            this.chkBLL.Text = "BLL";
+            this.chkBLL.UseVisualStyleBackColor = true;
+            // 
+            // chkAPI
+            // 
+            this.chkAPI.AutoSize = true;
+            this.chkAPI.Checked = true;
+            this.chkAPI.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAPI.Location = new System.Drawing.Point(125, 319);
+            this.chkAPI.Name = "chkAPI";
+            this.chkAPI.Size = new System.Drawing.Size(43, 17);
+            this.chkAPI.TabIndex = 50;
+            this.chkAPI.Text = "API";
+            this.chkAPI.UseVisualStyleBackColor = true;
+            // 
+            // chkMVC
+            // 
+            this.chkMVC.AutoSize = true;
+            this.chkMVC.Checked = true;
+            this.chkMVC.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkMVC.Location = new System.Drawing.Point(176, 319);
+            this.chkMVC.Name = "chkMVC";
+            this.chkMVC.Size = new System.Drawing.Size(49, 17);
+            this.chkMVC.TabIndex = 51;
+            this.chkMVC.Text = "MVC";
+            this.chkMVC.UseVisualStyleBackColor = true;
+            // 
+            // chkTable
+            // 
+            this.chkTable.AutoSize = true;
+            this.chkTable.Checked = true;
+            this.chkTable.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkTable.Location = new System.Drawing.Point(227, 319);
+            this.chkTable.Name = "chkTable";
+            this.chkTable.Size = new System.Drawing.Size(53, 17);
+            this.chkTable.TabIndex = 52;
+            this.chkTable.Text = "Table";
+            this.chkTable.UseVisualStyleBackColor = true;
+            // 
+            // chkProc
+            // 
+            this.chkProc.AutoSize = true;
+            this.chkProc.Checked = true;
+            this.chkProc.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkProc.Location = new System.Drawing.Point(286, 319);
+            this.chkProc.Name = "chkProc";
+            this.chkProc.Size = new System.Drawing.Size(80, 17);
+            this.chkProc.TabIndex = 53;
+            this.chkProc.Text = "Procedures";
+            this.chkProc.UseVisualStyleBackColor = true;
+            // 
             // CodeGenerator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(811, 362);
+            this.ClientSize = new System.Drawing.Size(427, 396);
+            this.Controls.Add(this.chkProc);
+            this.Controls.Add(this.chkTable);
+            this.Controls.Add(this.chkMVC);
+            this.Controls.Add(this.chkAPI);
+            this.Controls.Add(this.chkBLL);
+            this.Controls.Add(this.chkDAL);
+            this.Controls.Add(this.chkIdentity);
             this.Controls.Add(this.checkBox10);
             this.Controls.Add(this.checkBox9);
             this.Controls.Add(this.checkBox8);
@@ -556,7 +605,6 @@
             this.Controls.Add(this.checkBox3);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.cbbType10);
             this.Controls.Add(this.textBox10);
             this.Controls.Add(this.label11);
@@ -587,16 +635,13 @@
             this.Controls.Add(this.cbbType1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtProjectName);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.txtModelName);
             this.Controls.Add(this.btnCreate);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "CodeGenerator";
-            this.Text = "Code Generator";
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Model";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -607,8 +652,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnCreate;
         private System.Windows.Forms.TextBox txtModelName;
-        private System.Windows.Forms.TextBox txtProjectName;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cbbType1;
@@ -638,9 +681,6 @@
         private System.Windows.Forms.ComboBox cbbType9;
         private System.Windows.Forms.TextBox textBox9;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnOk;
-        private System.Windows.Forms.Label lblResult;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox3;
@@ -652,6 +692,13 @@
         private System.Windows.Forms.CheckBox checkBox8;
         private System.Windows.Forms.CheckBox checkBox9;
         private System.Windows.Forms.CheckBox checkBox10;
+        private System.Windows.Forms.CheckBox chkIdentity;
+        private System.Windows.Forms.CheckBox chkDAL;
+        private System.Windows.Forms.CheckBox chkBLL;
+        private System.Windows.Forms.CheckBox chkAPI;
+        private System.Windows.Forms.CheckBox chkMVC;
+        private System.Windows.Forms.CheckBox chkTable;
+        private System.Windows.Forms.CheckBox chkProc;
     }
 }
 

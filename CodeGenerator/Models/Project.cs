@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace CodeGenerator
 {
-    class Model
+    class Project
     {
         private string name;
-        private List<Property> properties;
-        private string nameProject;
+        private List<Model> models;
 
         #region Properties
         public string Name
@@ -26,35 +25,25 @@ namespace CodeGenerator
             }
         }
 
-        internal List<Property> Properties
+        public List<Model> Models
         {
             get
             {
-                return properties;
+                return models;
             }
 
             set
             {
-                properties = value;
-            }
-        }
-
-        public string NameProject
-        {
-            get
-            {
-                return nameProject;
-            }
-
-            set
-            {
-                nameProject = value;
+                models = value;
             }
         }
         #endregion
 
-        #region Constructor
-        public Model() { }
+        #region Constructors
+        public Project()
+        {
+            models = new List<Model>();
+        }
         #endregion
     }
 }
