@@ -57,7 +57,7 @@
             // btnCreate
             // 
             this.btnCreate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCreate.Location = new System.Drawing.Point(265, 536);
+            this.btnCreate.Location = new System.Drawing.Point(556, 580);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(166, 46);
             this.btnCreate.TabIndex = 2;
@@ -68,7 +68,7 @@
             // btnEditName
             // 
             this.btnEditName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditName.Location = new System.Drawing.Point(270, 12);
+            this.btnEditName.Location = new System.Drawing.Point(557, 12);
             this.btnEditName.Name = "btnEditName";
             this.btnEditName.Size = new System.Drawing.Size(166, 46);
             this.btnEditName.TabIndex = 3;
@@ -80,9 +80,9 @@
             // 
             this.chkListModels.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkListModels.FormattingEnabled = true;
-            this.chkListModels.Location = new System.Drawing.Point(12, 105);
+            this.chkListModels.Location = new System.Drawing.Point(17, 100);
             this.chkListModels.Name = "chkListModels";
-            this.chkListModels.Size = new System.Drawing.Size(419, 214);
+            this.chkListModels.Size = new System.Drawing.Size(350, 466);
             this.chkListModels.TabIndex = 4;
             this.chkListModels.SelectedIndexChanged += new System.EventHandler(this.chkListModels_SelectedIndexChanged);
             // 
@@ -90,7 +90,7 @@
             // 
             this.lblModels.AutoSize = true;
             this.lblModels.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblModels.Location = new System.Drawing.Point(7, 77);
+            this.lblModels.Location = new System.Drawing.Point(32, 73);
             this.lblModels.Name = "lblModels";
             this.lblModels.Size = new System.Drawing.Size(83, 24);
             this.lblModels.TabIndex = 5;
@@ -98,7 +98,7 @@
             // 
             // btnNew
             // 
-            this.btnNew.Location = new System.Drawing.Point(17, 536);
+            this.btnNew.Location = new System.Drawing.Point(17, 593);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(75, 23);
             this.btnNew.TabIndex = 6;
@@ -108,7 +108,7 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(100, 536);
+            this.btnEdit.Location = new System.Drawing.Point(179, 593);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(75, 23);
             this.btnEdit.TabIndex = 7;
@@ -118,7 +118,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(181, 536);
+            this.btnDelete.Location = new System.Drawing.Point(98, 593);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 8;
@@ -131,7 +131,7 @@
             this.chkTable.AutoSize = true;
             this.chkTable.Checked = true;
             this.chkTable.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkTable.Location = new System.Drawing.Point(121, 565);
+            this.chkTable.Location = new System.Drawing.Point(411, 597);
             this.chkTable.Name = "chkTable";
             this.chkTable.Size = new System.Drawing.Size(53, 17);
             this.chkTable.TabIndex = 58;
@@ -143,7 +143,7 @@
             this.chkAPI.AutoSize = true;
             this.chkAPI.Checked = true;
             this.chkAPI.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAPI.Location = new System.Drawing.Point(72, 565);
+            this.chkAPI.Location = new System.Drawing.Point(362, 597);
             this.chkAPI.Name = "chkAPI";
             this.chkAPI.Size = new System.Drawing.Size(43, 17);
             this.chkAPI.TabIndex = 56;
@@ -155,7 +155,7 @@
             this.chkDAL.AutoSize = true;
             this.chkDAL.Checked = true;
             this.chkDAL.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkDAL.Location = new System.Drawing.Point(19, 565);
+            this.chkDAL.Location = new System.Drawing.Point(309, 597);
             this.chkDAL.Name = "chkDAL";
             this.chkDAL.Size = new System.Drawing.Size(47, 17);
             this.chkDAL.TabIndex = 54;
@@ -164,7 +164,7 @@
             // 
             // btnRead
             // 
-            this.btnRead.Location = new System.Drawing.Point(356, 80);
+            this.btnRead.Location = new System.Drawing.Point(648, 71);
             this.btnRead.Name = "btnRead";
             this.btnRead.Size = new System.Drawing.Size(75, 23);
             this.btnRead.TabIndex = 59;
@@ -175,17 +175,17 @@
             // txtViewModel
             // 
             this.txtViewModel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtViewModel.Location = new System.Drawing.Point(11, 325);
+            this.txtViewModel.Location = new System.Drawing.Point(372, 100);
             this.txtViewModel.Name = "txtViewModel";
             this.txtViewModel.ReadOnly = true;
-            this.txtViewModel.Size = new System.Drawing.Size(420, 205);
+            this.txtViewModel.Size = new System.Drawing.Size(350, 466);
             this.txtViewModel.TabIndex = 60;
             this.txtViewModel.Text = "";
             // 
             // chkModel
             // 
             this.chkModel.AutoSize = true;
-            this.chkModel.Location = new System.Drawing.Point(180, 565);
+            this.chkModel.Location = new System.Drawing.Point(470, 597);
             this.chkModel.Name = "chkModel";
             this.chkModel.Size = new System.Drawing.Size(55, 17);
             this.chkModel.TabIndex = 61;
@@ -196,7 +196,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(443, 594);
+            this.ClientSize = new System.Drawing.Size(734, 629);
             this.Controls.Add(this.chkModel);
             this.Controls.Add(this.txtViewModel);
             this.Controls.Add(this.btnRead);
@@ -215,6 +215,7 @@
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main";
+            this.Load += new System.EventHandler(this.Main_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

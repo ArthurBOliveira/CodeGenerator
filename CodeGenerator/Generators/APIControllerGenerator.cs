@@ -44,12 +44,12 @@ namespace CodeGenerator
 
             text += "\t\t\t" + m.Name + " result = _" + m.Name + "Repository.GetData(id);\r\n\r\n";
 
-            text += "\t\t\tif (result." + UppercaseFirst(m.Properties[0].Name) + " != 0)\r\n";
+            text += "\t\t\tif (result != null)\r\n";
             text += "\t\t\t\treturn Ok(result);\r\n";
             text += "\t\t\telse\r\n";
-            text += "\t\t\t\treturn BadRequest();\r\n";
+            text += "\t\t\t\treturn NotFound();\r\n";
 
-            text += "\t\t}\r\n";
+            text += "\t\t}\r\n\r\n";
 
             //Get List
             text += "\t\tpublic IHttpActionResult Get([FromBody] bool value)\r\n";
@@ -62,40 +62,77 @@ namespace CodeGenerator
             text += "\t\t\telse\r\n";
             text += "\t\t\t\treturn BadRequest();\r\n";
 
-            text += "\t\t}\r\n";
+            text += "\t\t}\r\n\r\n";
 
             //Post
             text += "\t\tpublic IHttpActionResult Post([FromBody]" + m.Name + " value)\r\n";
             text += "\t\t{\r\n";
 
-            text += "\t\t\tif (_" + m.Name + "Repository.PostData(value))\r\n";
-            text += "\t\t\t\treturn Ok();\r\n";
-            text += "\t\t\telse\r\n";
-            text += "\t\t\t\treturn BadRequest();\r\n";
+            text += "\t\t\tif (ExistsData(value.Id))\r\n";
+            text += "\t\t\t{\r\n";
+            text += "\t\t\t\treturn Conflict();\r\n";
+            text += "\t\t\t}\r\n\r\n";
 
-            text += "\t\t}\r\n";
+            text += "\t\t\ttry\r\n";
+            text += "\t\t\t{\r\n";
+            text += "\t\t\t\t_AdminsRepository.PostData(value)\r\n";
+
+            text += "\t\t\t\treturn Ok();\r\n";
+            text += "\t\t\t}\r\n";
+            text += "\t\t\tatch (Exception ex)\r\n";
+            text += "\t\t\t{\r\n";
+            text += "\t\t\t\treturn BadRequest(ex.Message);\r\n";
+            text += "\t\t\t}\r\n";
+
+            text += "\t\t}\r\n\r\n";
 
             //Put
             text += "\t\tpublic IHttpActionResult Put([FromBody]" + m.Name + " value)\r\n";
             text += "\t\t{\r\n";
 
-            text += "\t\t\tif (_" + m.Name + "Repository.PutData(value))\r\n";
-            text += "\t\t\t\treturn Ok();\r\n";
-            text += "\t\t\telse\r\n";
-            text += "\t\t\t\treturn BadRequest();\r\n";
+            text += "\t\t\t" + m.Name + " result = _" + m.Name + "Repository.GetData(id);\r\n\r\n";
 
-            text += "\t\t}\r\n";
+            text += "\t\t\tif (result == null)\r\n";
+            text += "\t\t\t{\r\n";
+            text += "\t\t\t\treturn NotFound();\r\n";
+            text += "\t\t\t}\r\n\r\n";
+
+            text += "\t\t\ttry\r\n";
+            text += "\t\t\t{\r\n";
+            text += "\t\t\t\t_AdminsRepository.PutData(value)\r\n";
+
+            text += "\t\t\t\treturn Ok();\r\n";
+            text += "\t\t\t}\r\n";
+            text += "\t\t\tatch (Exception ex)\r\n";
+            text += "\t\t\t{\r\n";
+            text += "\t\t\t\treturn BadRequest(ex.Message);\r\n";
+            text += "\t\t\t}\r\n";
+
+            text += "\t\t}\r\n\r\n";
 
             //Delete
             text += "\t\tpublic IHttpActionResult Delete(Guid id)\r\n";
             text += "\t\t{\r\n";
 
-            text += "\t\t\tif (_" + m.Name + "Repository.DeleteData(id))\r\n";
-            text += "\t\t\t\treturn Ok();\r\n";
-            text += "\t\t\telse\r\n";
-            text += "\t\t\t\treturn BadRequest();\r\n";
+            text += "\t\t\t" + m.Name + " result = _" + m.Name + "Repository.GetData(id);\r\n\r\n";
 
-            text += "\t\t}\r\n";
+            text += "\t\t\tif (result == null)\r\n";
+            text += "\t\t\t{\r\n";
+            text += "\t\t\t\treturn NotFound();\r\n";
+            text += "\t\t\t}\r\n\r\n";
+
+            text += "\t\t\ttry\r\n";
+            text += "\t\t\t{\r\n";
+            text += "\t\t\t\t_AdminsRepository.DeleteData(value)\r\n";
+
+            text += "\t\t\t\treturn Ok();\r\n";
+            text += "\t\t\t}\r\n";
+            text += "\t\t\tatch (Exception ex)\r\n";
+            text += "\t\t\t{\r\n";
+            text += "\t\t\t\treturn BadRequest(ex.Message);\r\n";
+            text += "\t\t\t}\r\n";
+
+            text += "\t\t}\r\n\r\n";
 
             text += "\t}\r\n";
 
