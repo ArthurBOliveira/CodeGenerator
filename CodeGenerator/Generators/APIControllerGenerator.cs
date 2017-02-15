@@ -21,29 +21,28 @@ namespace CodeGenerator
             text += "using System.Web;\r\n";
             text += "using System.Net.Http;\r\n";
             text += "using System.Web.Http;\r\n";
+            text += "using " + m.NameProject + ".Models;\r\n";
+            text += "using " + m.NameProject + ".Repositories;\r\n\r\n";
 
             text += "namespace " + m.NameProject + ".Controllers\r\n";
             text += "{\r\n";
 
-            text += "\tpublic class " + m.Name + "Controller : BaseController<Models." + m.Name + ">\r\n";
+            text += "\tpublic class " + m.Name + "Controller : BaseController<" + m.Name + ">\r\n";
             text += "\t{\r\n";
 
-            text += "\tprivate " + m.Name + "\r\n";
+            text += "\t\tprivate " + m.Name + "Repository _" + m.Name + "Repository;\r\n\r\n";
 
             //Constructor
-            text += "\tpublic " + m.Name + "Services(Repositories." + m.Name + "Repository _rep, HttpRequestBase request, IIdentity userIdentity) : base(_rep, request, userIdentity)\r\n";
-            text += "\t{\r\n";
-            text += "\t\tthis.rep = _rep;\r\n";
-
-            text += "\t\tModels.Admins admin = GetDataByLogin();\r\n";
-            text += "\t\thasAuthorization = (admin != null && admin.SuperAdmin); // é admin e super\r\n";
-            text += "\t}\r\n\r\n";
+            text += "\t\tpublic " + m.Name + "Controller()\r\n";
+            text += "\t\t{\r\n";
+            text += "\t\t\t_" + m.Name + "Repository = new " + m.Name + "Repository();\r\n";
+            text += "\t\t}\r\n\r\n";
 
             //Get
             text += "\t\tpublic IHttpActionResult Get(Guid id)\r\n";
             text += "\t\t{\r\n";
 
-            text += "\t\t\t" + m.Name + " result = " + m.Name + "Repository.GetData(id);\r\n\r\n";
+            text += "\t\t\t" + m.Name + " result = _" + m.Name + "Repository.GetData(id);\r\n\r\n";
 
             text += "\t\t\tif (result." + UppercaseFirst(m.Properties[0].Name) + " != 0)\r\n";
             text += "\t\t\t\treturn Ok(result);\r\n";
@@ -56,7 +55,7 @@ namespace CodeGenerator
             text += "\t\tpublic IHttpActionResult Get([FromBody] bool value)\r\n";
             text += "\t\t{\r\n";
 
-            text += "\t\t\tList<" + m.Name + "> result = " + m.Name + "Repository.GetDataInSelectList(value);\r\n\r\n";
+            text += "\t\t\tList<" + m.Name + "> result = _" + m.Name + "Repository.GetDataInSelectList(value);\r\n\r\n";
 
             text += "\t\t\tif (result.Count != 0)\r\n";
             text += "\t\t\t\treturn Ok(result);\r\n";
@@ -69,7 +68,7 @@ namespace CodeGenerator
             text += "\t\tpublic IHttpActionResult Post([FromBody]" + m.Name + " value)\r\n";
             text += "\t\t{\r\n";
 
-            text += "\t\t\tif (" + m.Name + "Repository.PostData(value))\r\n";
+            text += "\t\t\tif (_" + m.Name + "Repository.PostData(value))\r\n";
             text += "\t\t\t\treturn Ok();\r\n";
             text += "\t\t\telse\r\n";
             text += "\t\t\t\treturn BadRequest();\r\n";
@@ -80,7 +79,7 @@ namespace CodeGenerator
             text += "\t\tpublic IHttpActionResult Put([FromBody]" + m.Name + " value)\r\n";
             text += "\t\t{\r\n";
 
-            text += "\t\t\tif (" + m.Name + "Repository.PutData(value))\r\n";
+            text += "\t\t\tif (_" + m.Name + "Repository.PutData(value))\r\n";
             text += "\t\t\t\treturn Ok();\r\n";
             text += "\t\t\telse\r\n";
             text += "\t\t\t\treturn BadRequest();\r\n";
@@ -91,7 +90,7 @@ namespace CodeGenerator
             text += "\t\tpublic IHttpActionResult Delete(Guid id)\r\n";
             text += "\t\t{\r\n";
 
-            text += "\t\t\tif (" + m.Name + "Repository.DeleteData(id))\r\n";
+            text += "\t\t\tif (_" + m.Name + "Repository.DeleteData(id))\r\n";
             text += "\t\t\t\treturn Ok();\r\n";
             text += "\t\t\telse\r\n";
             text += "\t\t\t\treturn BadRequest();\r\n";

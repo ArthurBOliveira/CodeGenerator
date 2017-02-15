@@ -82,7 +82,7 @@ namespace CodeGenerator
 
             NameProject = Program.project.Name;
 
-            name = text.Split(new string[] { "class" }, StringSplitOptions.None)[1].Split(new string[] { " " }, StringSplitOptions.None)[1].Split(new string[] { "\r" }, StringSplitOptions.None)[0];
+            name = text.Split(new string[] { " " }, StringSplitOptions.None)[1].Split(new string[] { "\r" }, StringSplitOptions.None)[0];
 
             try
             {
@@ -97,20 +97,12 @@ namespace CodeGenerator
 
             strings = text.Split(new string[] { "{ get; set; }" }, StringSplitOptions.None);
 
-            for(int i = 0; i < strings.Length; i++)
+            for (int i = 0; i < strings.Length - 1; i++)
             {
-                if (i != 0)
-                {
-                    prop.Type = strings[i].Split(new string[] { "public" }, StringSplitOptions.None)[1].Split(new string[] { " " }, StringSplitOptions.None)[1].Trim();
-                    prop.Name = strings[i].Split(new string[] { "public" }, StringSplitOptions.None)[1].Split(new string[] { " " }, StringSplitOptions.None)[2];
-                }
-                else
-                {
-                    prop.Type = strings[i].Split(new string[] { "public" }, StringSplitOptions.None)[2].Split(new string[] { " " }, StringSplitOptions.None)[1].Trim();
-                    prop.Name = strings[i].Split(new string[] { "public" }, StringSplitOptions.None)[2].Split(new string[] { " " }, StringSplitOptions.None)[2];
-                }
-            
-                if(prop.Type != "void")
+                prop.Type = strings[i].Split(new string[] { "public" }, StringSplitOptions.None)[1].Split(new string[] { " " }, StringSplitOptions.None)[1].Trim();
+                prop.Name = strings[i].Split(new string[] { "public" }, StringSplitOptions.None)[1].Split(new string[] { " " }, StringSplitOptions.None)[2];
+
+                if (prop.Type != "void")
                     properties.Add(prop);
 
                 prop = new Property();

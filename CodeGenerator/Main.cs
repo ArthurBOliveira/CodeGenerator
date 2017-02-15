@@ -123,15 +123,22 @@ namespace CodeGenerator
             {
                 foreach (string file in dialog.FileNames)
                 {
-                    string text = "";
+                    string result = "";
+                    string[] models;
 
                     System.IO.StreamReader sr = new System.IO.StreamReader(file);
-                    text = sr.ReadToEnd();
+                    result = sr.ReadToEnd();
                     sr.Close();
 
-                    Model m = new Model(text, true);
+                    models = result.Split(new string[] { "class" }, StringSplitOptions.None);
 
-                    Program.project.Models.Add(m);
+                    for(int i = 1; i < models.Length; i++)
+                    {
+                        Model m = new Model(models[i], true);
+
+                        Program.project.Models.Add(m);
+                    }
+
                     RefreshModels();
                 }
             }
