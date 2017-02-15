@@ -49,7 +49,7 @@ namespace CodeGenerator
 
                 aux.Type = cbbType1.Text;
                 aux.Name = textBox1.Text;
-                aux.IsList = checkBox1.Checked;
+                //aux.IsList = checkBox1.Checked;
 
                 Properties.Add(aux);
             }
@@ -61,7 +61,7 @@ namespace CodeGenerator
 
                 aux.Type = cbbType2.Text;
                 aux.Name = textBox2.Text;
-                aux.IsList = checkBox2.Checked;
+                //aux.IsList = checkBox2.Checked;
 
                 Properties.Add(aux);
             }
@@ -74,7 +74,7 @@ namespace CodeGenerator
 
                 aux.Type = cbbType3.Text;
                 aux.Name = textBox3.Text;
-                aux.IsList = checkBox3.Checked;
+                //aux.IsList = checkBox3.Checked;
 
                 Properties.Add(aux);
             }
@@ -86,7 +86,7 @@ namespace CodeGenerator
 
                 aux.Type = cbbType4.Text;
                 aux.Name = textBox4.Text;
-                aux.IsList = checkBox4.Checked;
+                //aux.IsList = checkBox4.Checked;
 
                 Properties.Add(aux);
             }
@@ -98,7 +98,7 @@ namespace CodeGenerator
 
                 aux.Type = cbbType5.Text;
                 aux.Name = textBox5.Text;
-                aux.IsList = checkBox5.Checked;
+                //aux.IsList = checkBox5.Checked;
 
                 Properties.Add(aux);
             }
@@ -110,7 +110,7 @@ namespace CodeGenerator
 
                 aux.Type = cbbType6.Text;
                 aux.Name = textBox6.Text;
-                aux.IsList = checkBox6.Checked;
+                //aux.IsList = checkBox6.Checked;
 
                 Properties.Add(aux);
             }
@@ -122,7 +122,7 @@ namespace CodeGenerator
 
                 aux.Type = cbbType7.Text;
                 aux.Name = textBox7.Text;
-                aux.IsList = checkBox7.Checked;
+                //aux.IsList = checkBox7.Checked;
 
                 Properties.Add(aux);
             }
@@ -135,7 +135,7 @@ namespace CodeGenerator
 
                 aux.Type = cbbType8.Text;
                 aux.Name = textBox8.Text;
-                aux.IsList = checkBox8.Checked;
+                //aux.IsList = checkBox8.Checked;
 
                 Properties.Add(aux);
             }
@@ -147,7 +147,7 @@ namespace CodeGenerator
 
                 aux.Type = cbbType9.Text;
                 aux.Name = textBox9.Text;
-                aux.IsList = checkBox9.Checked;
+                //aux.IsList = checkBox9.Checked;
 
                 Properties.Add(aux);
             }
@@ -159,7 +159,79 @@ namespace CodeGenerator
 
                 aux.Type = cbbType10.Text;
                 aux.Name = textBox10.Text;
-                aux.IsList = checkBox10.Checked;
+                //aux.IsList = checkBox10.Checked;
+
+                Properties.Add(aux);
+            }
+
+            //Prop 10
+            if (!String.IsNullOrEmpty(textBox10.Text))
+            {
+                aux = new Property();
+
+                aux.Type = comboBox1.Text;
+                aux.Name = textBox10.Text;
+                //aux.IsList = checkBox10.Checked;
+
+                Properties.Add(aux);
+            }
+
+            //Prop 11
+            if (!String.IsNullOrEmpty(txtName11.Text))
+            {
+                aux = new Property();
+
+                aux.Type = cbbType11.Text;
+                aux.Name = txtName11.Text;
+                //aux.IsList = checkBox10.Checked;
+
+                Properties.Add(aux);
+            }
+
+            //Prop 12
+            if (!String.IsNullOrEmpty(txtName12.Text))
+            {
+                aux = new Property();
+
+                aux.Type = cbbType12.Text;
+                aux.Name = txtName12.Text;
+                //aux.IsList = checkBox10.Checked;
+
+                Properties.Add(aux);
+            }
+
+            //Prop 13
+            if (!String.IsNullOrEmpty(txtName13.Text))
+            {
+                aux = new Property();
+
+                aux.Type = cbbType13.Text;
+                aux.Name = txtName13.Text;
+                //aux.IsList = checkBox10.Checked;
+
+                Properties.Add(aux);
+            }
+
+            //Prop 14
+            if (!String.IsNullOrEmpty(txtName14.Text))
+            {
+                aux = new Property();
+
+                aux.Type = cbbType14.Text;
+                aux.Name = txtName14.Text;
+                //aux.IsList = checkBox10.Checked;
+
+                Properties.Add(aux);
+            }
+
+            //Prop 15
+            if (!String.IsNullOrEmpty(txtName15.Text))
+            {
+                aux = new Property();
+
+                aux.Type = cbbType15.Text;
+                aux.Name = txtName15.Text;
+                //aux.IsList = checkBox10.Checked;
 
                 Properties.Add(aux);
             }

@@ -24,16 +24,24 @@ namespace CodeGenerator
         {
             switch (s)
             {
-                case "int":
+                case "Guid":
+                    return "UNIQUEIDENTIFIER";
+                case "Int":
                     return "INT";
-                case "bool":
+                case "Bool":
+                    return "BIT";
+                case "Boolean":
                     return "BIT";
                 case "DateTime":
                     return "DATETIME";
-                case "string":
-                    return "VARCHAR(MAX)";
-                case "float":
-                    return "FLOAT";
+                case "String":
+                    return "NVARCHAR(MAX)";
+                case "Float":
+                    return "DECIMAL(20,6)";
+                case "Double":
+                    return "DECIMAL(20,6)";
+                case "Decimal":
+                    return "DECIMAL(18,2)";
                 default:
                     return "";
             }

@@ -62,6 +62,12 @@ namespace CodeGenerator
             btnDelete.Visible = false;
             btnNew.Visible = false;
             btnEdit.Visible = false;
+            btnRead.Visible = false;
+            chkAPI.Visible = false;
+            chkDAL.Visible = false;
+            chkTable.Visible = false;
+            txtViewModel.Visible = false;
+            chkModel.Visible = false;
         }
 
         private void ShowFields()
@@ -72,34 +78,90 @@ namespace CodeGenerator
             btnDelete.Visible = true;
             btnNew.Visible = true;
             btnEdit.Visible = true;
+            btnRead.Visible = true;
+            chkAPI.Visible = true;
+            chkDAL.Visible = true;
+            chkTable.Visible = true;
+            txtViewModel.Visible = true;
+            chkModel.Visible = true;
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < chkListModels.SelectedItems.Count; i++)
-            {
-                var aux = chkListModels.SelectedItems[i];
-
-                Program.project.Models.Remove(new Model(chkListModels.SelectedItems[i].ToString()));
-            }
+                Program.project.Models.Remove(Program.project.Models.Find(item => item.Name == chkListModels.SelectedItems[i].ToString()));
 
             RefreshModels();
         }
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
+            if (chkDAL.Checked)
+                RepositoryGenerator.Generate();
+            if (chkAPI.Checked)
+                APIControllerGenerator.Generate();
+
             foreach (Model m in Program.project.Models)
             {
-                ModelGenerator.Generate(m);
-                StoredProceduresGenerator.Generate(m);
-                APIControllerGenerator.Generate(m);
-                MVCControllerGenerator.Generate(m);
-                DALGenerator.Generate(m);
-                BLLGenerator.Generate(m);
-                TableGenerator.Generate(m);
+                if (chkModel.Checked)
+                    ModelGenerator.Generate(m);
+                if (chkAPI.Checked)
+                    APIControllerGenerator.Generate(m);
+                if (chkTable.Checked)
+                    TableGenerator.Generate(m);
+                if (chkDAL.Checked)
+                    RepositoryGenerator.Generate(m);
             }
+        }
 
-            Process.Start(@"C:\Users\Arthur\Documents\GitHub\CodeGenerator\CodeGenerator\CodeGenerator\bin\Debug");
+        private void btnRead_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Multiselect = true;
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                foreach (string file in dialog.FileNames)
+                {
+                    string text = "";
+
+                    System.IO.StreamReader sr = new System.IO.StreamReader(file);
+                    text = sr.ReadToEnd();
+                    sr.Close();
+
+                    Model m = new Model(text, true);
+
+                    Program.project.Models.Add(m);
+                    RefreshModels();
+                }
+            }
+        }
+
+        private void chkListModels_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (0 < chkListModels.SelectedItems.Count)
+            {
+                string name = chkListModels.SelectedItems[0].ToString();
+
+                Model m = Program.project.Models.Find(item => item.Name == name);
+
+                if (m.Parent == "")
+                    txtViewModel.Text = "class " + m.Name + "\r\n";
+                else
+                    txtViewModel.Text = "class " + m.Name + " : " + m.Parent + "\r\n";
+
+                txtViewModel.Text += "{\r\n";
+
+                foreach (Property p in m.Properties)
+                    txtViewModel.Text += "\t" + p.Type + " " + p.Name + "\r\n";
+
+                txtViewModel.Text += "}";
+            }
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

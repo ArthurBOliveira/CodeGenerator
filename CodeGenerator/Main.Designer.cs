@@ -36,6 +36,12 @@
             this.btnNew = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.chkTable = new System.Windows.Forms.CheckBox();
+            this.chkAPI = new System.Windows.Forms.CheckBox();
+            this.chkDAL = new System.Windows.Forms.CheckBox();
+            this.btnRead = new System.Windows.Forms.Button();
+            this.txtViewModel = new System.Windows.Forms.RichTextBox();
+            this.chkModel = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // lblProjectName
@@ -76,8 +82,9 @@
             this.chkListModels.FormattingEnabled = true;
             this.chkListModels.Location = new System.Drawing.Point(12, 105);
             this.chkListModels.Name = "chkListModels";
-            this.chkListModels.Size = new System.Drawing.Size(419, 424);
+            this.chkListModels.Size = new System.Drawing.Size(419, 214);
             this.chkListModels.TabIndex = 4;
+            this.chkListModels.SelectedIndexChanged += new System.EventHandler(this.chkListModels_SelectedIndexChanged);
             // 
             // lblModels
             // 
@@ -105,8 +112,9 @@
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(75, 23);
             this.btnEdit.TabIndex = 7;
-            this.btnEdit.Text = "Editar";
+            this.btnEdit.Text = "Ver";
             this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnDelete
             // 
@@ -118,11 +126,83 @@
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
+            // chkTable
+            // 
+            this.chkTable.AutoSize = true;
+            this.chkTable.Checked = true;
+            this.chkTable.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkTable.Location = new System.Drawing.Point(121, 565);
+            this.chkTable.Name = "chkTable";
+            this.chkTable.Size = new System.Drawing.Size(53, 17);
+            this.chkTable.TabIndex = 58;
+            this.chkTable.Text = "Table";
+            this.chkTable.UseVisualStyleBackColor = true;
+            // 
+            // chkAPI
+            // 
+            this.chkAPI.AutoSize = true;
+            this.chkAPI.Checked = true;
+            this.chkAPI.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAPI.Location = new System.Drawing.Point(72, 565);
+            this.chkAPI.Name = "chkAPI";
+            this.chkAPI.Size = new System.Drawing.Size(43, 17);
+            this.chkAPI.TabIndex = 56;
+            this.chkAPI.Text = "API";
+            this.chkAPI.UseVisualStyleBackColor = true;
+            // 
+            // chkDAL
+            // 
+            this.chkDAL.AutoSize = true;
+            this.chkDAL.Checked = true;
+            this.chkDAL.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkDAL.Location = new System.Drawing.Point(19, 565);
+            this.chkDAL.Name = "chkDAL";
+            this.chkDAL.Size = new System.Drawing.Size(47, 17);
+            this.chkDAL.TabIndex = 54;
+            this.chkDAL.Text = "DAL";
+            this.chkDAL.UseVisualStyleBackColor = true;
+            // 
+            // btnRead
+            // 
+            this.btnRead.Location = new System.Drawing.Point(356, 80);
+            this.btnRead.Name = "btnRead";
+            this.btnRead.Size = new System.Drawing.Size(75, 23);
+            this.btnRead.TabIndex = 59;
+            this.btnRead.Text = "Ler Arquivos";
+            this.btnRead.UseVisualStyleBackColor = true;
+            this.btnRead.Click += new System.EventHandler(this.btnRead_Click);
+            // 
+            // txtViewModel
+            // 
+            this.txtViewModel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtViewModel.Location = new System.Drawing.Point(11, 325);
+            this.txtViewModel.Name = "txtViewModel";
+            this.txtViewModel.ReadOnly = true;
+            this.txtViewModel.Size = new System.Drawing.Size(420, 205);
+            this.txtViewModel.TabIndex = 60;
+            this.txtViewModel.Text = "";
+            // 
+            // chkModel
+            // 
+            this.chkModel.AutoSize = true;
+            this.chkModel.Location = new System.Drawing.Point(180, 565);
+            this.chkModel.Name = "chkModel";
+            this.chkModel.Size = new System.Drawing.Size(55, 17);
+            this.chkModel.TabIndex = 61;
+            this.chkModel.Text = "Model";
+            this.chkModel.UseVisualStyleBackColor = true;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(443, 594);
+            this.Controls.Add(this.chkModel);
+            this.Controls.Add(this.txtViewModel);
+            this.Controls.Add(this.btnRead);
+            this.Controls.Add(this.chkTable);
+            this.Controls.Add(this.chkAPI);
+            this.Controls.Add(this.chkDAL);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnNew);
@@ -150,5 +230,11 @@
         private System.Windows.Forms.Button btnNew;
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.CheckBox chkTable;
+        private System.Windows.Forms.CheckBox chkAPI;
+        private System.Windows.Forms.CheckBox chkDAL;
+        private System.Windows.Forms.Button btnRead;
+        private System.Windows.Forms.RichTextBox txtViewModel;
+        private System.Windows.Forms.CheckBox chkModel;
     }
 }
