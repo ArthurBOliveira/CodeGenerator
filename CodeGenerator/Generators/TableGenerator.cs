@@ -28,16 +28,23 @@ namespace CodeGenerator
             for (int i = 0; i < m.Properties.Count; i++)
             {
                 if (i == 0)
-                    text += "\t[" + m.Properties[i].Name + "] " + ConvertTypeToSQL(m.Properties[i].Type) + " NULL PRIMARY KEY,\r\n";
+                {
+                    if (ConvertTypeToSQL(m.Properties[i].Type) != "")
+                        text += "\t[" + m.Properties[i].Name + "] " + ConvertTypeToSQL(m.Properties[i].Type) + " NULL PRIMARY KEY,\r\n";
+                }
                 else
-                    text += "\t[" + m.Properties[i].Name + "] " + ConvertTypeToSQL(m.Properties[i].Type) + " NULL,\r\n";
+                {
+                    if (ConvertTypeToSQL(m.Properties[i].Type) != "")
+                        text += "\t[" + m.Properties[i].Name + "] " + ConvertTypeToSQL(m.Properties[i].Type) + " NULL,\r\n";
+                }
             }
 
             if (parent != null)
             {
                 for (int i = 0; i < parent.Properties.Count; i++)
                 {
-                    text += "\t[" + parent.Properties[i].Name + "] " + ConvertTypeToSQL(parent.Properties[i].Type) + " NULL,\r\n";
+                    if (ConvertTypeToSQL(m.Properties[i].Type) != "")
+                        text += "\t[" + parent.Properties[i].Name + "] " + ConvertTypeToSQL(parent.Properties[i].Type) + " NULL,\r\n";
                 }
             }
 

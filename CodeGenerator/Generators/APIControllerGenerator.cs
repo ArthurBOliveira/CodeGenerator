@@ -27,7 +27,7 @@ namespace CodeGenerator
             text += "namespace " + m.NameProject + ".Controllers\r\n";
             text += "{\r\n";
 
-            text += "\tpublic class " + m.Name + "Controller : BaseController<" + m.Name + ">\r\n";
+            text += "\tpublic class " + m.Name + "Controller : BaseController\r\n";
             text += "\t{\r\n";
 
             text += "\t\tprivate " + m.Name + "Repository _" + m.Name + "Repository;\r\n\r\n";
@@ -39,10 +39,10 @@ namespace CodeGenerator
             text += "\t\t}\r\n\r\n";
 
             //Get
-            text += "\t\tpublic IHttpActionResult Get(Guid id)\r\n";
+            text += "\t\tpublic IHttpActionResult Get([FromUri]Guid id)\r\n";
             text += "\t\t{\r\n";
 
-            text += "\t\t\t" + m.Name + " result = _" + m.Name + "Repository.GetData(id);\r\n\r\n";
+            text += "\t\t\t" + m.Name + " result = _" + m.Name + "Repository.GetData<" + m.Name + ">(id);\r\n\r\n";
 
             text += "\t\t\tif (result != null)\r\n";
             text += "\t\t\t\treturn Ok(result);\r\n";
@@ -51,16 +51,18 @@ namespace CodeGenerator
 
             text += "\t\t}\r\n\r\n";
 
-            //Get List
-            text += "\t\tpublic IHttpActionResult Get([FromBody] bool value)\r\n";
+            //List
+            text += "\t\tpublic IHttpActionResult Get([FromUri]bool value)\r\n";
             text += "\t\t{\r\n";
 
-            text += "\t\t\tList<" + m.Name + "> result = _" + m.Name + "Repository.GetData(value);\r\n\r\n";
+            text += "\t\t\tIEnumerable<" + m.Name + "> result = _" + m.Name + "Repository.GetData<" + m.Name + ">(value);\r\n\r\n";
 
-            text += "\t\t\tif (result.Count != 0)\r\n";
+            text += "\t\t\tif (result == null)\r\n";
+            text += "\t\t\t\treturn BadRequest();\r\n";
+            text += "\t\t\tif (result.Count() != 0)\r\n";
             text += "\t\t\t\treturn Ok(result);\r\n";
             text += "\t\t\telse\r\n";
-            text += "\t\t\t\treturn BadRequest();\r\n";
+            text += "\t\t\t\treturn NotFound();\r\n";
 
             text += "\t\t}\r\n\r\n";
 
@@ -68,16 +70,18 @@ namespace CodeGenerator
             text += "\t\tpublic IHttpActionResult Post([FromBody]" + m.Name + " value)\r\n";
             text += "\t\t{\r\n";
 
-            text += "\t\t\tif (ExistsData(value.Id))\r\n";
-            text += "\t\t\t{\r\n";
+            text += "\t\t\tif (!ModelState.IsValid)\r\n";
+            text += "\t\t\t\treturn BadRequest(ModelState);\r\n";
+
+            text += "\t\t\tif (_" + m.Name + "Repository.ExistsData<" + m.Name + ">(value.Id))\r\n";
             text += "\t\t\t\treturn Conflict();\r\n";
-            text += "\t\t\t}\r\n\r\n";
 
             text += "\t\t\ttry\r\n";
             text += "\t\t\t{\r\n";
-            text += "\t\t\t\t_AdminsRepository.PostData(value);\r\n";
-
-            text += "\t\t\t\treturn Ok();\r\n";
+            text += "\t\t\t\tif(_" + m.Name + "Repository.PostData<" + m.Name + ">(value))\r\n";
+            text += "\t\t\t\t\treturn Ok();\r\n";
+            text += "\t\t\t\telse\r\n";
+            text += "\t\t\t\t\treturn BadRequest(\"No Rows Affected!!\");\r\n";
             text += "\t\t\t}\r\n";
             text += "\t\t\tcatch (Exception ex)\r\n";
             text += "\t\t\t{\r\n";
@@ -90,18 +94,22 @@ namespace CodeGenerator
             text += "\t\tpublic IHttpActionResult Put([FromBody]" + m.Name + " value)\r\n";
             text += "\t\t{\r\n";
 
-            text += "\t\t\t" + m.Name + " result = _" + m.Name + "Repository.GetData(value.Id);\r\n\r\n";
+            text += "\t\t\tif (!ModelState.IsValid)\r\n";
+            text += "\t\t\t\treturn BadRequest(ModelState);\r\n";
+
+            text += "\t\t\t" + m.Name + " result = _" + m.Name + "Repository.GetData<" + m.Name + ">(value.Id);\r\n\r\n";
 
             text += "\t\t\tif (result == null)\r\n";
-            text += "\t\t\t{\r\n";
             text += "\t\t\t\treturn NotFound();\r\n";
-            text += "\t\t\t}\r\n\r\n";
+            text += "\t\t\tif (value.RowVersion(result))\r\n";
+            text += "\t\t\t\treturn BadRequest(\"RowVersion!\");\r\n";
 
             text += "\t\t\ttry\r\n";
             text += "\t\t\t{\r\n";
-            text += "\t\t\t\t_AdminsRepository.PutData(value);\r\n";
-
-            text += "\t\t\t\treturn Ok();\r\n";
+            text += "\t\t\t\tif(_" + m.Name + "Repository.PutData<" + m.Name + ">(value))\r\n";
+            text += "\t\t\t\t\treturn Ok();\r\n";
+            text += "\t\t\t\telse\r\n";
+            text += "\t\t\t\t\treturn BadRequest(\"No Rows Affected!\");\r\n";
             text += "\t\t\t}\r\n";
             text += "\t\t\tcatch (Exception ex)\r\n";
             text += "\t\t\t{\r\n";
@@ -111,21 +119,18 @@ namespace CodeGenerator
             text += "\t\t}\r\n\r\n";
 
             //Delete
-            text += "\t\tpublic IHttpActionResult Delete(Guid id)\r\n";
+            text += "\t\tpublic IHttpActionResult Delete([FromUri]Guid id)\r\n";
             text += "\t\t{\r\n";
 
-            text += "\t\t\t" + m.Name + " result = _" + m.Name + "Repository.GetData(id);\r\n\r\n";
-
-            text += "\t\t\tif (result == null)\r\n";
-            text += "\t\t\t{\r\n";
+            text += "\t\t\tif (!_" + m.Name + "Repository.ExistsData<" + m.Name + ">(id))\r\n";
             text += "\t\t\t\treturn NotFound();\r\n";
-            text += "\t\t\t}\r\n\r\n";
 
             text += "\t\t\ttry\r\n";
             text += "\t\t\t{\r\n";
-            text += "\t\t\t\t_" + m.Name + "Repository.DeleteData(id);\r\n";
-
-            text += "\t\t\t\treturn Ok();\r\n";
+            text += "\t\t\t\tif(_" + m.Name + "Repository.DeleteData<" + m.Name + ">(id))\r\n";
+            text += "\t\t\t\t\treturn Ok();\r\n";
+            text += "\t\t\t\telse\r\n";
+            text += "\t\t\t\t\treturn BadRequest(\"No Rows Affected!\");\r\n";
             text += "\t\t\t}\r\n";
             text += "\t\t\tcatch (Exception ex)\r\n";
             text += "\t\t\t{\r\n";
