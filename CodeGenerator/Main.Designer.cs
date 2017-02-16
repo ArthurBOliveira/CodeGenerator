@@ -42,6 +42,7 @@
             this.btnRead = new System.Windows.Forms.Button();
             this.txtViewModel = new System.Windows.Forms.RichTextBox();
             this.chkModel = new System.Windows.Forms.CheckBox();
+            this.lblRows = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblProjectName
@@ -90,7 +91,7 @@
             // 
             this.lblModels.AutoSize = true;
             this.lblModels.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblModels.Location = new System.Drawing.Point(32, 73);
+            this.lblModels.Location = new System.Drawing.Point(13, 73);
             this.lblModels.Name = "lblModels";
             this.lblModels.Size = new System.Drawing.Size(83, 24);
             this.lblModels.TabIndex = 5;
@@ -192,11 +193,21 @@
             this.chkModel.Text = "Model";
             this.chkModel.UseVisualStyleBackColor = true;
             // 
+            // lblRows
+            // 
+            this.lblRows.AutoSize = true;
+            this.lblRows.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRows.Location = new System.Drawing.Point(306, 79);
+            this.lblRows.Name = "lblRows";
+            this.lblRows.Size = new System.Drawing.Size(0, 16);
+            this.lblRows.TabIndex = 62;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(734, 629);
+            this.Controls.Add(this.lblRows);
             this.Controls.Add(this.chkModel);
             this.Controls.Add(this.txtViewModel);
             this.Controls.Add(this.btnRead);
@@ -237,5 +248,6 @@
         private System.Windows.Forms.Button btnRead;
         private System.Windows.Forms.RichTextBox txtViewModel;
         private System.Windows.Forms.CheckBox chkModel;
+        private System.Windows.Forms.Label lblRows;
     }
 }

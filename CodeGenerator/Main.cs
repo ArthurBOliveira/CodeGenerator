@@ -40,6 +40,8 @@ namespace CodeGenerator
         {
             chkListModels.Items.Clear();
 
+            lblRows.Text = Program.project.Models.Count + " Modelos";
+
             foreach (Model m in Program.project.Models)
                 chkListModels.Items.Add(m.Name);
         }
@@ -68,6 +70,7 @@ namespace CodeGenerator
             chkTable.Visible = false;
             txtViewModel.Visible = false;
             chkModel.Visible = false;
+            lblRows.Visible = false;
         }
 
         private void ShowFields()
@@ -84,6 +87,7 @@ namespace CodeGenerator
             chkTable.Visible = true;
             txtViewModel.Visible = true;
             chkModel.Visible = true;
+            lblRows.Visible = true;
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
