@@ -96,10 +96,10 @@ namespace CodeGenerator
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
-            if (chkDAL.Checked)
-                RepositoryGenerator.Generate();
-            if (chkAPI.Checked)
-                APIControllerGenerator.Generate();
+            //if (chkDAL.Checked)
+            //    RepositoryGenerator.Generate();
+            //if (chkAPI.Checked)
+            //    APIControllerGenerator.Generate();
 
             foreach (Model m in Program.project.Models)
             {

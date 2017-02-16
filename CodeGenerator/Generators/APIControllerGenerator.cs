@@ -55,7 +55,7 @@ namespace CodeGenerator
             text += "\t\tpublic IHttpActionResult Get([FromBody] bool value)\r\n";
             text += "\t\t{\r\n";
 
-            text += "\t\t\tList<" + m.Name + "> result = _" + m.Name + "Repository.GetDataInSelectList(value);\r\n\r\n";
+            text += "\t\t\tList<" + m.Name + "> result = _" + m.Name + "Repository.GetData(value);\r\n\r\n";
 
             text += "\t\t\tif (result.Count != 0)\r\n";
             text += "\t\t\t\treturn Ok(result);\r\n";
@@ -75,11 +75,11 @@ namespace CodeGenerator
 
             text += "\t\t\ttry\r\n";
             text += "\t\t\t{\r\n";
-            text += "\t\t\t\t_AdminsRepository.PostData(value)\r\n";
+            text += "\t\t\t\t_AdminsRepository.PostData(value);\r\n";
 
             text += "\t\t\t\treturn Ok();\r\n";
             text += "\t\t\t}\r\n";
-            text += "\t\t\tatch (Exception ex)\r\n";
+            text += "\t\t\tcatch (Exception ex)\r\n";
             text += "\t\t\t{\r\n";
             text += "\t\t\t\treturn BadRequest(ex.Message);\r\n";
             text += "\t\t\t}\r\n";
@@ -90,7 +90,7 @@ namespace CodeGenerator
             text += "\t\tpublic IHttpActionResult Put([FromBody]" + m.Name + " value)\r\n";
             text += "\t\t{\r\n";
 
-            text += "\t\t\t" + m.Name + " result = _" + m.Name + "Repository.GetData(id);\r\n\r\n";
+            text += "\t\t\t" + m.Name + " result = _" + m.Name + "Repository.GetData(value.Id);\r\n\r\n";
 
             text += "\t\t\tif (result == null)\r\n";
             text += "\t\t\t{\r\n";
@@ -99,11 +99,11 @@ namespace CodeGenerator
 
             text += "\t\t\ttry\r\n";
             text += "\t\t\t{\r\n";
-            text += "\t\t\t\t_AdminsRepository.PutData(value)\r\n";
+            text += "\t\t\t\t_AdminsRepository.PutData(value);\r\n";
 
             text += "\t\t\t\treturn Ok();\r\n";
             text += "\t\t\t}\r\n";
-            text += "\t\t\tatch (Exception ex)\r\n";
+            text += "\t\t\tcatch (Exception ex)\r\n";
             text += "\t\t\t{\r\n";
             text += "\t\t\t\treturn BadRequest(ex.Message);\r\n";
             text += "\t\t\t}\r\n";
@@ -123,11 +123,11 @@ namespace CodeGenerator
 
             text += "\t\t\ttry\r\n";
             text += "\t\t\t{\r\n";
-            text += "\t\t\t\t_AdminsRepository.DeleteData(value)\r\n";
+            text += "\t\t\t\t_" + m.Name + "Repository.DeleteData(id);\r\n";
 
             text += "\t\t\t\treturn Ok();\r\n";
             text += "\t\t\t}\r\n";
-            text += "\t\t\tatch (Exception ex)\r\n";
+            text += "\t\t\tcatch (Exception ex)\r\n";
             text += "\t\t\t{\r\n";
             text += "\t\t\t\treturn BadRequest(ex.Message);\r\n";
             text += "\t\t\t}\r\n";
