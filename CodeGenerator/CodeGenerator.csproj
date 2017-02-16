@@ -65,7 +65,7 @@
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Model.cs" />
-    <Compile Include="ModelGenerator.cs" />
+    <Compile Include="Generators\ModelGenerator.cs" />
     <Compile Include="Generators\MVCControllerGenerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Models\Project.cs" />

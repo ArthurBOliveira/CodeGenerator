@@ -15,7 +15,7 @@ namespace CodeGenerator
             string fileName = m.Name + "Repository.cs";
             string text = "";
 
-            text += "namespace " + m.NameProject + ".DAL\r\n";
+            text += "namespace " + m.NameProject + ".Repositories\r\n";
             text += "{\r\n";
 
             text += "\tpublic class " + m.Name + "Repository : BaseRepository<Models." + m.Name + ">\r\n";

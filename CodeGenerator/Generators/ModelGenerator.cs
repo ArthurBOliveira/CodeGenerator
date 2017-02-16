@@ -31,9 +31,65 @@ namespace CodeGenerator
                 text += "\t\tpublic " + p.Type + " " + UppercaseFirst(p.Name) + " { get; set; }\r\n";
             }
 
-            text += "\t\t#region Constructor\r\n";
+            text += "\r\n\t\t#region Methods\r\n";
 
-            text += "\t\tpublic " + m.Name + " () { }\r\n\r\n";
+            //Create
+            text += "\t\tpublic void Create(String UserHostAddress, String UserHostName)\r\n";
+            text += "\t\t{\r\n";
+            text += "\t\t\tId = Guid.NewGuid();\r\n\r\n";
+
+            text += "\t\t\tbase.Update(UserHostAddress, UserHostName);\r\n";
+            text += "\t\t}\r\n\r\n";
+
+            //Update
+            text += "\t\tpublic void Update(String UserHostAddress, String UserHostName, Brands brand)\r\n";
+            text += "\t\t{\r\n";
+            text += "\t\t\tbase.Update(UserHostAddress, UserHostName);\r\n\r\n";
+
+            text += "\t\t\tUpdate(brand);\r\n";
+            text += "\t\t}\r\n\r\n";
+
+
+            //Update Model
+            text += "\t\tpublic void Update(" + m.Name + " " + LowercaseFirst(m.Name) + ")\r\n";
+            text += "\t\t{\r\n";
+
+            foreach(Property p in m.Properties)
+                text += "\t\t\t" + UppercaseFirst(p.Name) + " = " + m.Name + "." + UppercaseFirst(p.Name) + ";\r\n";
+
+            text += "\t\t}\r\n\r\n";
+
+            //Equals
+            text += "\t\tpublic override bool Equals(object obj)\r\n";
+            text += "\t\t{\r\n";
+
+            text += "\t\t\tif(obj is " + m.Name + ")\r\n";
+            text += "\t\t\t{\r\n";
+
+            text += "\t\t\t\t" + m.Name + " aux = obj as " + m.Name +";\r\n\r\n";
+
+            foreach (Property p in m.Properties)
+                text += "\t\t\t\tif( aux." + UppercaseFirst(p.Name) + " != " + UppercaseFirst(p.Name) + ") { return false; }\r\n";
+
+            text += "\r\n\t\t\t\treturn true\r\n";
+
+            text += "\t\t\t}\r\n";
+
+            text += "\t\t\treturn false\r\n";
+
+            text += "\t\t}\r\n\r\n";
+
+
+            //GetHashCode
+            text += "\t\tpublic override int GetHashCode()\r\n";
+            text += "\t\t{\r\n";
+            text += "\t\t\tint hash = 0;\r\n\r\n";
+
+            foreach (Property p in m.Properties)
+                text += "\t\t\thash += " + UppercaseFirst(p.Name) + ".GetHashCode();\r\n";
+
+            text += "\r\n\t\t\treturn hash;\r\n";
+            text += "\t\t}\r\n\r\n";
 
             text += "\t\t#endregion\r\n\r\n";
 
