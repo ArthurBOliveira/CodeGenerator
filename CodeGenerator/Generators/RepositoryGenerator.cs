@@ -21,7 +21,7 @@ namespace CodeGenerator
             text += "\tpublic class " + m.Name + "Repository : BaseRepository<Models." + m.Name + ">\r\n";
             text += "\t{\r\n";
 
-            text += "\t\tpublic " + m.NameProject + "Repository(string tablePrefix = \"\") : base(tablePrefix)\r\n";
+            text += "\t\tpublic " + m.Name + "Repository(string tablePrefix = \"\") : base(tablePrefix)\r\n";
             text += "\t\t{ }\r\n";
 
             text += "\t}\r\n";

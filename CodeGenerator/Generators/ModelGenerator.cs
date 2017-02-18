@@ -23,13 +23,11 @@ namespace CodeGenerator
             text += "namespace " + m.NameProject + ".Models\r\n";
             text += "{\r\n";
 
-            text += "\tpublic class " + m.Name + "\r\n";
+            text += "\tpublic class " + m.Name + " : Control\r\n";
             text += "\t{\r\n";
 
             foreach (Property p in m.Properties)
-            {
                 text += "\t\tpublic " + p.Type + " " + UppercaseFirst(p.Name) + " { get; set; }\r\n";
-            }
 
             text += "\r\n\t\t#region Methods\r\n";
 
@@ -42,11 +40,11 @@ namespace CodeGenerator
             text += "\t\t}\r\n\r\n";
 
             //Update
-            text += "\t\tpublic void Update(String UserHostAddress, String UserHostName, Brands brand)\r\n";
+            text += "\t\tpublic void Update(String UserHostAddress, String UserHostName, " + m.Name + " " + LowercaseFirst(m.Name) + ")\r\n";
             text += "\t\t{\r\n";
             text += "\t\t\tbase.Update(UserHostAddress, UserHostName);\r\n\r\n";
 
-            text += "\t\t\tUpdate(brand);\r\n";
+            text += "\t\t\tUpdate(" + LowercaseFirst(m.Name) + ");\r\n";
             text += "\t\t}\r\n\r\n";
 
 
@@ -54,8 +52,8 @@ namespace CodeGenerator
             text += "\t\tpublic void Update(" + m.Name + " " + LowercaseFirst(m.Name) + ")\r\n";
             text += "\t\t{\r\n";
 
-            foreach(Property p in m.Properties)
-                text += "\t\t\t" + UppercaseFirst(p.Name) + " = " + m.Name + "." + UppercaseFirst(p.Name) + ";\r\n";
+            foreach (Property p in m.Properties)
+                text += "\t\t\t" + UppercaseFirst(p.Name) + " = " + LowercaseFirst(m.Name) + "." + UppercaseFirst(p.Name) + ";\r\n";
 
             text += "\t\t}\r\n\r\n";
 
@@ -66,16 +64,16 @@ namespace CodeGenerator
             text += "\t\t\tif(obj is " + m.Name + ")\r\n";
             text += "\t\t\t{\r\n";
 
-            text += "\t\t\t\t" + m.Name + " aux = obj as " + m.Name +";\r\n\r\n";
+            text += "\t\t\t\t" + m.Name + " aux = obj as " + m.Name + ";\r\n\r\n";
 
             foreach (Property p in m.Properties)
                 text += "\t\t\t\tif( aux." + UppercaseFirst(p.Name) + " != " + UppercaseFirst(p.Name) + ") { return false; }\r\n";
 
-            text += "\r\n\t\t\t\treturn true\r\n";
+            text += "\r\n\t\t\t\treturn true;\r\n";
 
             text += "\t\t\t}\r\n";
 
-            text += "\t\t\treturn false\r\n";
+            text += "\t\t\treturn false;\r\n";
 
             text += "\t\t}\r\n\r\n";
 
@@ -93,10 +91,76 @@ namespace CodeGenerator
 
             text += "\t\t#endregion\r\n\r\n";
 
+            text += "\t}\r\n\r\n";
+
+            //Generate Class Hist
+            text += "\r\n\r\n\tpublic class " + m.Name + "Hist : Control\r\n";
+            text += "\t{\r\n";
+
+            foreach (Property p in m.Properties)
+                text += "\t\tpublic " + p.Type + " " + UppercaseFirst(p.Name) + " { get; set; }\r\n";
+
+            text += "\t\tpublic Guid id" + m.Name + " { get; set; }\r\n\r\n";
+
+            text += "\t\t#region Methods\r\n";
+
+            //To Hist
+            text += "\t\tpublic void ToHist(" + m.Name + " value)\r\n";
+            text += "\t\t{\r\n";
+            text += "\t\t\tId = Guid.NewGuid();\r\n\r\n";
+            foreach (Property p in m.Properties)
+                text += "\t\t\tthis." + UppercaseFirst(p.Name) + " = value." + UppercaseFirst(p.Name) + ";\r\n";
+
+            text += "\t\t}\r\n\r\n";
+
+            //From Hist
+            text += "\t\tpublic " + m.Name + " FromHist()\r\n";
+            text += "\t\t{\r\n";
+            text += "\t\t\t" + m.Name + " aux = new " + m.Name + "()\r\n";
+            text += "\t\t\t{\r\n";
+            for (int i = 0; i < m.Properties.Count; i++)
+            {
+                if(i != m.Properties.Count -1)
+                    text += "\t\t\t\t" + UppercaseFirst(m.Properties[i].Name) + " = this." + UppercaseFirst(m.Properties[i].Name) + ",\r\n";
+                else
+                    text += "\t\t\t\t" + UppercaseFirst(m.Properties[i].Name) + " = this." + UppercaseFirst(m.Properties[i].Name) + "\r\n";
+            }
+            text += "\t\t\t};\r\n\r\n";
+
+            text += "\t\t\treturn aux;\r\n";
+            text += "\t\t}\r\n\r\n";
+
+            //Equals
+            text += "\t\tpublic override bool Equals(object obj)\r\n";
+            text += "\t\t{\r\n";
+            text += "\t\t\tif (obj is " + m.Name + ")\r\n";
+            text += "\t\t\t{\r\n";
+            text += "\t\t\t\t" + m.Name + " auxObj = obj as " + m.Name + ";\r\n";
+
+            text += "\t\t\t\treturn this.Equals(auxObj);\r\n";
+            text += "\t\t\t}\r\n";
+            text += "\t\t\telse if (obj is " + m.Name + "Hist)\r\n";
+            text += "\t\t\t{\r\n";
+            text += "\t\t\t\t" + m.Name + "Hist auxHistObj = obj as " + m.Name + "Hist;\r\n";
+            text += "\t\t\t\t" + m.Name + " auxObj = auxHistObj.FromHist();\r\n";
+
+            text += "\t\t\t\treturn this.Equals(auxObj);\r\n";
+            text += "\t\t\t}\r\n";
+
+            text += "\t\t\treturn false;\r\n";
+            text += "\t\t}\r\n\r\n";
+
+            //GetHashCode
+            text += "\t\tpublic override int GetHashCode()\r\n";
+            text += "\t\t{\r\n";
+            text += "\r\n\t\t\treturn this.FromHist().GetHashCode();\r\n";
+            text += "\t\t}\r\n\r\n";
+
+            text += "\t\t#endregion\r\n\r\n";
+
             text += "\t}\r\n";
 
-            text += "}\r\n";
-
+            text += "}";
 
             StreamWriter file = File.AppendText(fileName);
 

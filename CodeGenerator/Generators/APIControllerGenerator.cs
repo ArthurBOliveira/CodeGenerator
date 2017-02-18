@@ -27,15 +27,18 @@ namespace CodeGenerator
             text += "namespace " + m.NameProject + ".Controllers\r\n";
             text += "{\r\n";
 
+            text += "\t[RoutePrefix(\"api/" + m.Name + "\")]\r\n";
             text += "\tpublic class " + m.Name + "Controller : BaseController\r\n";
             text += "\t{\r\n";
 
-            text += "\t\tprivate " + m.Name + "Repository _" + m.Name + "Repository;\r\n\r\n";
+            text += "\t\tprivate " + m.Name + "Repository _" + m.Name + "Repository;\r\n";
+            text += "\t\tprivate " + m.Name + "HistRepository _" + m.Name + "HistRepository;\r\n\r\n";
 
             //Constructor
             text += "\t\tpublic " + m.Name + "Controller()\r\n";
             text += "\t\t{\r\n";
             text += "\t\t\t_" + m.Name + "Repository = new " + m.Name + "Repository();\r\n";
+            text += "\t\t\t_" + m.Name + "HistRepository = new " + m.Name + "HistRepository();\r\n";
             text += "\t\t}\r\n\r\n";
 
             //Get
@@ -79,7 +82,10 @@ namespace CodeGenerator
             text += "\t\t\ttry\r\n";
             text += "\t\t\t{\r\n";
             text += "\t\t\t\tif(_" + m.Name + "Repository.PostData<" + m.Name + ">(value))\r\n";
+            text += "\t\t\t\t{\r\n";
+            text += "\t\t\t\t\tPostHist(value);\r\n";
             text += "\t\t\t\t\treturn Ok();\r\n";
+            text += "\t\t\t\t}\r\n";
             text += "\t\t\t\telse\r\n";
             text += "\t\t\t\t\treturn BadRequest(\"No Rows Affected!!\");\r\n";
             text += "\t\t\t}\r\n";
@@ -95,7 +101,7 @@ namespace CodeGenerator
             text += "\t\t{\r\n";
 
             text += "\t\t\tif (!ModelState.IsValid)\r\n";
-            text += "\t\t\t\treturn BadRequest(ModelState);\r\n";
+            text += "\t\t\t\treturn BadRequest(ModelState);\r\n\r\n";
 
             text += "\t\t\t" + m.Name + " result = _" + m.Name + "Repository.GetData<" + m.Name + ">(value.Id);\r\n\r\n";
 
@@ -107,7 +113,10 @@ namespace CodeGenerator
             text += "\t\t\ttry\r\n";
             text += "\t\t\t{\r\n";
             text += "\t\t\t\tif(_" + m.Name + "Repository.PutData<" + m.Name + ">(value))\r\n";
+            text += "\t\t\t\t{\r\n";
+            text += "\t\t\t\t\tPostHist(value);\r\n";
             text += "\t\t\t\t\treturn Ok();\r\n";
+            text += "\t\t\t\t}\r\n";
             text += "\t\t\t\telse\r\n";
             text += "\t\t\t\t\treturn BadRequest(\"No Rows Affected!\");\r\n";
             text += "\t\t\t}\r\n";
@@ -128,7 +137,10 @@ namespace CodeGenerator
             text += "\t\t\ttry\r\n";
             text += "\t\t\t{\r\n";
             text += "\t\t\t\tif(_" + m.Name + "Repository.DeleteData<" + m.Name + ">(id))\r\n";
+            text += "\t\t\t\t{\r\n";
+            text += "\t\t\t\t\tPostHist(value);\r\n";
             text += "\t\t\t\t\treturn Ok();\r\n";
+            text += "\t\t\t\t}\r\n";
             text += "\t\t\t\telse\r\n";
             text += "\t\t\t\t\treturn BadRequest(\"No Rows Affected!\");\r\n";
             text += "\t\t\t}\r\n";
@@ -139,11 +151,35 @@ namespace CodeGenerator
 
             text += "\t\t}\r\n\r\n";
 
+            //Get Hist
+            text += "\t\t[Route(\"GetHist\")]\r\n";
+            text += "\t\tpublic IHttpActionResult GetHist([FromUri]Guid id)\r\n";
+            text += "\t\t{\r\n";
+
+            text += "\t\t\t" + m.Name + "Hist result = _" + m.Name + "HistRepository.GetData<" + m.Name + "Hist>(id);\r\n\r\n";
+
+            text += "\t\t\tif (result != null)\r\n";
+            text += "\t\t\t\treturn Ok(result);\r\n";
+            text += "\t\t\telse\r\n";
+            text += "\t\t\t\treturn NotFound();\r\n";
+
+            text += "\t\t}\r\n\r\n";
+
+            //Post Hist
+            text += "\t\t[NonAction]\r\n";
+            text += "\t\tprivate bool PostHist(" + m.Name + "Hist value)\r\n";
+            text += "\t\t{\r\n";
+
+            text += "\t\t\t" + m.Name + "Hist hist = new " + m.Name + "Hist();\r\n";
+
+            text += "\t\t\thist.ToHist(value);\r\n";
+
+            text += "\t\t\treturn _" + m.Name + "HistRepository.PostData<" + m.Name + "Hist>(value);\r\n";
+            text += "\t\t}\r\n";
+
             text += "\t}\r\n";
-
             text += "}\r\n";
-
-
+            
             StreamWriter file = File.AppendText(fileName);
 
             file.WriteLine(text);

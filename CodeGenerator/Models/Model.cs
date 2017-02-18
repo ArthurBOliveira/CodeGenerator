@@ -97,15 +97,50 @@ namespace CodeGenerator
 
             strings = text.Split(new string[] { "{ get; set; }" }, StringSplitOptions.None);
 
-            for (int i = 0; i < strings.Length - 1; i++)
+            for (int i = 0; i < strings.Length - 2; i++)
             {
-                prop.Type = strings[i].Split(new string[] { "public" }, StringSplitOptions.None)[1].Split(new string[] { " " }, StringSplitOptions.None)[1].Trim();
-                prop.Name = strings[i].Split(new string[] { "public" }, StringSplitOptions.None)[1].Split(new string[] { " " }, StringSplitOptions.None)[2];
+                string type = strings[i].Split(new string[] { "public" }, StringSplitOptions.None)[1].Split(new string[] { " " }, StringSplitOptions.None)[1].Trim();
+                string name = strings[i].Split(new string[] { "public" }, StringSplitOptions.None)[1].Split(new string[] { " " }, StringSplitOptions.None)[2];
 
-                if (prop.Type != "void")
-                    properties.Add(prop);
+                if (!CheckType(type))
+                {
+                    prop.Type = type;
+                    prop.Name = name;
 
-                prop = new Property();
+                    if (prop.Type != "void")
+                        properties.Add(prop);
+
+                    prop = new Property();
+                }
+            }
+        }
+
+        private bool CheckType(string type)
+        {
+            switch (type)
+            {
+                case "Guid":
+                    return false;
+                case "Int":
+                    return false;
+                case "Bool":
+                    return false;
+                case "Boolean":
+                    return false;
+                case "DateTime":
+                    return false;
+                case "String":
+                    return false;
+                case "Float":
+                    return false;
+                case "Double":
+                    return false;
+                case "Decimal":
+                    return false;
+                case "void":
+                    return false;
+                default:
+                    return true;
             }
         }
         #endregion

@@ -92,8 +92,8 @@ namespace CodeGenerator
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < chkListModels.SelectedItems.Count; i++)
-                Program.project.Models.Remove(Program.project.Models.Find(item => item.Name == chkListModels.SelectedItems[i].ToString()));
+            for (int i = 0; i < chkListModels.CheckedItems.Count; i++)
+                Program.project.Models.Remove(Program.project.Models.Find(item => item.Name == chkListModels.CheckedItems[i].ToString()));
 
             RefreshModels();
         }
