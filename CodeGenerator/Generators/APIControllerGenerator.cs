@@ -79,6 +79,7 @@ namespace CodeGenerator
 
             text += "\t\t\ttry\r\n";
             text += "\t\t\t{\r\n";
+            text += "\t\t\tvalue.Id = Guid.NewGuid();\r\n";
             text += "\t\t\t\tif(_" + m.Name + "Repository.PostData<" + m.Name + ">(value))\r\n";
             text += "\t\t\t\t{\r\n";
             text += "\t\t\t\t\treturn Ok();\r\n";
