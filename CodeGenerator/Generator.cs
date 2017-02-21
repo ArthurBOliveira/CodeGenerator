@@ -28,19 +28,33 @@ namespace CodeGenerator
                     return "UNIQUEIDENTIFIER";
                 case "Int":
                     return "INT";
+                case "int":
+                    return "INT";
                 case "Bool":
                     return "BIT";
+                case "bool":
+                    return "BIT";
                 case "Boolean":
+                    return "BIT";
+                case "boolean":
                     return "BIT";
                 case "DateTime":
                     return "DATETIME";
                 case "String":
+                    return "NVARCHAR(MAX)";
+                case "string":
                     return "NVARCHAR(MAX)";
                 case "Float":
                     return "DECIMAL(20,6)";
                 case "Double":
                     return "DECIMAL(20,6)";
                 case "Decimal":
+                    return "DECIMAL(18,2)";
+                case "float":
+                    return "DECIMAL(20,6)";
+                case "double":
+                    return "DECIMAL(20,6)";
+                case "decimal":
                     return "DECIMAL(18,2)";
                 default:
                     return "";

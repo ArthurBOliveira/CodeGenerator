@@ -97,7 +97,7 @@ namespace CodeGenerator
 
             strings = text.Split(new string[] { "{ get; set; }" }, StringSplitOptions.None);
 
-            for (int i = 0; i < strings.Length - 2; i++)
+            for (int i = 0; i < strings.Length - 1; i++)
             {
                 string type = strings[i].Split(new string[] { "public" }, StringSplitOptions.None)[1].Split(new string[] { " " }, StringSplitOptions.None)[1].Trim();
                 string name = strings[i].Split(new string[] { "public" }, StringSplitOptions.None)[1].Split(new string[] { " " }, StringSplitOptions.None)[2];
@@ -123,19 +123,33 @@ namespace CodeGenerator
                     return false;
                 case "Int":
                     return false;
+                case "int":
+                    return false;
                 case "Bool":
                     return false;
+                case "bool":
+                    return false;
                 case "Boolean":
+                    return false;
+                case "boolean":
                     return false;
                 case "DateTime":
                     return false;
                 case "String":
                     return false;
+                case "string":
+                    return false;
                 case "Float":
+                    return false;
+                case "float":
                     return false;
                 case "Double":
                     return false;
+                case "double":
+                    return false;
                 case "Decimal":
+                    return false;
+                case "decimal":
                     return false;
                 case "void":
                     return false;

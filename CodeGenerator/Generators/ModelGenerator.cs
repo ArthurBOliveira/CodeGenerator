@@ -94,20 +94,17 @@ namespace CodeGenerator
             text += "\t}\r\n\r\n";
 
             //Generate Class Hist
-            text += "\r\n\r\n\tpublic class " + m.Name + "Hist : Control\r\n";
+            text += "\r\n\r\n\tpublic class " + m.Name + "Hist : " + m.Name + "\r\n";
             text += "\t{\r\n";
-
-            foreach (Property p in m.Properties)
-                text += "\t\tpublic " + p.Type + " " + UppercaseFirst(p.Name) + " { get; set; }\r\n";
-
-            text += "\t\tpublic Guid id" + m.Name + " { get; set; }\r\n\r\n";
+         
+            text += "\t\tpublic Guid IdHist { get; set; }\r\n\r\n";
 
             text += "\t\t#region Methods\r\n";
 
             //To Hist
             text += "\t\tpublic void ToHist(" + m.Name + " value)\r\n";
             text += "\t\t{\r\n";
-            text += "\t\t\tId = Guid.NewGuid();\r\n\r\n";
+            text += "\t\t\tIdHist = Guid.NewGuid();\r\n\r\n";
             foreach (Property p in m.Properties)
                 text += "\t\t\tthis." + UppercaseFirst(p.Name) + " = value." + UppercaseFirst(p.Name) + ";\r\n";
 

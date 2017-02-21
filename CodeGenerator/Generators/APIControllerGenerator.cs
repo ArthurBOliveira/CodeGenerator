@@ -32,13 +32,11 @@ namespace CodeGenerator
             text += "\t{\r\n";
 
             text += "\t\tprivate " + m.Name + "Repository _" + m.Name + "Repository;\r\n";
-            text += "\t\tprivate " + m.Name + "HistRepository _" + m.Name + "HistRepository;\r\n\r\n";
 
             //Constructor
             text += "\t\tpublic " + m.Name + "Controller()\r\n";
             text += "\t\t{\r\n";
             text += "\t\t\t_" + m.Name + "Repository = new " + m.Name + "Repository();\r\n";
-            text += "\t\t\t_" + m.Name + "HistRepository = new " + m.Name + "HistRepository();\r\n";
             text += "\t\t}\r\n\r\n";
 
             //Get
@@ -83,7 +81,6 @@ namespace CodeGenerator
             text += "\t\t\t{\r\n";
             text += "\t\t\t\tif(_" + m.Name + "Repository.PostData<" + m.Name + ">(value))\r\n";
             text += "\t\t\t\t{\r\n";
-            text += "\t\t\t\t\tPostHist(value);\r\n";
             text += "\t\t\t\t\treturn Ok();\r\n";
             text += "\t\t\t\t}\r\n";
             text += "\t\t\t\telse\r\n";
@@ -114,7 +111,6 @@ namespace CodeGenerator
             text += "\t\t\t{\r\n";
             text += "\t\t\t\tif(_" + m.Name + "Repository.PutData<" + m.Name + ">(value))\r\n";
             text += "\t\t\t\t{\r\n";
-            text += "\t\t\t\t\tPostHist(value);\r\n";
             text += "\t\t\t\t\treturn Ok();\r\n";
             text += "\t\t\t\t}\r\n";
             text += "\t\t\t\telse\r\n";
@@ -138,7 +134,6 @@ namespace CodeGenerator
             text += "\t\t\t{\r\n";
             text += "\t\t\t\tif(_" + m.Name + "Repository.DeleteData<" + m.Name + ">(id))\r\n";
             text += "\t\t\t\t{\r\n";
-            text += "\t\t\t\t\tPostHist(value);\r\n";
             text += "\t\t\t\t\treturn Ok();\r\n";
             text += "\t\t\t\t}\r\n";
             text += "\t\t\t\telse\r\n";
@@ -156,17 +151,17 @@ namespace CodeGenerator
             text += "\t\tpublic IHttpActionResult GetHist([FromUri]Guid id)\r\n";
             text += "\t\t{\r\n";
 
-            text += "\t\t\t" + m.Name + "Hist result = _" + m.Name + "HistRepository.GetData<" + m.Name + "Hist>(id);\r\n\r\n";
+            text += "\t\t\t" + m.Name + " result = _" + m.Name + "Repository.GetHist<" + m.Name + ">(id);\r\n\r\n";
 
             text += "\t\t\tif (result != null)\r\n";
             text += "\t\t\t\treturn Ok(result);\r\n";
             text += "\t\t\telse\r\n";
             text += "\t\t\t\treturn NotFound();\r\n";
 
-            text += "\t\t}\r\n\r\n";
+            text += "\t\t}\r\n";
 
             //Post Hist
-            text += "\t\t[NonAction]\r\n";
+            /*text += "\t\t[NonAction]\r\n";
             text += "\t\tprivate bool PostHist(" + m.Name + "Hist value)\r\n";
             text += "\t\t{\r\n";
 
@@ -175,7 +170,7 @@ namespace CodeGenerator
             text += "\t\t\thist.ToHist(value);\r\n";
 
             text += "\t\t\treturn _" + m.Name + "HistRepository.PostData<" + m.Name + "Hist>(value);\r\n";
-            text += "\t\t}\r\n";
+            text += "\t\t}\r\n";*/
 
             text += "\t}\r\n";
             text += "}\r\n";
