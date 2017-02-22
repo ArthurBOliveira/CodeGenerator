@@ -115,6 +115,8 @@ namespace CodeGenerator
                     TableGenerator.Generate(m);
                 if (chkDAL.Checked)
                     RepositoryGenerator.Generate(m);
+                if (chkTeste.Checked)
+                    PostmanTesterGenerator.Generate(m);
             }
         }
 

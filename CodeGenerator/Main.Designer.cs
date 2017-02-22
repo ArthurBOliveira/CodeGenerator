@@ -43,6 +43,7 @@
             this.txtViewModel = new System.Windows.Forms.RichTextBox();
             this.chkModel = new System.Windows.Forms.CheckBox();
             this.lblRows = new System.Windows.Forms.Label();
+            this.chkTeste = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // lblProjectName
@@ -132,7 +133,7 @@
             this.chkTable.AutoSize = true;
             this.chkTable.Checked = true;
             this.chkTable.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkTable.Location = new System.Drawing.Point(411, 597);
+            this.chkTable.Location = new System.Drawing.Point(375, 597);
             this.chkTable.Name = "chkTable";
             this.chkTable.Size = new System.Drawing.Size(53, 17);
             this.chkTable.TabIndex = 58;
@@ -144,7 +145,7 @@
             this.chkAPI.AutoSize = true;
             this.chkAPI.Checked = true;
             this.chkAPI.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAPI.Location = new System.Drawing.Point(362, 597);
+            this.chkAPI.Location = new System.Drawing.Point(326, 597);
             this.chkAPI.Name = "chkAPI";
             this.chkAPI.Size = new System.Drawing.Size(43, 17);
             this.chkAPI.TabIndex = 56;
@@ -156,7 +157,7 @@
             this.chkDAL.AutoSize = true;
             this.chkDAL.Checked = true;
             this.chkDAL.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkDAL.Location = new System.Drawing.Point(309, 597);
+            this.chkDAL.Location = new System.Drawing.Point(273, 597);
             this.chkDAL.Name = "chkDAL";
             this.chkDAL.Size = new System.Drawing.Size(47, 17);
             this.chkDAL.TabIndex = 54;
@@ -186,7 +187,7 @@
             // chkModel
             // 
             this.chkModel.AutoSize = true;
-            this.chkModel.Location = new System.Drawing.Point(470, 597);
+            this.chkModel.Location = new System.Drawing.Point(434, 597);
             this.chkModel.Name = "chkModel";
             this.chkModel.Size = new System.Drawing.Size(55, 17);
             this.chkModel.TabIndex = 61;
@@ -202,11 +203,22 @@
             this.lblRows.Size = new System.Drawing.Size(0, 16);
             this.lblRows.TabIndex = 62;
             // 
+            // chkTeste
+            // 
+            this.chkTeste.AutoSize = true;
+            this.chkTeste.Location = new System.Drawing.Point(495, 597);
+            this.chkTeste.Name = "chkTeste";
+            this.chkTeste.Size = new System.Drawing.Size(53, 17);
+            this.chkTeste.TabIndex = 63;
+            this.chkTeste.Text = "Teste";
+            this.chkTeste.UseVisualStyleBackColor = true;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(734, 629);
+            this.Controls.Add(this.chkTeste);
             this.Controls.Add(this.lblRows);
             this.Controls.Add(this.chkModel);
             this.Controls.Add(this.txtViewModel);
@@ -249,5 +261,6 @@
         private System.Windows.Forms.RichTextBox txtViewModel;
         private System.Windows.Forms.CheckBox chkModel;
         private System.Windows.Forms.Label lblRows;
+        private System.Windows.Forms.CheckBox chkTeste;
     }
 }
