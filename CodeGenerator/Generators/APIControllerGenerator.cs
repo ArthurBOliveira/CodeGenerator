@@ -39,16 +39,40 @@ namespace CodeGenerator
             text += "\t\t\t_" + m.Name + "Repository = new " + m.Name + "Repository();\r\n";
             text += "\t\t}\r\n\r\n";
 
+            //List by Ids
+            text += "\t\t[HttpPost, Route(\"Get" + m.Name + "sByIds\"), EnableQuery]\r\n";
+            text += "\t\tprivate IHttpActionResult Get" + m.Name + "ByIds(List<Guid> ids, [FromODataUri] Boolean all = false)\r\n";
+            text += "\t\t{\r\n";
+            text += "\t\t\tIEnumerable<" + m.Name + "> result = _" + m.Name + "Repository.GetData<" + m.Name + ">(ids.Distinct(), all);\r\n";
+
+            text += "\t\t\tif (result != null && result.Count() != 0)\r\n";
+            text += "\t\t\t\treturn Ok(result);\r\n";
+
+            text += "\t\t\treturn StatusCode(HttpStatusCode.NoContent);\r\n";
+            text += "\t\t}\r\n";
+
+            //Hist
+            text += "\t\t[HttpPost, Route(\"Get" + m.Name + "HistsBy" + m.Name + "\"), EnableQuery(PageSize = 50)]\r\n";
+            text += "\t\tpublic IHttpActionResult Ge" + m.Name + "HistsBy" + m.Name + "([FromODataUri]Guid id)\r\n";
+            text += "\t\t{\r\n";
+            text += "\t\t\tIEnumerable<" + m.Name + "> result = _" + m.Name + "Repository.GetByHist<" + m.Name + ">(id);\r\n\r\n";
+
+            text += "\t\t\tif (result != null && result.Count() != 0)\r\n";
+            text += "\t\t\t\treturn Ok(result);\r\n\r\n";
+
+            text += "\t\t\treturn StatusCode(HttpStatusCode.NoContent);\r\n";
+            text += "\t\t}\r\n";
+
             //Get
             text += "\t\tpublic IHttpActionResult Get([FromUri]Guid id)\r\n";
             text += "\t\t{\r\n";
 
             text += "\t\t\t" + m.Name + " result = _" + m.Name + "Repository.GetData<" + m.Name + ">(id);\r\n\r\n";
 
-            text += "\t\t\tif (result != null)\r\n";
+            text += "\t\t\tif (result != null && result.Count() != 0)\r\n";
             text += "\t\t\t\treturn Ok(result);\r\n";
-            text += "\t\t\telse\r\n";
-            text += "\t\t\t\treturn NotFound();\r\n";
+
+            text += "\t\t\t\treturn StatusCode(HttpStatusCode.NoContent);\r\n";
 
             text += "\t\t}\r\n\r\n";
 
@@ -58,12 +82,10 @@ namespace CodeGenerator
 
             text += "\t\t\tIEnumerable<" + m.Name + "> result = _" + m.Name + "Repository.GetData<" + m.Name + ">(value);\r\n\r\n";
 
-            text += "\t\t\tif (result == null)\r\n";
-            text += "\t\t\t\treturn BadRequest();\r\n";
-            text += "\t\t\tif (result.Count() != 0)\r\n";
+            text += "\t\t\tif (result != null && result.Count() != 0)\r\n";
             text += "\t\t\t\treturn Ok(result);\r\n";
-            text += "\t\t\telse\r\n";
-            text += "\t\t\t\treturn NotFound();\r\n";
+
+            text += "\t\t\t\treturn StatusCode(HttpStatusCode.NoContent);\r\n";
 
             text += "\t\t}\r\n\r\n";
 
@@ -79,11 +101,9 @@ namespace CodeGenerator
 
             text += "\t\t\ttry\r\n";
             text += "\t\t\t{\r\n";
-            text += "\t\t\tvalue.Id = Guid.NewGuid();\r\n";
+            text += "\t\t\tvalue.Create(GetRequestUserHostAddress(), GetRequestUserHostName());\r\n";
             text += "\t\t\t\tif(_" + m.Name + "Repository.PostData<" + m.Name + ">(value))\r\n";
-            text += "\t\t\t\t{\r\n";
             text += "\t\t\t\t\treturn Ok();\r\n";
-            text += "\t\t\t\t}\r\n";
             text += "\t\t\t\telse\r\n";
             text += "\t\t\t\t\treturn BadRequest(\"No Rows Affected!!\");\r\n";
             text += "\t\t\t}\r\n";
@@ -105,15 +125,16 @@ namespace CodeGenerator
 
             text += "\t\t\tif (result == null)\r\n";
             text += "\t\t\t\treturn NotFound();\r\n";
+            text += "\t\t\tif (result.Equals(value))\r\n";
+            text += "\t\t\t\treturn StatusCode(HttpStatusCode.NoContent);\r\n";
             text += "\t\t\tif (value.RowVersion(result))\r\n";
             text += "\t\t\t\treturn BadRequest(\"RowVersion!\");\r\n";
 
             text += "\t\t\ttry\r\n";
             text += "\t\t\t{\r\n";
+            text += "\t\t\t\tvalue.Update(GetRequestUserHostAddress(), GetRequestUserHostName());\r\n";
             text += "\t\t\t\tif(_" + m.Name + "Repository.PutData<" + m.Name + ">(value))\r\n";
-            text += "\t\t\t\t{\r\n";
             text += "\t\t\t\t\treturn Ok();\r\n";
-            text += "\t\t\t\t}\r\n";
             text += "\t\t\t\telse\r\n";
             text += "\t\t\t\t\treturn BadRequest(\"No Rows Affected!\");\r\n";
             text += "\t\t\t}\r\n";
@@ -128,15 +149,16 @@ namespace CodeGenerator
             text += "\t\tpublic IHttpActionResult Delete([FromUri]Guid id)\r\n";
             text += "\t\t{\r\n";
 
-            text += "\t\t\tif (!_" + m.Name + "Repository.ExistsData<" + m.Name + ">(id))\r\n";
+            text += "\t\t\t " + m.Name + " value = _" + m.Name + "Repository.ExistsData<" + m.Name + ">(id) \r\n";
+
+            text += "\t\t\tif (value == null)\r\n";
             text += "\t\t\t\treturn NotFound();\r\n";
 
             text += "\t\t\ttry\r\n";
             text += "\t\t\t{\r\n";
-            text += "\t\t\t\tif(_" + m.Name + "Repository.DeleteData<" + m.Name + ">(id))\r\n";
-            text += "\t\t\t\t{\r\n";
+            text += "\t\t\t\t value.Delete(GetRequestUserHostAddress(), GetRequestUserHostName());\r\n";
+            text += "\t\t\t\tif(_" + m.Name + "Repository.PutData<" + m.Name + ">(id))\r\n";
             text += "\t\t\t\t\treturn Ok();\r\n";
-            text += "\t\t\t\t}\r\n";
             text += "\t\t\t\telse\r\n";
             text += "\t\t\t\t\treturn BadRequest(\"No Rows Affected!\");\r\n";
             text += "\t\t\t}\r\n";
@@ -146,32 +168,6 @@ namespace CodeGenerator
             text += "\t\t\t}\r\n";
 
             text += "\t\t}\r\n\r\n";
-
-            //Get Hist
-            text += "\t\t[Route(\"GetHist\")]\r\n";
-            text += "\t\tpublic IHttpActionResult GetHist([FromUri]Guid id)\r\n";
-            text += "\t\t{\r\n";
-
-            text += "\t\t\t" + m.Name + " result = _" + m.Name + "Repository.GetHist<" + m.Name + ">(id);\r\n\r\n";
-
-            text += "\t\t\tif (result != null)\r\n";
-            text += "\t\t\t\treturn Ok(result);\r\n";
-            text += "\t\t\telse\r\n";
-            text += "\t\t\t\treturn NotFound();\r\n";
-
-            text += "\t\t}\r\n";
-
-            //Post Hist
-            /*text += "\t\t[NonAction]\r\n";
-            text += "\t\tprivate bool PostHist(" + m.Name + "Hist value)\r\n";
-            text += "\t\t{\r\n";
-
-            text += "\t\t\t" + m.Name + "Hist hist = new " + m.Name + "Hist();\r\n";
-
-            text += "\t\t\thist.ToHist(value);\r\n";
-
-            text += "\t\t\treturn _" + m.Name + "HistRepository.PostData<" + m.Name + "Hist>(value);\r\n";
-            text += "\t\t}\r\n";*/
 
             text += "\t}\r\n";
             text += "}\r\n";

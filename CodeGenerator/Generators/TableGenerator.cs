@@ -22,10 +22,10 @@ namespace CodeGenerator
                 if(parent.Parent != "")
                     grandParent = Program.project.Models.Find(item => item.Name == parent.Parent);
 
-            string fileName = "dbo." + m.Name + ".sql";
+            string fileName = "Scripts.sql";
             string text = "";
 
-            text += "CREATE TABLE [TESTE].[" + m.Name + "]\r\n";
+            text += "CREATE TABLE [jobmanager].[" + m.Name + "]\r\n";
             text += "(\r\n";
 
             for (int i = 0; i < m.Properties.Count; i++)
