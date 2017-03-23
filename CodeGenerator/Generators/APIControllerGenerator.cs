@@ -21,6 +21,8 @@ namespace CodeGenerator
             text += "using System.Web;\r\n";
             text += "using System.Net.Http;\r\n";
             text += "using System.Web.Http;\r\n";
+            text += "using System.Net;\r\n";
+            text += "using System.Web.Http.OData;\r\n";
             text += "using " + m.NameProject + ".Models;\r\n";
             text += "using " + m.NameProject + ".Repositories;\r\n\r\n";
 
@@ -31,7 +33,7 @@ namespace CodeGenerator
             text += "\tpublic class " + m.Name + "Controller : BaseController\r\n";
             text += "\t{\r\n";
 
-            text += "\t\tprivate " + m.Name + "Repository _" + m.Name + "Repository;\r\n";
+            text += "\t\tprivate " + m.Name + "Repository _" + m.Name + "Repository;\r\n\r\n";
 
             //Constructor
             text += "\t\tpublic " + m.Name + "Controller()\r\n";
@@ -41,18 +43,18 @@ namespace CodeGenerator
 
             //List by Ids
             text += "\t\t[HttpPost, Route(\"Get" + m.Name + "sByIds\"), EnableQuery]\r\n";
-            text += "\t\tprivate IHttpActionResult Get" + m.Name + "ByIds(List<Guid> ids, [FromODataUri] Boolean all = false)\r\n";
+            text += "\t\tpublic IHttpActionResult Get" + m.Name + "ByIds([FromBody]IEnumerable<Guid> ids, [FromODataUri]Boolean all = false)\r\n";
             text += "\t\t{\r\n";
             text += "\t\t\tIEnumerable<" + m.Name + "> result = _" + m.Name + "Repository.GetData<" + m.Name + ">(ids.Distinct(), all);\r\n";
 
             text += "\t\t\tif (result != null && result.Count() != 0)\r\n";
-            text += "\t\t\t\treturn Ok(result);\r\n";
+            text += "\t\t\t\treturn Ok(result);\r\n\r\n";
 
             text += "\t\t\treturn StatusCode(HttpStatusCode.NoContent);\r\n";
-            text += "\t\t}\r\n";
+            text += "\t\t}\r\n\r\n";
 
             //Hist
-            text += "\t\t[HttpPost, Route(\"Get" + m.Name + "HistsBy" + m.Name + "\"), EnableQuery(PageSize = 50)]\r\n";
+            text += "\t\t[HttpGet, Route(\"Get" + m.Name + "HistsBy" + m.Name + "\"), EnableQuery(PageSize = 50)]\r\n";
             text += "\t\tpublic IHttpActionResult Ge" + m.Name + "HistsBy" + m.Name + "([FromODataUri]Guid id)\r\n";
             text += "\t\t{\r\n";
             text += "\t\t\tIEnumerable<" + m.Name + "> result = _" + m.Name + "Repository.GetByHist<" + m.Name + ">(id);\r\n\r\n";
@@ -61,7 +63,7 @@ namespace CodeGenerator
             text += "\t\t\t\treturn Ok(result);\r\n\r\n";
 
             text += "\t\t\treturn StatusCode(HttpStatusCode.NoContent);\r\n";
-            text += "\t\t}\r\n";
+            text += "\t\t}\r\n\r\n";
 
             //Get
             text += "\t\tpublic IHttpActionResult Get([FromUri]Guid id)\r\n";
@@ -69,23 +71,24 @@ namespace CodeGenerator
 
             text += "\t\t\t" + m.Name + " result = _" + m.Name + "Repository.GetData<" + m.Name + ">(id);\r\n\r\n";
 
-            text += "\t\t\tif (result != null && result.Count() != 0)\r\n";
-            text += "\t\t\t\treturn Ok(result);\r\n";
+            text += "\t\t\tif (result != null)\r\n";
+            text += "\t\t\t\treturn Ok(result);\r\n\r\n";
 
-            text += "\t\t\t\treturn StatusCode(HttpStatusCode.NoContent);\r\n";
+            text += "\t\t\treturn StatusCode(HttpStatusCode.NoContent);\r\n";
 
             text += "\t\t}\r\n\r\n";
 
             //List
-            text += "\t\tpublic IHttpActionResult Get([FromUri]bool value)\r\n";
+            text += "\t\t[HttpGet, EnableQuery]\r\n";
+            text += "\t\tpublic IHttpActionResult Get([FromODataUri]Boolean all = false)\r\n";
             text += "\t\t{\r\n";
 
-            text += "\t\t\tIEnumerable<" + m.Name + "> result = _" + m.Name + "Repository.GetData<" + m.Name + ">(value);\r\n\r\n";
+            text += "\t\t\tIEnumerable<" + m.Name + "> result = _" + m.Name + "Repository.GetData<" + m.Name + ">(all);\r\n\r\n";
 
             text += "\t\t\tif (result != null && result.Count() != 0)\r\n";
-            text += "\t\t\t\treturn Ok(result);\r\n";
+            text += "\t\t\t\treturn Ok(result);\r\n\r\n";
 
-            text += "\t\t\t\treturn StatusCode(HttpStatusCode.NoContent);\r\n";
+            text += "\t\t\treturn StatusCode(HttpStatusCode.NoContent);\r\n";
 
             text += "\t\t}\r\n\r\n";
 
@@ -96,14 +99,15 @@ namespace CodeGenerator
             text += "\t\t\tif (!ModelState.IsValid)\r\n";
             text += "\t\t\t\treturn BadRequest(ModelState);\r\n";
 
-            text += "\t\t\tif (_" + m.Name + "Repository.ExistsData<" + m.Name + ">(value.Id))\r\n";
-            text += "\t\t\t\treturn Conflict();\r\n";
+            text += "\t\t\tif (_" + m.Name + "Repository.ExistsData<" + m.Name + ">(value.id))\r\n";
+            text += "\t\t\t\treturn Conflict();\r\n\r\n";
 
             text += "\t\t\ttry\r\n";
             text += "\t\t\t{\r\n";
-            text += "\t\t\tvalue.Create(GetRequestUserHostAddress(), GetRequestUserHostName());\r\n";
+            text += "\t\t\tvalue.Create(GetRequestUserHostAddress(), GetRequestUserHostName());\r\n\r\n";
+
             text += "\t\t\t\tif(_" + m.Name + "Repository.PostData<" + m.Name + ">(value))\r\n";
-            text += "\t\t\t\t\treturn Ok();\r\n";
+            text += "\t\t\t\t\treturn Created<" + m.Name + ">(\"Database\", value);\r\n";
             text += "\t\t\t\telse\r\n";
             text += "\t\t\t\t\treturn BadRequest(\"No Rows Affected!!\");\r\n";
             text += "\t\t\t}\r\n";
@@ -121,20 +125,20 @@ namespace CodeGenerator
             text += "\t\t\tif (!ModelState.IsValid)\r\n";
             text += "\t\t\t\treturn BadRequest(ModelState);\r\n\r\n";
 
-            text += "\t\t\t" + m.Name + " result = _" + m.Name + "Repository.GetData<" + m.Name + ">(value.Id);\r\n\r\n";
+            text += "\t\t\t" + m.Name + " result = _" + m.Name + "Repository.GetData<" + m.Name + ">(value.id);\r\n";
 
             text += "\t\t\tif (result == null)\r\n";
             text += "\t\t\t\treturn NotFound();\r\n";
             text += "\t\t\tif (result.Equals(value))\r\n";
             text += "\t\t\t\treturn StatusCode(HttpStatusCode.NoContent);\r\n";
             text += "\t\t\tif (value.RowVersion(result))\r\n";
-            text += "\t\t\t\treturn BadRequest(\"RowVersion!\");\r\n";
+            text += "\t\t\t\treturn BadRequest(\"RowVersion!\");\r\n\r\n";
 
             text += "\t\t\ttry\r\n";
             text += "\t\t\t{\r\n";
-            text += "\t\t\t\tvalue.Update(GetRequestUserHostAddress(), GetRequestUserHostName());\r\n";
+            text += "\t\t\t\tvalue.Update(GetRequestUserHostAddress(), GetRequestUserHostName());\r\n\r\n";
             text += "\t\t\t\tif(_" + m.Name + "Repository.PutData<" + m.Name + ">(value))\r\n";
-            text += "\t\t\t\t\treturn Ok();\r\n";
+            text += "\t\t\t\t\treturn Ok(value);\r\n";
             text += "\t\t\t\telse\r\n";
             text += "\t\t\t\t\treturn BadRequest(\"No Rows Affected!\");\r\n";
             text += "\t\t\t}\r\n";
@@ -149,16 +153,16 @@ namespace CodeGenerator
             text += "\t\tpublic IHttpActionResult Delete([FromUri]Guid id)\r\n";
             text += "\t\t{\r\n";
 
-            text += "\t\t\t " + m.Name + " value = _" + m.Name + "Repository.ExistsData<" + m.Name + ">(id) \r\n";
+            text += "\t\t\t " + m.Name + " value = _" + m.Name + "Repository.GetData<" + m.Name + ">(id);\r\n";
 
             text += "\t\t\tif (value == null)\r\n";
-            text += "\t\t\t\treturn NotFound();\r\n";
+            text += "\t\t\t\treturn NotFound();\r\n\r\n";
 
             text += "\t\t\ttry\r\n";
             text += "\t\t\t{\r\n";
-            text += "\t\t\t\t value.Delete(GetRequestUserHostAddress(), GetRequestUserHostName());\r\n";
-            text += "\t\t\t\tif(_" + m.Name + "Repository.PutData<" + m.Name + ">(id))\r\n";
-            text += "\t\t\t\t\treturn Ok();\r\n";
+            text += "\t\t\t\t value.Delete(GetRequestUserHostAddress(), GetRequestUserHostName());\r\n\r\n";
+            text += "\t\t\t\tif(_" + m.Name + "Repository.PutData<" + m.Name + ">(value))\r\n";
+            text += "\t\t\t\t\treturn Ok(value);\r\n";
             text += "\t\t\t\telse\r\n";
             text += "\t\t\t\t\treturn BadRequest(\"No Rows Affected!\");\r\n";
             text += "\t\t\t}\r\n";
@@ -167,10 +171,10 @@ namespace CodeGenerator
             text += "\t\t\t\treturn BadRequest(ex.Message);\r\n";
             text += "\t\t\t}\r\n";
 
-            text += "\t\t}\r\n\r\n";
+            text += "\t\t}\r\n";
 
             text += "\t}\r\n";
-            text += "}\r\n";
+            text += "}";
             
             StreamWriter file = File.AppendText(fileName);
 

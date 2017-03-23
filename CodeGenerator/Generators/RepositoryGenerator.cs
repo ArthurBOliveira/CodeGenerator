@@ -15,13 +15,15 @@ namespace CodeGenerator
             string fileName = m.Name + "Repository.cs";
             string text = "";
 
+            text += "using System;\r\n\r\n";
+
             text += "namespace " + m.NameProject + ".Repositories\r\n";
             text += "{\r\n";
 
             text += "\tpublic class " + m.Name + "Repository : BaseRepository<Models." + m.Name + ">\r\n";
             text += "\t{\r\n";
 
-            text += "\t\tpublic " + m.Name + "Repository(string tablePrefix = \"\") : base(tablePrefix)\r\n";
+            text += "\t\tpublic " + m.Name + "Repository(String tablePrefix = \"jm.\") : base(tablePrefix)\r\n";
             text += "\t\t{ }\r\n";
 
             text += "\t}\r\n";
