@@ -42,10 +42,10 @@ namespace CodeGenerator
             text += "\t\t}\r\n\r\n";
 
             //List by Ids
-            text += "\t\t[HttpPost, Route(\"Get" + m.Name + "sByIds\"), EnableQuery]\r\n";
+            text += "\t\t[HttpPost, Route(\"Get" + m.Name + "ByIds\"), EnableQuery]\r\n";
             text += "\t\tpublic IHttpActionResult Get" + m.Name + "ByIds([FromBody]IEnumerable<Guid> ids, [FromODataUri]Boolean all = false)\r\n";
             text += "\t\t{\r\n";
-            text += "\t\t\tIEnumerable<" + m.Name + "> result = _" + m.Name + "Repository.GetData<" + m.Name + ">(ids.Distinct(), all);\r\n";
+            text += "\t\t\tIEnumerable<" + m.Name + "> result = _" + m.Name + "Repository.GetData<" + m.Name + ">(ids.Distinct(), all);\r\n\r\n";
 
             text += "\t\t\tif (result != null && result.Count() != 0)\r\n";
             text += "\t\t\t\treturn Ok(result);\r\n\r\n";
@@ -53,9 +53,27 @@ namespace CodeGenerator
             text += "\t\t\treturn StatusCode(HttpStatusCode.NoContent);\r\n";
             text += "\t\t}\r\n\r\n";
 
+            //List by Guids
+            foreach(Property p in m.Properties)
+            {
+                if(p.Type == "Guid" && p.Name != "id")
+                {
+                    text += "\t\t[HttpPost, Route(\"Get" + m.Name + "By" + UppercaseFirst(p.Name) + "\"), EnableQuery]\r\n";
+                    text += "\t\tpublic IHttpActionResult Get" + m.Name + "By" + UppercaseFirst(p.Name) + "([FromBody]IEnumerable<Guid> ids, [FromODataUri]Boolean all = false)\r\n";
+                    text += "\t\t{\r\n";
+                    text += "\t\t\tIEnumerable<" + m.Name + "> result = _" + m.Name + "Repository.GetData<" + m.Name + ">(ids.Distinct(), all, \"" + p.Name + "\");\r\n\r\n";
+
+                    text += "\t\t\tif (result != null && result.Count() != 0)\r\n";
+                    text += "\t\t\t\treturn Ok(result);\r\n\r\n";
+
+                    text += "\t\t\treturn StatusCode(HttpStatusCode.NoContent);\r\n";
+                    text += "\t\t}\r\n\r\n";
+                }
+            }
+
             //Hist
-            text += "\t\t[HttpGet, Route(\"Get" + m.Name + "HistsBy" + m.Name + "\"), EnableQuery(PageSize = 50)]\r\n";
-            text += "\t\tpublic IHttpActionResult Ge" + m.Name + "HistsBy" + m.Name + "([FromODataUri]Guid id)\r\n";
+            text += "\t\t[HttpGet, Route(\"Get" + m.Name + "HistBy" + m.Name + "\"), EnableQuery(PageSize = 50)]\r\n";
+            text += "\t\tpublic IHttpActionResult Get" + m.Name + "HistBy" + m.Name + "([FromODataUri]Guid id)\r\n";
             text += "\t\t{\r\n";
             text += "\t\t\tIEnumerable<" + m.Name + "> result = _" + m.Name + "Repository.GetByHist<" + m.Name + ">(id);\r\n\r\n";
 
@@ -104,7 +122,7 @@ namespace CodeGenerator
 
             text += "\t\t\ttry\r\n";
             text += "\t\t\t{\r\n";
-            text += "\t\t\tvalue.Create(GetRequestUserHostAddress(), GetRequestUserHostName());\r\n\r\n";
+            text += "\t\t\t\tvalue.Create(GetRequestUserHostAddress(), GetRequestUserHostName());\r\n\r\n";
 
             text += "\t\t\t\tif(_" + m.Name + "Repository.PostData<" + m.Name + ">(value))\r\n";
             text += "\t\t\t\t\treturn Created<" + m.Name + ">(\"Database\", value);\r\n";
@@ -153,15 +171,19 @@ namespace CodeGenerator
             text += "\t\tpublic IHttpActionResult Delete([FromUri]Guid id)\r\n";
             text += "\t\t{\r\n";
 
-            text += "\t\t\t " + m.Name + " value = _" + m.Name + "Repository.GetData<" + m.Name + ">(id);\r\n";
+            text += "\t\t\t" + m.Name + " value = _" + m.Name + "Repository.GetData<" + m.Name + ">(id);\r\n";
 
             text += "\t\t\tif (value == null)\r\n";
             text += "\t\t\t\treturn NotFound();\r\n\r\n";
 
             text += "\t\t\ttry\r\n";
             text += "\t\t\t{\r\n";
-            text += "\t\t\t\t value.Delete(GetRequestUserHostAddress(), GetRequestUserHostName());\r\n\r\n";
-            text += "\t\t\t\tif(_" + m.Name + "Repository.PutData<" + m.Name + ">(value))\r\n";
+            text += "\t\t\t\tvalue.Delete(GetRequestUserHostAddress(), GetRequestUserHostName());\r\n\r\n";
+            if(!m.IsRelation)
+                text += "\t\t\t\tif(_" + m.Name + "Repository.PutData<" + m.Name + ">(value))\r\n";
+            else
+                text += "\t\t\t\tif(_" + m.Name + "Repository.DeleteData<" + m.Name + ">(value))\r\n";
+
             text += "\t\t\t\t\treturn Ok(value);\r\n";
             text += "\t\t\t\telse\r\n";
             text += "\t\t\t\t\treturn BadRequest(\"No Rows Affected!\");\r\n";

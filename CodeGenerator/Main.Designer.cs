@@ -44,6 +44,7 @@
             this.chkModel = new System.Windows.Forms.CheckBox();
             this.lblRows = new System.Windows.Forms.Label();
             this.chkTeste = new System.Windows.Forms.CheckBox();
+            this.chkRelation = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // lblProjectName
@@ -180,7 +181,7 @@
             this.txtViewModel.Location = new System.Drawing.Point(372, 100);
             this.txtViewModel.Name = "txtViewModel";
             this.txtViewModel.ReadOnly = true;
-            this.txtViewModel.Size = new System.Drawing.Size(350, 466);
+            this.txtViewModel.Size = new System.Drawing.Size(350, 443);
             this.txtViewModel.TabIndex = 60;
             this.txtViewModel.Text = "";
             // 
@@ -213,11 +214,23 @@
             this.chkTeste.Text = "Teste";
             this.chkTeste.UseVisualStyleBackColor = true;
             // 
+            // chkRelation
+            // 
+            this.chkRelation.AutoSize = true;
+            this.chkRelation.Location = new System.Drawing.Point(620, 549);
+            this.chkRelation.Name = "chkRelation";
+            this.chkRelation.Size = new System.Drawing.Size(103, 17);
+            this.chkRelation.TabIndex = 64;
+            this.chkRelation.Text = "Relacionamento";
+            this.chkRelation.UseVisualStyleBackColor = true;
+            this.chkRelation.CheckedChanged += new System.EventHandler(this.chkRelation_CheckedChanged);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(734, 629);
+            this.Controls.Add(this.chkRelation);
             this.Controls.Add(this.chkTeste);
             this.Controls.Add(this.lblRows);
             this.Controls.Add(this.chkModel);
@@ -262,5 +275,6 @@
         private System.Windows.Forms.CheckBox chkModel;
         private System.Windows.Forms.Label lblRows;
         private System.Windows.Forms.CheckBox chkTeste;
+        private System.Windows.Forms.CheckBox chkRelation;
     }
 }

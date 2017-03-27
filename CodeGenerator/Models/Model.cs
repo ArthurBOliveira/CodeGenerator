@@ -12,6 +12,7 @@ namespace CodeGenerator
         private List<Property> properties;
         private string nameProject;
         private string parent;
+        private bool isRelation;
 
         #region Properties
         public string Name
@@ -63,6 +64,19 @@ namespace CodeGenerator
             set
             {
                 parent = value;
+            }
+        }
+
+        public bool IsRelation
+        {
+            get
+            {
+                return isRelation;
+            }
+
+            set
+            {
+                isRelation = value;
             }
         }
         #endregion

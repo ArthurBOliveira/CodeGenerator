@@ -71,6 +71,8 @@ namespace CodeGenerator
             txtViewModel.Visible = false;
             chkModel.Visible = false;
             lblRows.Visible = false;
+            chkRelation.Visible = false;
+            chkTeste.Visible = false;
         }
 
         private void ShowFields()
@@ -88,6 +90,8 @@ namespace CodeGenerator
             txtViewModel.Visible = true;
             chkModel.Visible = true;
             lblRows.Visible = true;
+            chkRelation.Visible = true;
+            chkTeste.Visible = true;
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -169,6 +173,8 @@ namespace CodeGenerator
                     txtViewModel.Text += "\t" + p.Type + " " + p.Name + "\r\n";
 
                 txtViewModel.Text += "}";
+
+                chkRelation.Checked = m.IsRelation;
             }
         }
 
@@ -180,6 +186,18 @@ namespace CodeGenerator
         private void Main_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void chkRelation_CheckedChanged(object sender, EventArgs e)
+        {
+            if (0 < chkListModels.SelectedItems.Count)
+            {
+                string name = chkListModels.SelectedItems[0].ToString();
+
+                Model m = Program.project.Models.Find(item => item.Name == name);
+
+                m.IsRelation = chkRelation.Checked;
+            }
         }
     }
 }

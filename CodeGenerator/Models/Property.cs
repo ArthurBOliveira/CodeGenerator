@@ -10,6 +10,7 @@ namespace CodeGenerator
     {
         private string type;
         private string name;
+        private bool isKey;
 
         #region Properties
         public string Type
@@ -35,6 +36,19 @@ namespace CodeGenerator
             set
             {
                 name = value;
+            }
+        }
+
+        public bool IsKey
+        {
+            get
+            {
+                return isKey;
+            }
+
+            set
+            {
+                isKey = value;
             }
         }
         #endregion

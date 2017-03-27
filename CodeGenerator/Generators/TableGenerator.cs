@@ -18,8 +18,8 @@ namespace CodeGenerator
             if (m.Parent != "")
                 parent = Program.project.Models.Find(item => item.Name == m.Parent);
 
-            if(parent != null)
-                if(parent.Parent != "")
+            if (parent != null)
+                if (parent.Parent != "")
                     grandParent = Program.project.Models.Find(item => item.Name == parent.Parent);
 
             string fileName = "Scripts.sql";
@@ -38,7 +38,16 @@ namespace CodeGenerator
                 else
                 {
                     if (ConvertTypeToSQL(m.Properties[i].Type) != "")
-                        text += "\t[" + m.Properties[i].Name + "] " + ConvertTypeToSQL(m.Properties[i].Type) + " NULL,\r\n";
+                    {
+                        if (i == (m.Properties.Count - 1))
+                        {
+                            text += "\t[" + m.Properties[i].Name + "] " + ConvertTypeToSQL(m.Properties[i].Type) + " NUL\r\n";
+                        }
+                        else
+                        {
+                            text += "\t[" + m.Properties[i].Name + "] " + ConvertTypeToSQL(m.Properties[i].Type) + " NULL,\r\n";
+                        }
+                    }
                 }
             }
 
