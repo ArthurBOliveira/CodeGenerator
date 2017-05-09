@@ -25,7 +25,7 @@ namespace CodeGenerator
             string fileName = "Scripts.sql";
             string text = "";
 
-            text += "CREATE TABLE [jobmanager].[" + m.Name + "]\r\n";
+            text += "CREATE TABLE [jm].[" + m.Name + "]\r\n";
             text += "(\r\n";
 
             for (int i = 0; i < m.Properties.Count; i++)
@@ -33,20 +33,13 @@ namespace CodeGenerator
                 if (i == 0)
                 {
                     if (ConvertTypeToSQL(m.Properties[i].Type) != "")
-                        text += "\t[" + m.Properties[i].Name + "] " + ConvertTypeToSQL(m.Properties[i].Type) + " PRIMARY KEY,\r\n";
+                        text += "\t[" + m.Properties[i].Name + "] " + ConvertTypeToSQL(m.Properties[i].Type) + " PRIMARY KEY";
                 }
                 else
                 {
                     if (ConvertTypeToSQL(m.Properties[i].Type) != "")
                     {
-                        if (i == (m.Properties.Count - 1))
-                        {
-                            text += "\t[" + m.Properties[i].Name + "] " + ConvertTypeToSQL(m.Properties[i].Type) + " NUL\r\n";
-                        }
-                        else
-                        {
-                            text += "\t[" + m.Properties[i].Name + "] " + ConvertTypeToSQL(m.Properties[i].Type) + " NULL,\r\n";
-                        }
+                        text += ",\r\n\t[" + m.Properties[i].Name + "] " + ConvertTypeToSQL(m.Properties[i].Type) + " NULL";
                     }
                 }
             }
@@ -56,7 +49,7 @@ namespace CodeGenerator
                 for (int i = 0; i < parent.Properties.Count; i++)
                 {
                     if (ConvertTypeToSQL(parent.Properties[i].Type) != "")
-                        text += "\t[" + parent.Properties[i].Name + "] " + ConvertTypeToSQL(parent.Properties[i].Type) + " NULL,\r\n";
+                        text += ",\r\n\t[" + parent.Properties[i].Name + "] " + ConvertTypeToSQL(parent.Properties[i].Type) + " NULL";
                 }
             }
 
@@ -65,11 +58,11 @@ namespace CodeGenerator
                 for (int i = 0; i < grandParent.Properties.Count; i++)
                 {
                     if (ConvertTypeToSQL(grandParent.Properties[i].Type) != "")
-                        text += "\t[" + grandParent.Properties[i].Name + "] " + ConvertTypeToSQL(grandParent.Properties[i].Type) + " NULL,\r\n";
+                        text += ",\r\n\t[" + grandParent.Properties[i].Name + "] " + ConvertTypeToSQL(grandParent.Properties[i].Type) + " NULL";
                 }
             }
 
-            text += ")";
+            text += "\r\n)";
 
             StreamWriter file = File.AppendText(fileName);
 

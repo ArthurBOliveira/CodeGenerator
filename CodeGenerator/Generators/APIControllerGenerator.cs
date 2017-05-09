@@ -42,7 +42,7 @@ namespace CodeGenerator
             text += "\t\t}\r\n\r\n";
 
             //List by Ids
-            text += "\t\t[HttpPost, Route(\"Get" + m.Name + "ByIds\"), EnableQuery]\r\n";
+            text += "\t\t[HttpPost, Route(\"Get" + m.Name + "ByIds\"), EnableQuery, ResponseType(typeof(IEnumerable<" + m.Name + ">))]\r\n";
             text += "\t\tpublic IHttpActionResult Get" + m.Name + "ByIds([FromBody]IEnumerable<Guid> ids, [FromODataUri]Boolean all = false)\r\n";
             text += "\t\t{\r\n";
             text += "\t\t\tIEnumerable<" + m.Name + "> result = _" + m.Name + "Repository.GetData<" + m.Name + ">(ids.Distinct(), all);\r\n\r\n";
@@ -58,7 +58,7 @@ namespace CodeGenerator
             {
                 if(p.Type == "Guid" && p.Name != "id")
                 {
-                    text += "\t\t[HttpPost, Route(\"Get" + m.Name + "By" + UppercaseFirst(p.Name) + "\"), EnableQuery]\r\n";
+                    text += "\t\t[HttpPost, Route(\"Get" + m.Name + "By" + UppercaseFirst(p.Name) + "\"), EnableQuery, ResponseType(typeof(IEnumerable<" + m.Name + ">))]\r\n";
                     text += "\t\tpublic IHttpActionResult Get" + m.Name + "By" + UppercaseFirst(p.Name) + "([FromBody]IEnumerable<Guid> ids, [FromODataUri]Boolean all = false)\r\n";
                     text += "\t\t{\r\n";
                     text += "\t\t\tIEnumerable<" + m.Name + "> result = _" + m.Name + "Repository.GetData<" + m.Name + ">(ids.Distinct(), all, \"" + p.Name + "\");\r\n\r\n";
@@ -72,7 +72,7 @@ namespace CodeGenerator
             }
 
             //Hist
-            text += "\t\t[HttpGet, Route(\"Get" + m.Name + "HistBy" + m.Name + "\"), EnableQuery(PageSize = 50)]\r\n";
+            text += "\t\t[HttpGet, Route(\"Get" + m.Name + "HistBy" + m.Name + "\"), EnableQuery(PageSize = 50), ResponseType(typeof(IEnumerable<" + m.Name + ">))]\r\n";
             text += "\t\tpublic IHttpActionResult Get" + m.Name + "HistBy" + m.Name + "([FromODataUri]Guid id)\r\n";
             text += "\t\t{\r\n";
             text += "\t\t\tIEnumerable<" + m.Name + "> result = _" + m.Name + "Repository.GetByHist<" + m.Name + ">(id);\r\n\r\n";
@@ -84,6 +84,7 @@ namespace CodeGenerator
             text += "\t\t}\r\n\r\n";
 
             //Get
+            text += "\t\t[HttpGet, EnableQuery, ResponseType(typeof(" + m.Name + "))]\r\n";
             text += "\t\tpublic IHttpActionResult Get([FromUri]Guid id)\r\n";
             text += "\t\t{\r\n";
 
@@ -97,7 +98,7 @@ namespace CodeGenerator
             text += "\t\t}\r\n\r\n";
 
             //List
-            text += "\t\t[HttpGet, EnableQuery]\r\n";
+            text += "\t\t[HttpGet, EnableQuery, ResponseType(typeof(IEnumerable<" + m.Name + ">))]\r\n";
             text += "\t\tpublic IHttpActionResult Get([FromODataUri]Boolean all = false)\r\n";
             text += "\t\t{\r\n";
 
@@ -149,7 +150,7 @@ namespace CodeGenerator
             text += "\t\t\t\treturn NotFound();\r\n";
             text += "\t\t\tif (result.Equals(value))\r\n";
             text += "\t\t\t\treturn StatusCode(HttpStatusCode.NoContent);\r\n";
-            text += "\t\t\tif (value.RowVersion(result))\r\n";
+            text += "\t\t\tif (!result.RowVersion(value))\r\n";
             text += "\t\t\t\treturn BadRequest(\"RowVersion!\");\r\n\r\n";
 
             text += "\t\t\ttry\r\n";
