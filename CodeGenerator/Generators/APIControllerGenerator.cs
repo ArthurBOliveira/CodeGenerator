@@ -24,7 +24,8 @@ namespace CodeGenerator
             text += "using System.Net;\r\n";
             text += "using System.Web.Http.OData;\r\n";
             text += "using " + m.NameProject + ".Models;\r\n";
-            text += "using " + m.NameProject + ".Repositories;\r\n\r\n";
+            text += "using " + m.NameProject + ".Repositories;\r\n";
+            text += "using System.Web.Http.Description;\r\n\r\n";
 
             text += "namespace " + m.NameProject + ".Controllers\r\n";
             text += "{\r\n";
