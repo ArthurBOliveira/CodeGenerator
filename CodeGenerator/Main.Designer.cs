@@ -43,7 +43,7 @@
             this.txtViewModel = new System.Windows.Forms.RichTextBox();
             this.chkModel = new System.Windows.Forms.CheckBox();
             this.lblRows = new System.Windows.Forms.Label();
-            this.chkTeste = new System.Windows.Forms.CheckBox();
+            this.chkService = new System.Windows.Forms.CheckBox();
             this.chkRelation = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
@@ -204,15 +204,16 @@
             this.lblRows.Size = new System.Drawing.Size(0, 16);
             this.lblRows.TabIndex = 62;
             // 
-            // chkTeste
+            // chkService
             // 
-            this.chkTeste.AutoSize = true;
-            this.chkTeste.Location = new System.Drawing.Point(495, 597);
-            this.chkTeste.Name = "chkTeste";
-            this.chkTeste.Size = new System.Drawing.Size(53, 17);
-            this.chkTeste.TabIndex = 63;
-            this.chkTeste.Text = "Teste";
-            this.chkTeste.UseVisualStyleBackColor = true;
+            this.chkService.AutoSize = true;
+            this.chkService.Location = new System.Drawing.Point(495, 597);
+            this.chkService.Name = "chkService";
+            this.chkService.Size = new System.Drawing.Size(62, 17);
+            this.chkService.TabIndex = 63;
+            this.chkService.Text = "Service";
+            this.chkService.UseVisualStyleBackColor = true;
+            this.chkService.CheckedChanged += new System.EventHandler(this.chkTeste_CheckedChanged);
             // 
             // chkRelation
             // 
@@ -231,7 +232,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(734, 629);
             this.Controls.Add(this.chkRelation);
-            this.Controls.Add(this.chkTeste);
+            this.Controls.Add(this.chkService);
             this.Controls.Add(this.lblRows);
             this.Controls.Add(this.chkModel);
             this.Controls.Add(this.txtViewModel);
@@ -274,7 +275,7 @@
         private System.Windows.Forms.RichTextBox txtViewModel;
         private System.Windows.Forms.CheckBox chkModel;
         private System.Windows.Forms.Label lblRows;
-        private System.Windows.Forms.CheckBox chkTeste;
+        private System.Windows.Forms.CheckBox chkService;
         private System.Windows.Forms.CheckBox chkRelation;
     }
 }

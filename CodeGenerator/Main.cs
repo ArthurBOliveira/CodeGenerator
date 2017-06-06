@@ -72,7 +72,7 @@ namespace CodeGenerator
             chkModel.Visible = false;
             lblRows.Visible = false;
             chkRelation.Visible = false;
-            chkTeste.Visible = false;
+            chkService.Visible = false;
         }
 
         private void ShowFields()
@@ -91,7 +91,7 @@ namespace CodeGenerator
             chkModel.Visible = true;
             lblRows.Visible = true;
             chkRelation.Visible = true;
-            chkTeste.Visible = true;
+            chkService.Visible = true;
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -119,8 +119,8 @@ namespace CodeGenerator
                     TableGenerator.Generate(m);
                 if (chkDAL.Checked)
                     RepositoryGenerator.Generate(m);
-                if (chkTeste.Checked)
-                    PostmanTesterGenerator.Generate(m);
+                if (chkService.Checked)
+                    ServiceGenerator.Generate(m);
             }
         }
 
@@ -198,6 +198,11 @@ namespace CodeGenerator
 
                 m.IsRelation = chkRelation.Checked;
             }
+        }
+
+        private void chkTeste_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

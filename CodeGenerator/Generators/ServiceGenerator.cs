@@ -12,22 +12,22 @@ namespace CodeGenerator
         public static bool Generate(Model m)
         {
             bool result = false;
-            string fileName = m.Name + "Services.cs";
+            string fileName = m.Name + "Service.cs";
             string text = "";
 
-            text += "using System;\r\n";
-            text += "using System.Collections.Generic;\r\n";
-            text += "using System.Security.Principal;\r\n";
-            text += "using System.Web;\r\n";
-            text += "using System.Web.Mvc;\r\n";
+            text += "using System;\r\n\r\n";
 
-            text += "namespace " + m.NameProject + "Services\r\n";
+            text += "namespace " + m.NameProject + ".Services\r\n";
             text += "{\r\n";
 
-            text += "\tpublic class " + m.Name + "Services : BaseServices<Models." + m.Name + ">\r\n";
-            text += "\t{\r\n";      
+            text += "\tpublic class " + m.Name + "Service : BaseService<Models." + m.Name + ">\r\n";
+            text += "\t{\r\n";
 
-
+            text += "\t\tprivate " + m.Name + "Repository _" + m.Name + "Repository;\r\n";
+            text += "\t\tpublic " + m.Name + "Service(String userHostAddress, Guid userHostName) : base(new " + m.Name + "Repository(), userHostAddress, userHostName)\r\n";
+            text += "\t\t{\r\n";
+            text += "\t\t\t_" + m.Name + "Repository = (_BaseRepository as " + m.Name + "Repository);\r\n";
+            text += "\t\t}\r\n";
 
             text += "\t}\r\n";
             text += "}";
