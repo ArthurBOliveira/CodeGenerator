@@ -25,6 +25,11 @@ namespace CodeGenerator
             text += "namespace " + m.NameProject + ".Controllers\r\n";
             text += "{\r\n";
 
+            //Documentation
+            text += "\t///<summary>\r\n";
+            text += "\t/// Controller for the " + m.Name + "\r\n";
+            text += "\t///</summary>\r\n";
+
             text += "\t[RoutePrefix(\"api/" + m.Name + "\")]\r\n";
             text += "\tpublic class " + m.Name + "Controller : BaseController\r\n";
             text += "\t{\r\n";
@@ -34,6 +39,13 @@ namespace CodeGenerator
             text += "\t\t\treturn new Services." + m.Name + "Service(GetRequestUserHostAddress(), GetRequestUserHostName());\r\n";
             text += "\t\t}\r\n";
 
+            //Documentation
+            text += "\t\t///<summary>\r\n";
+            text += "\t\t/// LIST all " + m.Name + "s with the specifics Ids\r\n";
+            text += "\t\t///</summary>\r\n";
+            text += "\t\t///<param name=\"ids\">List of Ids</param>\r\n";
+            text += "\t\t///<param name=\"all\">Include the inactive or not</param>\r\n";
+            text += "\t\t///<returns>200 - List of " + m.Name + "</returns>\r\n";                       
 
             //List by Ids
             text += "\t\t[HttpPost, Route(\"Get" + m.Name + "ByIds\"), EnableQuery, ResponseType(typeof(IEnumerable<Models." + m.Name + ">))]\r\n";
@@ -45,11 +57,20 @@ namespace CodeGenerator
 
             text += "\t\t}\r\n\r\n";
 
+
             //List by Guids
             foreach(Property p in m.Properties)
             {
                 if(p.Type == "Guid" && p.Name != "id")
                 {
+                    //Documentation
+                    text += "\t\t///<summary>\r\n";
+                    text += "\t\t/// LIST all " + m.Name + "s connected with the specifics " + UppercaseFirst(p.Name) + "\r\n";
+                    text += "\t\t///</summary>\r\n";
+                    text += "\t\t///<param name=\"ids\">List of " + UppercaseFirst(p.Name) + " Ids</param>\r\n";
+                    text += "\t\t///<param name=\"all\">Include the inactive or not</param>\r\n";
+                    text += "\t\t///<returns>200 - List of " + m.Name + "</returns>\r\n";
+
                     text += "\t\t[HttpPost, Route(\"Get" + m.Name + "By" + UppercaseFirst(p.Name) + "\"), EnableQuery, ResponseType(typeof(IEnumerable<Models." + m.Name + ">))]\r\n";
                     text += "\t\tpublic IHttpActionResult Get" + m.Name + "By" + UppercaseFirst(p.Name) + "([FromBody]IEnumerable<Guid> ids, [FromODataUri]Boolean all = false)\r\n";
                     text += "\t\t{\r\n";
@@ -61,6 +82,15 @@ namespace CodeGenerator
                 }
             }
 
+
+            //Documentation
+            text += "\t\t///<summary>\r\n";
+            text += "\t\t/// GET the historic of a specific " + m.Name + "\r\n";
+            text += "\t\t///</summary>\r\n";
+            text += "\t\t///<param name=\"id\">" + m.Name + " Id</param>\r\n";
+            text += "\t\t///<param name=\"all\">Include the inactive or not</param>\r\n";
+            text += "\t\t///<returns>200 - List of " + m.Name + " historic</returns>\r\n";
+
             //Hist
             text += "\t\t[HttpGet, Route(\"Get" + m.Name + "HistBy" + m.Name + "\"), EnableQuery(PageSize = 50), ResponseType(typeof(IEnumerable<Models." + m.Name + ">))]\r\n";
             text += "\t\tpublic IHttpActionResult Get" + m.Name + "HistBy" + m.Name + "([FromODataUri]Guid id)\r\n";
@@ -70,6 +100,14 @@ namespace CodeGenerator
             text += "\t\t\tcatch (Exception ex) { return base.ThreatExceptions(ex); }\r\n";
 
             text += "\t\t}\r\n\r\n";
+
+
+            //Documentation
+            text += "\t\t///<summary>\r\n";
+            text += "\t\t///GET a specific " + m.Name + "\r\n";
+            text += "\t\t///</summary>\r\n";
+            text += "\t\t///<param name=\"id\">" + m.Name + " Id</param>\r\n";
+            text += "\t\t///<returns>200 - List of " + m.Name + "</returns>\r\n";
 
             //Get
             text += "\t\t[HttpGet, EnableQuery, ResponseType(typeof(Models." + m.Name + "))]\r\n";
@@ -81,6 +119,14 @@ namespace CodeGenerator
 
             text += "\t\t}\r\n\r\n";
 
+
+            //Documentation
+            text += "\t\t///<summary>\r\n";
+            text += "\t\t///GET all " + m.Name + "s on Database\r\n";
+            text += "\t\t///</summary>\r\n";
+            text += "\t\t///<param name=\"all\">Include the inactive or not</param>\r\n";
+            text += "\t\t///<returns>200 - List of " + m.Name + "</returns>\r\n";
+
             //List
             text += "\t\t[HttpGet, EnableQuery, ResponseType(typeof(IEnumerable<Models." + m.Name + ">))]\r\n";
             text += "\t\tpublic IHttpActionResult Get([FromODataUri]Boolean all = false)\r\n";
@@ -90,6 +136,14 @@ namespace CodeGenerator
             text += "\t\t\tcatch (Exception ex) { return base.ThreatExceptions(ex); }\r\n";
 
             text += "\t\t}\r\n\r\n";
+
+
+            //Documentation
+            text += "\t\t///<summary>\r\n";
+            text += "\t\t///POST a " + m.Name + "\r\n";
+            text += "\t\t///</summary>\r\n";
+            text += "\t\t///<param name=\"value\">" + m.Name + " to Post</param>\r\n";
+            text += "\t\t///<returns>200 - " + m.Name + "</returns>\r\n";
 
             //Post
             text += "\t\tpublic IHttpActionResult Post([FromBody]Models." + m.Name + " value)\r\n";
@@ -103,6 +157,14 @@ namespace CodeGenerator
 
             text += "\t\t}\r\n\r\n";
 
+
+            //Documentation
+            text += "\t\t///<summary>\r\n";
+            text += "\t\t///PUT a " + m.Name + "\r\n";
+            text += "\t\t///</summary>\r\n";
+            text += "\t\t///<param name=\"value\">" + m.Name + " to Update</param>\r\n";
+            text += "\t\t///<returns>200 - " + m.Name + "</returns>\r\n";
+
             //Put
             text += "\t\tpublic IHttpActionResult Put([FromBody]Models." + m.Name + " value)\r\n";
             text += "\t\t{\r\n";
@@ -110,19 +172,49 @@ namespace CodeGenerator
             text += "\t\t\tif (!ModelState.IsValid)\r\n";
             text += "\t\t\t\treturn BadRequest(ModelState);\r\n\r\n";
 
-            text += "\t\t\ttry { return Ok(GetService().Put(value)); }\r\n";
+            text += "\t\t\ttry { return Ok(GetService().Put<" + m.Name + ">(value)); }\r\n";
             text += "\t\t\tcatch (Exception ex) { return base.ThreatExceptions(ex); }\r\n";
 
             text += "\t\t}\r\n\r\n";
 
-            //Delete
-            text += "\t\tpublic IHttpActionResult Delete([FromUri]Guid id)\r\n";
-            text += "\t\t{\r\n";
 
-            text += "\t\t\ttry { return Ok(GetService().Delete(id)); }\r\n";
-            text += "\t\t\tcatch (Exception ex) { return base.ThreatExceptions(ex); }\r\n";
+            if (!m.IsRelation)
+            {
+                //Documentation
+                text += "\t\t///<summary>\r\n";
+                text += "\t\t///Delete a " + m.Name + ". A " + m.Name + " is always soft deleted\r\n";
+                text += "\t\t///</summary>\r\n";
+                text += "\t\t///<param name=\"value\">" + m.Name + " to Delete</param>\r\n";
+                text += "\t\t///<returns>200</returns>\r\n";
 
-            text += "\t\t}\r\n";
+                //Delete
+                text += "\t\tpublic IHttpActionResult Delete([FromUri]Guid id)\r\n";
+                text += "\t\t{\r\n";
+
+                text += "\t\t\ttry { return Ok(GetService().Delete<" + m.Name + ">(id)); }\r\n";
+                text += "\t\t\tcatch (Exception ex) { return base.ThreatExceptions(ex); }\r\n";
+
+                text += "\t\t}\r\n";
+            }
+            else
+            {
+                //Documentation
+                text += "\t\t///<summary>\r\n";
+                text += "\t\t///Delete a " + m.Name + "\r\n";
+                text += "\t\t///</summary>\r\n";
+                text += "\t\t///<param name=\"value\">" + m.Name + " to Delete</param>\r\n";
+                text += "\t\t///<returns>200</returns>\r\n";
+
+                //Delete
+                text += "\t\tpublic IHttpActionResult Delete([FromUri]Guid id)\r\n";
+                text += "\t\t{\r\n";
+
+                text += "\t\t\ttry { return Ok(GetService().Drop<" + m.Name + ">(id)); }\r\n";
+                text += "\t\t\tcatch (Exception ex) { return base.ThreatExceptions(ex); }\r\n";
+
+                text += "\t\t}\r\n";
+            }
+
             text += "\t}";
             text += "}";
 
