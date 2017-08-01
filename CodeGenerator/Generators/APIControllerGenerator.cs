@@ -20,7 +20,9 @@ namespace CodeGenerator
             text += "using System.Linq;\r\n";
             text += "using System.Web.Http;\r\n";
             text += "using System.Web.Http.Description;\r\n";
-            text += "using System.Web.Http.OData;\r\n\r\n";
+            text += "using System.Web.Http.OData;\r\n";
+            text += "using JobManager_Back.Models;\r\n";
+            text += "using JobManager_Back.Services;\r\n\r\n";
 
             text += "namespace " + m.NameProject + ".Controllers\r\n";
             text += "{\r\n";
@@ -34,10 +36,10 @@ namespace CodeGenerator
             text += "\tpublic class " + m.Name + "Controller : BaseController\r\n";
             text += "\t{\r\n";
 
-            text += "\t\tprotected Services." + m.Name + "Service GetService()\r\n";
+            text += "\t\tprotected " + m.Name + "Service GetService()\r\n";
             text += "\t\t{\r\n";
-            text += "\t\t\treturn new Services." + m.Name + "Service(GetRequestUserHostAddress(), GetRequestUserHostName());\r\n";
-            text += "\t\t}\r\n";
+            text += "\t\t\treturn new " + m.Name + "Service(GetRequestUserHostAddress(), GetRequestUserHostName());\r\n";
+            text += "\t\t}\r\n\r\n";
 
             //Documentation
             text += "\t\t///<summary>\r\n";
@@ -48,11 +50,11 @@ namespace CodeGenerator
             text += "\t\t///<returns>200 - List of " + m.Name + "</returns>\r\n";                       
 
             //List by Ids
-            text += "\t\t[HttpPost, Route(\"Get" + m.Name + "ByIds\"), EnableQuery, ResponseType(typeof(IEnumerable<Models." + m.Name + ">))]\r\n";
+            text += "\t\t[HttpPost, Route(\"Get" + m.Name + "ByIds\"), EnableQuery, ResponseType(typeof(IEnumerable<" + m.Name + ">))]\r\n";
             text += "\t\tpublic IHttpActionResult Get" + m.Name + "ByIds([FromBody]IEnumerable<Guid> ids, [FromODataUri]Boolean all = false)\r\n";
             text += "\t\t{\r\n";
 
-            text += "\t\t\ttry { return Ok(GetService().GetByIds<Models." + m.Name + ">(ids, all)); }\r\n";
+            text += "\t\t\ttry { return Ok(GetService().GetByIds<" + m.Name + ">(ids, all)); }\r\n";
             text += "\t\t\tcatch (Exception ex) { return base.ThreatExceptions(ex); }\r\n";
 
             text += "\t\t}\r\n\r\n";
@@ -71,11 +73,11 @@ namespace CodeGenerator
                     text += "\t\t///<param name=\"all\">Include the inactive or not</param>\r\n";
                     text += "\t\t///<returns>200 - List of " + m.Name + "</returns>\r\n";
 
-                    text += "\t\t[HttpPost, Route(\"Get" + m.Name + "By" + UppercaseFirst(p.Name) + "\"), EnableQuery, ResponseType(typeof(IEnumerable<Models." + m.Name + ">))]\r\n";
+                    text += "\t\t[HttpPost, Route(\"Get" + m.Name + "By" + UppercaseFirst(p.Name) + "\"), EnableQuery, ResponseType(typeof(IEnumerable<" + m.Name + ">))]\r\n";
                     text += "\t\tpublic IHttpActionResult Get" + m.Name + "By" + UppercaseFirst(p.Name) + "([FromBody]IEnumerable<Guid> ids, [FromODataUri]Boolean all = false)\r\n";
                     text += "\t\t{\r\n";
 
-                    text += "\t\t\ttry { return Ok(GetService().GetByIds<Models." + m.Name + ">(ids, all, \"" + UppercaseFirst(p.Name) + "\")); }\r\n";
+                    text += "\t\t\ttry { return Ok(GetService().GetByIds<" + m.Name + ">(ids, all, \"" + UppercaseFirst(p.Name) + "\")); }\r\n";
                     text += "\t\t\tcatch (Exception ex) { return base.ThreatExceptions(ex); }\r\n";
 
                     text += "\t\t}\r\n\r\n";
@@ -92,11 +94,11 @@ namespace CodeGenerator
             text += "\t\t///<returns>200 - List of " + m.Name + " historic</returns>\r\n";
 
             //Hist
-            text += "\t\t[HttpGet, Route(\"Get" + m.Name + "HistBy" + m.Name + "\"), EnableQuery(PageSize = 50), ResponseType(typeof(IEnumerable<Models." + m.Name + ">))]\r\n";
+            text += "\t\t[HttpGet, Route(\"Get" + m.Name + "HistBy" + m.Name + "\"), EnableQuery(PageSize = 50), ResponseType(typeof(IEnumerable<" + m.Name + ">))]\r\n";
             text += "\t\tpublic IHttpActionResult Get" + m.Name + "HistBy" + m.Name + "([FromODataUri]Guid id)\r\n";
             text += "\t\t{\r\n";
 
-            text += "\t\t\ttry { return Ok(GetService().GetByHist<Models." + m.Name + ">(id)); }\r\n";
+            text += "\t\t\ttry { return Ok(GetService().GetByHist<" + m.Name + ">(id)); }\r\n";
             text += "\t\t\tcatch (Exception ex) { return base.ThreatExceptions(ex); }\r\n";
 
             text += "\t\t}\r\n\r\n";
@@ -110,11 +112,11 @@ namespace CodeGenerator
             text += "\t\t///<returns>200 - List of " + m.Name + "</returns>\r\n";
 
             //Get
-            text += "\t\t[HttpGet, EnableQuery, ResponseType(typeof(Models." + m.Name + "))]\r\n";
+            text += "\t\t[HttpGet, EnableQuery, ResponseType(typeof(" + m.Name + "))]\r\n";
             text += "\t\tpublic IHttpActionResult Get([FromUri]Guid id)\r\n";
             text += "\t\t{\r\n";
 
-            text += "\t\t\ttry { return Ok(GetService().Get<Models." + m.Name + ">(id)); }\r\n";
+            text += "\t\t\ttry { return Ok(GetService().Get<" + m.Name + ">(id)); }\r\n";
             text += "\t\t\tcatch (Exception ex) { return base.ThreatExceptions(ex); }\r\n";
 
             text += "\t\t}\r\n\r\n";
@@ -128,11 +130,11 @@ namespace CodeGenerator
             text += "\t\t///<returns>200 - List of " + m.Name + "</returns>\r\n";
 
             //List
-            text += "\t\t[HttpGet, EnableQuery, ResponseType(typeof(IEnumerable<Models." + m.Name + ">))]\r\n";
+            text += "\t\t[HttpGet, EnableQuery, ResponseType(typeof(IEnumerable<" + m.Name + ">))]\r\n";
             text += "\t\tpublic IHttpActionResult Get([FromODataUri]Boolean all = false)\r\n";
             text += "\t\t{\r\n";
 
-            text += "\t\t\ttry { return Ok(GetService().Get<Models." + m.Name + ">(all)); }\r\n";
+            text += "\t\t\ttry { return Ok(GetService().Get<" + m.Name + ">(all)); }\r\n";
             text += "\t\t\tcatch (Exception ex) { return base.ThreatExceptions(ex); }\r\n";
 
             text += "\t\t}\r\n\r\n";
@@ -146,7 +148,7 @@ namespace CodeGenerator
             text += "\t\t///<returns>200 - " + m.Name + "</returns>\r\n";
 
             //Post
-            text += "\t\tpublic IHttpActionResult Post([FromBody]Models." + m.Name + " value)\r\n";
+            text += "\t\tpublic IHttpActionResult Post([FromBody]" + m.Name + " value)\r\n";
             text += "\t\t{\r\n";
 
             text += "\t\t\tif (!ModelState.IsValid)\r\n";
@@ -165,20 +167,37 @@ namespace CodeGenerator
             text += "\t\t///<param name=\"value\">" + m.Name + " to Update</param>\r\n";
             text += "\t\t///<returns>200 - " + m.Name + "</returns>\r\n";
 
-            //Put
-            text += "\t\tpublic IHttpActionResult Put([FromBody]Models." + m.Name + " value)\r\n";
-            text += "\t\t{\r\n";
-
-            text += "\t\t\tif (!ModelState.IsValid)\r\n";
-            text += "\t\t\t\treturn BadRequest(ModelState);\r\n\r\n";
-
-            text += "\t\t\ttry { return Ok(GetService().Put<" + m.Name + ">(value)); }\r\n";
-            text += "\t\t\tcatch (Exception ex) { return base.ThreatExceptions(ex); }\r\n";
-
-            text += "\t\t}\r\n\r\n";
-
-
             if (!m.IsRelation)
+            {
+                //Put
+                text += "\t\tpublic IHttpActionResult Put([FromBody]" + m.Name + " value)\r\n";
+                text += "\t\t{\r\n";
+
+                text += "\t\t\tif (!ModelState.IsValid)\r\n";
+                text += "\t\t\t\treturn BadRequest(ModelState);\r\n\r\n";
+
+                text += "\t\t\ttry { return Ok(GetService().Put<" + m.Name + ">(value, new List<String>() { \"" + m.Properties[1].Name + "\", \"" + m.Properties[2].Name + "\" })); }\r\n";
+                text += "\t\t\tcatch (Exception ex) { return base.ThreatExceptions(ex); }\r\n";
+
+                text += "\t\t}\r\n\r\n";
+            }
+            else
+            {
+                //Put
+                text += "\t\tpublic IHttpActionResult Put([FromBody]" + m.Name + " value)\r\n";
+                text += "\t\t{\r\n";
+
+                text += "\t\t\tif (!ModelState.IsValid)\r\n";
+                text += "\t\t\t\treturn BadRequest(ModelState);\r\n\r\n";
+
+                text += "\t\t\ttry { return Ok(GetService().Put<" + m.Name + ">(value)); }\r\n";
+                text += "\t\t\tcatch (Exception ex) { return base.ThreatExceptions(ex); }\r\n";
+
+                text += "\t\t}\r\n\r\n";
+            }
+
+
+                if (!m.IsRelation)
             {
                 //Documentation
                 text += "\t\t///<summary>\r\n";

@@ -15,18 +15,21 @@ namespace CodeGenerator
             string fileName = m.Name + "Service.cs";
             string text = "";
 
-            text += "using System;\r\n\r\n";
+            text += "using System;\r\n";
+            text += "using System.Collections.Generic;\r\n";
+            text += "using JobManager_Back.Repositories;\r\n";
+            text += "using JobManager_Back.Models;\r\n\r\n";
 
-            text += "namespace " + m.NameProject + ".Services\r\n";
+            text += "namespace " + m.NameProject + "_Back.Services\r\n";
             text += "{\r\n";
 
-            text += "\tpublic class " + m.Name + "Service : BaseGuidService<Models." + m.Name + ">\r\n";
+            text += "\tpublic class " + m.Name + "Service : BaseGuidService<" + m.Name + ">\r\n";
             text += "\t{\r\n";
 
             text += "\t\tprivate Repositories." + m.Name + "Repository _" + m.Name + "Repository;\r\n";
             text += "\t\tpublic " + m.Name + "Service(String userHostAddress, Guid userHostName) : base(new Repositories." + m.Name + "Repository(), userHostAddress, userHostName)\r\n";
             text += "\t\t{\r\n";
-            text += "\t\t\t_" + m.Name + "Repository = (_BaseRepository as Repositories." + m.Name + "Repository);\r\n";
+            text += "\t\t\t_" + m.Name + "Repository = (_BaseRepository as " + m.Name + "Repository);\r\n";
             text += "\t\t}\r\n";
 
             text += "\t}\r\n";
