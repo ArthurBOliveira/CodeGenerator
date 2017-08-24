@@ -47,7 +47,7 @@ namespace CodeGenerator
             text += "\t\t///</summary>\r\n";
             text += "\t\t///<param name=\"ids\">List of Ids</param>\r\n";
             text += "\t\t///<param name=\"all\">Include the inactive or not</param>\r\n";
-            text += "\t\t///<returns>200 - List of " + m.Name + "</returns>\r\n";                       
+            text += "\t\t///<returns>200 - List of " + m.Name + "</returns>\r\n";
 
             //List by Ids
             text += "\t\t[HttpPost, Route(\"Get" + m.Name + "ByIds\"), EnableQuery, ResponseType(typeof(IEnumerable<" + m.Name + ">))]\r\n";
@@ -61,9 +61,9 @@ namespace CodeGenerator
 
 
             //List by Guids
-            foreach(Property p in m.Properties)
+            foreach (Property p in m.Properties)
             {
-                if(p.Type == "Guid" && p.Name != "id")
+                if (p.Type == "Guid" && p.Name != "id")
                 {
                     //Documentation
                     text += "\t\t///<summary>\r\n";
@@ -154,8 +154,8 @@ namespace CodeGenerator
             text += "\t\t\tif (!ModelState.IsValid)\r\n";
             text += "\t\t\t\treturn BadRequest(ModelState);\r\n\r\n";
 
-            text += "\t\t\ttry { return Created(\"Database\", GetService().Post(value)); }";
-            text += "\t\t\tcatch (Exception ex) { return base.ThreatExceptions(ex); }";
+            text += "\t\t\ttry { return Created(\"Database\", GetService().Post(value)); }\r\n";
+            text += "\t\t\tcatch (Exception ex) { return base.ThreatExceptions(ex); }\r\n";
 
             text += "\t\t}\r\n\r\n";
 
@@ -197,13 +197,13 @@ namespace CodeGenerator
             }
 
 
-                if (!m.IsRelation)
+            if (!m.IsRelation)
             {
                 //Documentation
                 text += "\t\t///<summary>\r\n";
                 text += "\t\t///Delete a " + m.Name + ". A " + m.Name + " is always soft deleted\r\n";
                 text += "\t\t///</summary>\r\n";
-                text += "\t\t///<param name=\"value\">" + m.Name + " to Delete</param>\r\n";
+                text += "\t\t///<param name=\"id\">" + m.Name + " to Delete</param>\r\n";
                 text += "\t\t///<returns>200</returns>\r\n";
 
                 //Delete
@@ -221,7 +221,7 @@ namespace CodeGenerator
                 text += "\t\t///<summary>\r\n";
                 text += "\t\t///Delete a " + m.Name + "\r\n";
                 text += "\t\t///</summary>\r\n";
-                text += "\t\t///<param name=\"value\">" + m.Name + " to Delete</param>\r\n";
+                text += "\t\t///<param name=\"id\">" + m.Name + " to Delete</param>\r\n";
                 text += "\t\t///<returns>200</returns>\r\n";
 
                 //Delete

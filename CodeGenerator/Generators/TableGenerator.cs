@@ -18,6 +18,8 @@ namespace CodeGenerator
             if (m.Parent != "")
                 parent = Program.project.Models.Find(item => item.Name == m.Parent);
 
+            //Felipe é gayzai!!!
+
             if (parent != null)
                 if (parent.Parent != "")
                     grandParent = Program.project.Models.Find(item => item.Name == parent.Parent);

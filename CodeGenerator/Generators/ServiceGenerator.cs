@@ -26,8 +26,8 @@ namespace CodeGenerator
             text += "\tpublic class " + m.Name + "Service : BaseGuidService<" + m.Name + ">\r\n";
             text += "\t{\r\n";
 
-            text += "\t\tprivate Repositories." + m.Name + "Repository _" + m.Name + "Repository;\r\n";
-            text += "\t\tpublic " + m.Name + "Service(String userHostAddress, Guid userHostName) : base(new Repositories." + m.Name + "Repository(), userHostAddress, userHostName)\r\n";
+            text += "\t\tprivate " + m.Name + "Repository _" + m.Name + "Repository;\r\n";
+            text += "\t\tpublic " + m.Name + "Service(String userHostAddress, Guid userHostName) : base(new " + m.Name + "Repository(), userHostAddress, userHostName)\r\n";
             text += "\t\t{\r\n";
             text += "\t\t\t_" + m.Name + "Repository = (_BaseRepository as " + m.Name + "Repository);\r\n";
             text += "\t\t}\r\n";

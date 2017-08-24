@@ -16,9 +16,10 @@ namespace CodeGenerator
             string text = "";
 
             text += "using System;\r\n";
+            text += "using Back.Repositories;\r\n";
             text += "using JobManager_Back.Models;\r\n\r\n";
 
-            text += "namespace " + m.NameProject + ".Repositories\r\n";
+            text += "namespace " + m.NameProject + "_Back.Repositories\r\n";
             text += "{\r\n";
 
             text += "\tpublic class " + m.Name + "Repository : BaseRepository<" + m.Name + ">\r\n";
