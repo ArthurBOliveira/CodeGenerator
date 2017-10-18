@@ -167,7 +167,7 @@ namespace CodeGenerator
             text += "\t\t///<param name=\"value\">" + m.Name + " to Update</param>\r\n";
             text += "\t\t///<returns>200 - " + m.Name + "</returns>\r\n";
 
-            if (!m.IsRelation)
+            if (m.IsRelation)
             {
                 //Put
                 text += "\t\tpublic IHttpActionResult Put([FromBody]" + m.Name + " value)\r\n";
