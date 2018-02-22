@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 
 namespace CodeGenerator
 {
@@ -20,7 +15,6 @@ namespace CodeGenerator
             text += "using System.Linq;\r\n";
             text += "using System.Web.Http;\r\n";
             text += "using System.Web.Http.Description;\r\n";
-            text += "using System.Web.Http.OData;\r\n";
             text += "using JobManager_Back.Models;\r\n";
             text += "using JobManager_Back.Services;\r\n\r\n";
 
@@ -41,25 +35,6 @@ namespace CodeGenerator
             text += "\t\t\treturn new " + m.Name + "Service(GetRequestUserHostAddress(), GetRequestUserHostName());\r\n";
             text += "\t\t}\r\n\r\n";
 
-            //Documentation
-            text += "\t\t///<summary>\r\n";
-            text += "\t\t/// LIST all " + m.Name + "s with the specifics Ids\r\n";
-            text += "\t\t///</summary>\r\n";
-            text += "\t\t///<param name=\"ids\">List of Ids</param>\r\n";
-            text += "\t\t///<param name=\"all\">Include the inactive or not</param>\r\n";
-            text += "\t\t///<returns>200 - List of " + m.Name + "</returns>\r\n";
-
-            //List by Ids
-            text += "\t\t[HttpPost, Route(\"Get" + m.Name + "ByIds\"), EnableQuery, ResponseType(typeof(IEnumerable<" + m.Name + ">))]\r\n";
-            text += "\t\tpublic IHttpActionResult Get" + m.Name + "ByIds([FromBody]IEnumerable<Guid> ids, [FromODataUri]Boolean all = false)\r\n";
-            text += "\t\t{\r\n";
-
-            text += "\t\t\ttry { return Ok(GetService().GetByIds<" + m.Name + ">(ids, all)); }\r\n";
-            text += "\t\t\tcatch (Exception ex) { return base.ThreatExceptions(ex); }\r\n";
-
-            text += "\t\t}\r\n\r\n";
-
-
             //List by Guids
             foreach (Property p in m.Properties)
             {
@@ -73,8 +48,8 @@ namespace CodeGenerator
                     text += "\t\t///<param name=\"all\">Include the inactive or not</param>\r\n";
                     text += "\t\t///<returns>200 - List of " + m.Name + "</returns>\r\n";
 
-                    text += "\t\t[HttpPost, Route(\"Get" + m.Name + "By" + UppercaseFirst(p.Name) + "\"), EnableQuery, ResponseType(typeof(IEnumerable<" + m.Name + ">))]\r\n";
-                    text += "\t\tpublic IHttpActionResult Get" + m.Name + "By" + UppercaseFirst(p.Name) + "([FromBody]IEnumerable<Guid> ids, [FromODataUri]Boolean all = false)\r\n";
+                    text += "\t\t[HttpPost, Route(\"Get" + m.Name + "By" + UppercaseFirst(p.Name) + "\"),  ResponseType(typeof(IEnumerable<" + m.Name + ">))]\r\n";
+                    text += "\t\tpublic IHttpActionResult Get" + m.Name + "By" + UppercaseFirst(p.Name) + "([FromBody]IEnumerable<Guid> ids, [FromUri]Boolean all = false)\r\n";
                     text += "\t\t{\r\n";
 
                     text += "\t\t\ttry { return Ok(GetService().GetByIds<" + m.Name + ">(ids, all, \"" + UppercaseFirst(p.Name) + "\")); }\r\n";
@@ -87,32 +62,13 @@ namespace CodeGenerator
 
             //Documentation
             text += "\t\t///<summary>\r\n";
-            text += "\t\t/// GET the historic of a specific " + m.Name + "\r\n";
-            text += "\t\t///</summary>\r\n";
-            text += "\t\t///<param name=\"id\">" + m.Name + " Id</param>\r\n";
-            text += "\t\t///<param name=\"all\">Include the inactive or not</param>\r\n";
-            text += "\t\t///<returns>200 - List of " + m.Name + " historic</returns>\r\n";
-
-            //Hist
-            text += "\t\t[HttpGet, Route(\"Get" + m.Name + "HistBy" + m.Name + "\"), EnableQuery(PageSize = 50), ResponseType(typeof(IEnumerable<" + m.Name + ">))]\r\n";
-            text += "\t\tpublic IHttpActionResult Get" + m.Name + "HistBy" + m.Name + "([FromODataUri]Guid id)\r\n";
-            text += "\t\t{\r\n";
-
-            text += "\t\t\ttry { return Ok(GetService().GetByHist<" + m.Name + ">(id)); }\r\n";
-            text += "\t\t\tcatch (Exception ex) { return base.ThreatExceptions(ex); }\r\n";
-
-            text += "\t\t}\r\n\r\n";
-
-
-            //Documentation
-            text += "\t\t///<summary>\r\n";
             text += "\t\t///GET a specific " + m.Name + "\r\n";
             text += "\t\t///</summary>\r\n";
             text += "\t\t///<param name=\"id\">" + m.Name + " Id</param>\r\n";
             text += "\t\t///<returns>200 - List of " + m.Name + "</returns>\r\n";
 
             //Get
-            text += "\t\t[HttpGet, EnableQuery, ResponseType(typeof(" + m.Name + "))]\r\n";
+            text += "\t\t[HttpGet,  ResponseType(typeof(" + m.Name + "))]\r\n";
             text += "\t\tpublic IHttpActionResult Get([FromUri]Guid id)\r\n";
             text += "\t\t{\r\n";
 
@@ -130,8 +86,8 @@ namespace CodeGenerator
             text += "\t\t///<returns>200 - List of " + m.Name + "</returns>\r\n";
 
             //List
-            text += "\t\t[HttpGet, EnableQuery, ResponseType(typeof(IEnumerable<" + m.Name + ">))]\r\n";
-            text += "\t\tpublic IHttpActionResult Get([FromODataUri]Boolean all = false)\r\n";
+            text += "\t\t[HttpGet,  ResponseType(typeof(IEnumerable<" + m.Name + ">))]\r\n";
+            text += "\t\tpublic IHttpActionResult Get([FromUri]Boolean all = false)\r\n";
             text += "\t\t{\r\n";
 
             text += "\t\t\ttry { return Ok(GetService().Get<" + m.Name + ">(all)); }\r\n";
