@@ -56,15 +56,19 @@
       <DependentUpon>CodeGenerator.cs</DependentUpon>
     </Compile>
     <Compile Include="Generator.cs" />
+    <Compile Include="Generators\ModelTsGenerator.cs" />
     <Compile Include="Generators\PostmanTesterGenerator.cs" />
     <Compile Include="Generators\RepositoryGenerator.cs" />
     <Compile Include="Generators\ServiceGenerator.cs" />
+    <Compile Include="Generators\ServiceTsGenerator.cs" />
+    <Compile Include="Generators\StoreTsGeneratorcs.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Controller.cs" />
     <Compile Include="Models\Model.cs" />
     <Compile Include="Generators\ModelGenerator.cs" />
     <Compile Include="Generators\MVCControllerGenerator.cs" />

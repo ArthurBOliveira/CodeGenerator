@@ -45,6 +45,9 @@
             this.lblRows = new System.Windows.Forms.Label();
             this.chkService = new System.Windows.Forms.CheckBox();
             this.chkRelation = new System.Windows.Forms.CheckBox();
+            this.chkTsModel = new System.Windows.Forms.CheckBox();
+            this.chkTsStore = new System.Windows.Forms.CheckBox();
+            this.chkTsService = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // lblProjectName
@@ -132,9 +135,7 @@
             // chkTable
             // 
             this.chkTable.AutoSize = true;
-            this.chkTable.Checked = true;
-            this.chkTable.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkTable.Location = new System.Drawing.Point(375, 597);
+            this.chkTable.Location = new System.Drawing.Point(372, 582);
             this.chkTable.Name = "chkTable";
             this.chkTable.Size = new System.Drawing.Size(53, 17);
             this.chkTable.TabIndex = 58;
@@ -144,9 +145,7 @@
             // chkAPI
             // 
             this.chkAPI.AutoSize = true;
-            this.chkAPI.Checked = true;
-            this.chkAPI.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAPI.Location = new System.Drawing.Point(326, 597);
+            this.chkAPI.Location = new System.Drawing.Point(323, 582);
             this.chkAPI.Name = "chkAPI";
             this.chkAPI.Size = new System.Drawing.Size(43, 17);
             this.chkAPI.TabIndex = 56;
@@ -156,9 +155,7 @@
             // chkDAL
             // 
             this.chkDAL.AutoSize = true;
-            this.chkDAL.Checked = true;
-            this.chkDAL.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkDAL.Location = new System.Drawing.Point(273, 597);
+            this.chkDAL.Location = new System.Drawing.Point(270, 582);
             this.chkDAL.Name = "chkDAL";
             this.chkDAL.Size = new System.Drawing.Size(47, 17);
             this.chkDAL.TabIndex = 54;
@@ -188,7 +185,7 @@
             // chkModel
             // 
             this.chkModel.AutoSize = true;
-            this.chkModel.Location = new System.Drawing.Point(434, 597);
+            this.chkModel.Location = new System.Drawing.Point(431, 582);
             this.chkModel.Name = "chkModel";
             this.chkModel.Size = new System.Drawing.Size(55, 17);
             this.chkModel.TabIndex = 61;
@@ -207,7 +204,7 @@
             // chkService
             // 
             this.chkService.AutoSize = true;
-            this.chkService.Location = new System.Drawing.Point(495, 597);
+            this.chkService.Location = new System.Drawing.Point(492, 582);
             this.chkService.Name = "chkService";
             this.chkService.Size = new System.Drawing.Size(62, 17);
             this.chkService.TabIndex = 63;
@@ -226,11 +223,44 @@
             this.chkRelation.UseVisualStyleBackColor = true;
             this.chkRelation.CheckedChanged += new System.EventHandler(this.chkRelation_CheckedChanged);
             // 
+            // chkTsModel
+            // 
+            this.chkTsModel.AutoSize = true;
+            this.chkTsModel.Location = new System.Drawing.Point(270, 605);
+            this.chkTsModel.Name = "chkTsModel";
+            this.chkTsModel.Size = new System.Drawing.Size(72, 17);
+            this.chkTsModel.TabIndex = 65;
+            this.chkTsModel.Text = "TS Model";
+            this.chkTsModel.UseVisualStyleBackColor = true;
+            // 
+            // chkTsStore
+            // 
+            this.chkTsStore.AutoSize = true;
+            this.chkTsStore.Location = new System.Drawing.Point(347, 605);
+            this.chkTsStore.Name = "chkTsStore";
+            this.chkTsStore.Size = new System.Drawing.Size(68, 17);
+            this.chkTsStore.TabIndex = 66;
+            this.chkTsStore.Text = "TS Store";
+            this.chkTsStore.UseVisualStyleBackColor = true;
+            // 
+            // chkTsService
+            // 
+            this.chkTsService.AutoSize = true;
+            this.chkTsService.Location = new System.Drawing.Point(418, 605);
+            this.chkTsService.Name = "chkTsService";
+            this.chkTsService.Size = new System.Drawing.Size(79, 17);
+            this.chkTsService.TabIndex = 67;
+            this.chkTsService.Text = "TS Service";
+            this.chkTsService.UseVisualStyleBackColor = true;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(734, 629);
+            this.Controls.Add(this.chkTsService);
+            this.Controls.Add(this.chkTsStore);
+            this.Controls.Add(this.chkTsModel);
             this.Controls.Add(this.chkRelation);
             this.Controls.Add(this.chkService);
             this.Controls.Add(this.lblRows);
@@ -277,5 +307,8 @@
         private System.Windows.Forms.Label lblRows;
         private System.Windows.Forms.CheckBox chkService;
         private System.Windows.Forms.CheckBox chkRelation;
+        private System.Windows.Forms.CheckBox chkTsModel;
+        private System.Windows.Forms.CheckBox chkTsStore;
+        private System.Windows.Forms.CheckBox chkTsService;
     }
 }

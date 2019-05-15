@@ -61,6 +61,43 @@ namespace CodeGenerator
             }
         }
 
+        protected static string ConvertTypeToTS(string s)
+        {
+            if (s.Contains("<"))
+            {
+                return s.Split('<')[1].Split('>')[0] + "[]";
+            }
+
+            switch (s)
+            {
+                case "Guid":
+                case "String":
+                case "string":
+                    return "string";
+
+                case "Int":
+                case "int":
+                case "Float":
+                case "float":
+                case "Double":
+                case "Decimal":
+                case "decimal":
+                    return "number";
+
+                case "Bool":
+                case "bool":
+                case "Boolean":
+                case "boolean":
+                    return "Boolean";
+
+                case "DateTime":
+                    return "Date";
+
+                default:
+                    return s;
+            }
+        }
+
         protected static string ConvertNameToSQL(string s)
         {
             string result = "";

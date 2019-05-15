@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 
 namespace CodeGenerator
 {
@@ -25,7 +20,7 @@ namespace CodeGenerator
             text += "\tpublic class " + m.Name + "Repository : BaseRepository<" + m.Name + ">\r\n";
             text += "\t{\r\n";
 
-            text += "\t\tpublic " + m.Name + "Repository(String tablePrefix = \"jm.\") : base(tablePrefix)\r\n";
+            text += "\t\tpublic " + m.Name + "Repository(string tablePrefix = \"jm.\") : base(tablePrefix)\r\n";
             text += "\t\t{ }\r\n";
 
             text += "\t}\r\n";
@@ -37,7 +32,7 @@ namespace CodeGenerator
 
             file.Close();
 
-            return result;        
+            return result;
         }
 
         public static bool Generate()

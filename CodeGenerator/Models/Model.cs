@@ -28,7 +28,7 @@ namespace CodeGenerator
             }
         }
 
-        internal List<Property> Properties
+        public List<Property> Properties
         {
             get
             {
@@ -84,15 +84,10 @@ namespace CodeGenerator
         #region Constructor
         public Model() { }
 
-        public Model(string name)
-        {
-            Name = name;
-        }
-
-        public Model(string text, bool v)
+        public Model(string text)
         {
             string[] strings;
-            Property prop = new Property();
+            var prop = new Property();
 
             NameProject = Program.project.Name;
 

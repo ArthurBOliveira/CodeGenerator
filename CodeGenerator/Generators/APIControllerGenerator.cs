@@ -45,15 +45,14 @@ namespace CodeGenerator
                     text += "\t\t/// LIST all " + m.Name + "s connected with the specifics " + UppercaseFirst(p.Name) + "\r\n";
                     text += "\t\t///</summary>\r\n";
                     text += "\t\t///<param name=\"ids\">List of " + UppercaseFirst(p.Name) + " Ids</param>\r\n";
-                    text += "\t\t///<param name=\"all\">Include the inactive or not</param>\r\n";
                     text += "\t\t///<returns>200 - List of " + m.Name + "</returns>\r\n";
 
                     text += "\t\t[HttpPost, Route(\"Get" + m.Name + "By" + UppercaseFirst(p.Name) + "\"),  ResponseType(typeof(IEnumerable<" + m.Name + ">))]\r\n";
-                    text += "\t\tpublic IHttpActionResult Get" + m.Name + "By" + UppercaseFirst(p.Name) + "([FromBody]IEnumerable<Guid> ids, [FromUri]Boolean all = false)\r\n";
+                    text += "\t\tpublic IHttpActionResult Get" + m.Name + "By" + UppercaseFirst(p.Name) + "([FromBody]IEnumerable<Guid> ids)\r\n";
                     text += "\t\t{\r\n";
 
-                    text += "\t\t\ttry { return Ok(GetService().GetByIds<" + m.Name + ">(ids, all, \"" + UppercaseFirst(p.Name) + "\")); }\r\n";
-                    text += "\t\t\tcatch (Exception ex) { return base.ThreatExceptions(ex); }\r\n";
+                    text += "\t\t\ttry { return Ok(GetService().GetByIds<" + m.Name + ">(ids, fieldName: \"" + UppercaseFirst(p.Name) + "\")); }\r\n";
+                    text += "\t\t\tcatch (Exception ex) { return TreatExceptions(ex); }\r\n";
 
                     text += "\t\t}\r\n\r\n";
                 }
@@ -73,7 +72,7 @@ namespace CodeGenerator
             text += "\t\t{\r\n";
 
             text += "\t\t\ttry { return Ok(GetService().Get<" + m.Name + ">(id)); }\r\n";
-            text += "\t\t\tcatch (Exception ex) { return base.ThreatExceptions(ex); }\r\n";
+            text += "\t\t\tcatch (Exception ex) { return TreatExceptions(ex); }\r\n";
 
             text += "\t\t}\r\n\r\n";
 
@@ -82,16 +81,15 @@ namespace CodeGenerator
             text += "\t\t///<summary>\r\n";
             text += "\t\t///GET all " + m.Name + "s on Database\r\n";
             text += "\t\t///</summary>\r\n";
-            text += "\t\t///<param name=\"all\">Include the inactive or not</param>\r\n";
             text += "\t\t///<returns>200 - List of " + m.Name + "</returns>\r\n";
 
             //List
             text += "\t\t[HttpGet,  ResponseType(typeof(IEnumerable<" + m.Name + ">))]\r\n";
-            text += "\t\tpublic IHttpActionResult Get([FromUri]Boolean all = false)\r\n";
+            text += "\t\tpublic IHttpActionResult Get()\r\n";
             text += "\t\t{\r\n";
 
-            text += "\t\t\ttry { return Ok(GetService().Get<" + m.Name + ">(all)); }\r\n";
-            text += "\t\t\tcatch (Exception ex) { return base.ThreatExceptions(ex); }\r\n";
+            text += "\t\t\ttry { return Ok(GetService().Get<" + m.Name + ">()); }\r\n";
+            text += "\t\t\tcatch (Exception ex) { return TreatExceptions(ex); }\r\n";
 
             text += "\t\t}\r\n\r\n";
 
@@ -111,7 +109,7 @@ namespace CodeGenerator
             text += "\t\t\t\treturn BadRequest(ModelState);\r\n\r\n";
 
             text += "\t\t\ttry { return Created(\"Database\", GetService().Post(value)); }\r\n";
-            text += "\t\t\tcatch (Exception ex) { return base.ThreatExceptions(ex); }\r\n";
+            text += "\t\t\tcatch (Exception ex) { return TreatExceptions(ex); }\r\n";
 
             text += "\t\t}\r\n\r\n";
 
@@ -132,8 +130,8 @@ namespace CodeGenerator
                 text += "\t\t\tif (!ModelState.IsValid)\r\n";
                 text += "\t\t\t\treturn BadRequest(ModelState);\r\n\r\n";
 
-                text += "\t\t\ttry { return Ok(GetService().Put<" + m.Name + ">(value, new List<String>() { \"" + m.Properties[1].Name + "\", \"" + m.Properties[2].Name + "\" })); }\r\n";
-                text += "\t\t\tcatch (Exception ex) { return base.ThreatExceptions(ex); }\r\n";
+                text += "\t\t\ttry { return Ok(GetService().Put(value, new List<String>() { \"" + m.Properties[1].Name + "\", \"" + m.Properties[2].Name + "\" })); }\r\n";
+                text += "\t\t\tcatch (Exception ex) { return TreatExceptions(ex); }\r\n";
 
                 text += "\t\t}\r\n\r\n";
             }
@@ -146,8 +144,8 @@ namespace CodeGenerator
                 text += "\t\t\tif (!ModelState.IsValid)\r\n";
                 text += "\t\t\t\treturn BadRequest(ModelState);\r\n\r\n";
 
-                text += "\t\t\ttry { return Ok(GetService().Put<" + m.Name + ">(value)); }\r\n";
-                text += "\t\t\tcatch (Exception ex) { return base.ThreatExceptions(ex); }\r\n";
+                text += "\t\t\ttry { return Ok(GetService().Put(value)); }\r\n";
+                text += "\t\t\tcatch (Exception ex) { return TreatExceptions(ex); }\r\n";
 
                 text += "\t\t}\r\n\r\n";
             }
@@ -167,7 +165,7 @@ namespace CodeGenerator
                 text += "\t\t{\r\n";
 
                 text += "\t\t\ttry { return Ok(GetService().Delete<" + m.Name + ">(id)); }\r\n";
-                text += "\t\t\tcatch (Exception ex) { return base.ThreatExceptions(ex); }\r\n";
+                text += "\t\t\tcatch (Exception ex) { return TreatExceptions(ex); }\r\n";
 
                 text += "\t\t}\r\n";
             }
@@ -185,7 +183,7 @@ namespace CodeGenerator
                 text += "\t\t{\r\n";
 
                 text += "\t\t\ttry { return Ok(GetService().Drop<" + m.Name + ">(id)); }\r\n";
-                text += "\t\t\tcatch (Exception ex) { return base.ThreatExceptions(ex); }\r\n";
+                text += "\t\t\tcatch (Exception ex) { return TreatExceptions(ex); }\r\n";
 
                 text += "\t\t}\r\n";
             }

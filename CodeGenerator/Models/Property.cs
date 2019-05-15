@@ -1,60 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CodeGenerator
+﻿namespace CodeGenerator
 {
     class Property
     {
-        private string type;
-        private string name;
-        private bool isKey;
-
-        #region Properties
-        public string Type
-        {
-            get
-            {
-                return type;
-            }
-
-            set
-            {
-                type = value;
-            }
-        }
-
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-
-            set
-            {
-                name = value;
-            }
-        }
-
-        public bool IsKey
-        {
-            get
-            {
-                return isKey;
-            }
-
-            set
-            {
-                isKey = value;
-            }
-        }
-        #endregion
-
-        #region Constructor
-        public Property() { }
-        #endregion
+        public string Type { get; set; }
+        public string Name { get; set; }
+        public bool IsKey { get; set; }        
     }
 }

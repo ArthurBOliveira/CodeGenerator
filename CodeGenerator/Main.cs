@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,8 +43,10 @@ namespace CodeGenerator
 
             lblRows.Text = Program.project.Models.Count + " Modelos";
 
-            foreach (Model m in Program.project.Models)
+            foreach (var m in Program.project.Models)
                 chkListModels.Items.Add(m.Name);
+            foreach (var c in Program.project.Controllers)
+                chkListModels.Items.Add(c.Name);
         }
 
         private void btnNew_Click(object sender, EventArgs e)
@@ -73,6 +76,9 @@ namespace CodeGenerator
             lblRows.Visible = false;
             chkRelation.Visible = false;
             chkService.Visible = false;
+            chkTsModel.Visible = false;
+            chkTsStore.Visible = false;
+            chkTsService.Visible = false;
         }
 
         private void ShowFields()
@@ -92,6 +98,9 @@ namespace CodeGenerator
             lblRows.Visible = true;
             chkRelation.Visible = true;
             chkService.Visible = true;
+            chkTsModel.Visible = true;
+            chkTsStore.Visible = true;
+            chkTsService.Visible = true;
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -121,6 +130,14 @@ namespace CodeGenerator
                     RepositoryGenerator.Generate(m);
                 if (chkService.Checked)
                     ServiceGenerator.Generate(m);
+                if (chkTsModel.Checked)
+                    ModelTsGenerator.Generate(m);
+            }
+
+            foreach (var c in Program.project.Controllers)
+            {
+                if (chkTsService.Checked)
+                    ServiceTsGenerator.Generate(c);
             }
         }
 
@@ -134,24 +151,45 @@ namespace CodeGenerator
                 foreach (string file in dialog.FileNames)
                 {
                     string result = "";
-                    string[] models;
 
-                    System.IO.StreamReader sr = new System.IO.StreamReader(file);
+                    var sr = new StreamReader(file);
                     result = sr.ReadToEnd();
                     sr.Close();
 
-                    models = result.Split(new string[] { "class" }, StringSplitOptions.None);
-
-                    for(int i = 1; i < models.Length; i++)
-                    {
-                        Model m = new Model(models[i], true);
-
-                        Program.project.Models.Add(m);
-                    }
-
-                    RefreshModels();
+                    if (file.Contains("Controller"))
+                        ReadControllerFromFile(result);
+                    else
+                        ReadModelFromFile(result);
                 }
             }
+        }
+
+        private void ReadControllerFromFile(string result)
+        {
+            var controllers = result.Split(new string[] { "RoutePrefix" }, StringSplitOptions.None);
+
+            for (int i = 1; i < controllers.Length; i++)
+            {
+                var c = new Controller(controllers[i]);
+
+                Program.project.Controllers.Add(c);
+            }
+
+            RefreshModels();
+        }
+
+        private void ReadModelFromFile(string result)
+        {
+            var models = result.Split(new string[] { "class" }, StringSplitOptions.None);
+
+            for (int i = 1; i < models.Length; i++)
+            {
+                Model m = new Model(models[i]);
+
+                Program.project.Models.Add(m);
+            }
+
+            RefreshModels();
         }
 
         private void chkListModels_SelectedIndexChanged(object sender, EventArgs e)
@@ -180,7 +218,7 @@ namespace CodeGenerator
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void Main_Load(object sender, EventArgs e)
