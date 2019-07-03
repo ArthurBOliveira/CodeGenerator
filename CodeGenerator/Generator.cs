@@ -88,7 +88,7 @@ namespace CodeGenerator
                 case "bool":
                 case "Boolean":
                 case "boolean":
-                    return "Boolean";
+                    return "boolean";
 
                 case "DateTime":
                     return "Date";
