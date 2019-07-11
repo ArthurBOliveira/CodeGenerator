@@ -40,6 +40,7 @@
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(179, 20);
             this.txtName.TabIndex = 7;
+            this.txtName.Text = "JobManager";
             this.txtName.TextChanged += new System.EventHandler(this.txtProjectName_TextChanged);
             // 
             // label3

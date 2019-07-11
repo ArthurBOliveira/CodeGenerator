@@ -4,8 +4,11 @@ namespace CodeGenerator
 {
     class APIControllerGenerator : Generator
     {
-        public static bool Generate(Model m)
+        public static bool Generate(Model m, string path)
         {
+            if (m.Name.Contains("Hist") || m.Name == "BaseModel")
+                return false;
+
             bool result = false;
             string fileName = m.Name + "Controller.cs";
             string text = "";
@@ -51,13 +54,12 @@ namespace CodeGenerator
                     text += "\t\tpublic IHttpActionResult Get" + m.Name + "By" + UppercaseFirst(p.Name) + "([FromBody]IEnumerable<Guid> ids)\r\n";
                     text += "\t\t{\r\n";
 
-                    text += "\t\t\ttry { return Ok(GetService().GetByIds<" + m.Name + ">(ids, fieldName: \"" + UppercaseFirst(p.Name) + "\")); }\r\n";
+                    text += "\t\t\ttry { return Ok(GetService().GetByIds<" + m.Name + ">(ids, \"" + UppercaseFirst(p.Name) + "\")); }\r\n";
                     text += "\t\t\tcatch (Exception ex) { return TreatExceptions(ex); }\r\n";
 
                     text += "\t\t}\r\n\r\n";
                 }
             }
-
 
             //Documentation
             text += "\t\t///<summary>\r\n";
@@ -191,7 +193,7 @@ namespace CodeGenerator
             text += "\t}";
             text += "}";
 
-            StreamWriter file = File.AppendText(fileName);
+            StreamWriter file = File.AppendText(path + fileName);
 
             file.WriteLine(text);
 

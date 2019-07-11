@@ -113,25 +113,36 @@ namespace CodeGenerator
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
-            //if (chkDAL.Checked)
-            //    RepositoryGenerator.Generate();
-            //if (chkAPI.Checked)
-            //    APIControllerGenerator.Generate();
-
-            foreach (Model m in Program.project.Models)
+            var dialog = new SaveFileDialog()
             {
-                if (chkModel.Checked)
-                    ModelGenerator.Generate(m);
-                if (chkAPI.Checked)
-                    APIControllerGenerator.Generate(m);
-                if (chkTable.Checked)
-                    TableGenerator.Generate(m);
-                if (chkDAL.Checked)
-                    RepositoryGenerator.Generate(m);
-                if (chkService.Checked)
-                    ServiceGenerator.Generate(m);
-                if (chkTsModel.Checked)
-                    ModelTsGenerator.Generate(m);
+                AddExtension = true,
+                RestoreDirectory = true,
+                FileName = "save"
+            };
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                string path = "";
+
+                var aux = dialog.FileName.Split('\\');
+                for (int i = 0; i < aux.Length - 1; i++)
+                    path += aux[i] + "\\";
+
+                foreach (Model m in Program.project.Models)
+                {
+                    if (chkTable.Checked)
+                        TableGenerator.Generate(m, path);
+                    if (chkModel.Checked)
+                        ModelGenerator.Generate(m, path);
+                    if (chkAPI.Checked)
+                        APIControllerGenerator.Generate(m, path);
+                    if (chkDAL.Checked)
+                        RepositoryGenerator.Generate(m, path);
+                    if (chkService.Checked)
+                        ServiceGenerator.Generate(m, path);
+                    if (chkTsModel.Checked)
+                        ModelTsGenerator.Generate(m, path);
+                }
             }
 
             foreach (var c in Program.project.Controllers)

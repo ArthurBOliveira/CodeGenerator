@@ -9,8 +9,11 @@ namespace CodeGenerator
 {
     class ServiceGenerator : Generator
     {
-        public static bool Generate(Model m)
+        public static bool Generate(Model m, string path)
         {
+            if (m.Name.Contains("Hist") || m.Name == "BaseModel")
+                return false;
+
             bool result = false;
             string fileName = m.Name + "Service.cs";
             string text = "";
@@ -35,7 +38,7 @@ namespace CodeGenerator
             text += "\t}\r\n";
             text += "}";
 
-            StreamWriter file = File.AppendText(fileName);
+            StreamWriter file = File.AppendText(path + fileName);
 
             file.WriteLine(text);
 

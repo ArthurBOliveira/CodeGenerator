@@ -9,16 +9,17 @@ namespace CodeGenerator
 {
     class TableGenerator : Generator
     {
-        public static bool Generate(Model m)
+        public static bool Generate(Model m, string path)
         {
+            if (m.Name == "BaseModel")
+                return false;
+
             bool result = false;
             Model parent = null;
             Model grandParent = null;
 
             if (m.Parent != "")
                 parent = Program.project.Models.Find(item => item.Name == m.Parent);
-
-            //Felipe é gayzai!!!
 
             if (parent != null)
                 if (parent.Parent != "")
@@ -66,7 +67,7 @@ namespace CodeGenerator
 
             text += "\r\n)";
 
-            StreamWriter file = File.AppendText(fileName);
+            StreamWriter file = File.AppendText(path + fileName);
 
             file.WriteLine(text);
 

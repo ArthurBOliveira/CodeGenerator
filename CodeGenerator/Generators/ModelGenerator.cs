@@ -4,8 +4,11 @@ namespace CodeGenerator
 {
     class ModelGenerator : Generator
     {
-        public static bool Generate(Model m)
+        public static bool Generate(Model m, string path)
         {
+            if (m.Name.Contains("Hist") || m.Name == "BaseModel")
+                return false;
+
             bool result = false;
             string fileName = m.Name + ".cs";
             string text = "";
@@ -91,7 +94,7 @@ namespace CodeGenerator
             //Generate Class Hist
             text += "\r\n\r\n\tpublic class " + m.Name + "Hist : " + m.Name + "\r\n";
             text += "\t{\r\n";
-         
+
             text += "\t\tpublic Guid IdHist { get; set; }\r\n\r\n";
 
             text += "\t\t#region Methods\r\n";
@@ -112,7 +115,7 @@ namespace CodeGenerator
             text += "\t\t\t{\r\n";
             for (int i = 0; i < m.Properties.Count; i++)
             {
-                if(i != m.Properties.Count -1)
+                if (i != m.Properties.Count - 1)
                     text += "\t\t\t\t" + UppercaseFirst(m.Properties[i].Name) + " = this." + UppercaseFirst(m.Properties[i].Name) + ",\r\n";
                 else
                     text += "\t\t\t\t" + UppercaseFirst(m.Properties[i].Name) + " = this." + UppercaseFirst(m.Properties[i].Name) + "\r\n";
@@ -154,7 +157,7 @@ namespace CodeGenerator
 
             text += "}";
 
-            StreamWriter file = File.AppendText(fileName);
+            StreamWriter file = File.AppendText(path + fileName);
 
             file.WriteLine(text);
 

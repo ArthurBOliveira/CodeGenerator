@@ -135,6 +135,8 @@
             // chkTable
             // 
             this.chkTable.AutoSize = true;
+            this.chkTable.Checked = true;
+            this.chkTable.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkTable.Location = new System.Drawing.Point(372, 582);
             this.chkTable.Name = "chkTable";
             this.chkTable.Size = new System.Drawing.Size(53, 17);
@@ -145,6 +147,8 @@
             // chkAPI
             // 
             this.chkAPI.AutoSize = true;
+            this.chkAPI.Checked = true;
+            this.chkAPI.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkAPI.Location = new System.Drawing.Point(323, 582);
             this.chkAPI.Name = "chkAPI";
             this.chkAPI.Size = new System.Drawing.Size(43, 17);
@@ -155,6 +159,8 @@
             // chkDAL
             // 
             this.chkDAL.AutoSize = true;
+            this.chkDAL.Checked = true;
+            this.chkDAL.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkDAL.Location = new System.Drawing.Point(270, 582);
             this.chkDAL.Name = "chkDAL";
             this.chkDAL.Size = new System.Drawing.Size(47, 17);
@@ -185,7 +191,8 @@
             // chkModel
             // 
             this.chkModel.AutoSize = true;
-            this.chkModel.Location = new System.Drawing.Point(431, 582);
+            this.chkModel.Enabled = false;
+            this.chkModel.Location = new System.Drawing.Point(495, 582);
             this.chkModel.Name = "chkModel";
             this.chkModel.Size = new System.Drawing.Size(55, 17);
             this.chkModel.TabIndex = 61;
@@ -204,7 +211,9 @@
             // chkService
             // 
             this.chkService.AutoSize = true;
-            this.chkService.Location = new System.Drawing.Point(492, 582);
+            this.chkService.Checked = true;
+            this.chkService.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkService.Location = new System.Drawing.Point(431, 582);
             this.chkService.Name = "chkService";
             this.chkService.Size = new System.Drawing.Size(62, 17);
             this.chkService.TabIndex = 63;
@@ -226,6 +235,7 @@
             // chkTsModel
             // 
             this.chkTsModel.AutoSize = true;
+            this.chkTsModel.Enabled = false;
             this.chkTsModel.Location = new System.Drawing.Point(270, 605);
             this.chkTsModel.Name = "chkTsModel";
             this.chkTsModel.Size = new System.Drawing.Size(72, 17);
@@ -236,6 +246,7 @@
             // chkTsStore
             // 
             this.chkTsStore.AutoSize = true;
+            this.chkTsStore.Enabled = false;
             this.chkTsStore.Location = new System.Drawing.Point(347, 605);
             this.chkTsStore.Name = "chkTsStore";
             this.chkTsStore.Size = new System.Drawing.Size(68, 17);
@@ -246,6 +257,7 @@
             // chkTsService
             // 
             this.chkTsService.AutoSize = true;
+            this.chkTsService.Enabled = false;
             this.chkTsService.Location = new System.Drawing.Point(418, 605);
             this.chkTsService.Name = "chkTsService";
             this.chkTsService.Size = new System.Drawing.Size(79, 17);
