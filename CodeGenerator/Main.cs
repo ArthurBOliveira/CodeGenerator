@@ -15,13 +15,43 @@ namespace CodeGenerator
 {
     public partial class Main : Form
     {
+        private List<Control> objectsToToggle;
+
         public Main()
         {
             InitializeComponent();
 
+            this.objectsToToggle = new List<Control>()
+            {
+                lblProjectName,
+                lblModels,
+                chkListModels,
+                btnCreate,
+                btnDelete,
+                btnNew,
+                btnEdit,
+                btnRead,
+                chkAPI,
+                chkDAL,
+                chkTable,
+                txtViewModel,
+                chkModel,
+                lblRows,
+                chkRelation,
+                chkService,
+                chkTsModel,
+                chkTsStore,
+                chkTsService,
+            };
+
             HideFields();
         }
 
+        /// <summary>
+        /// Edit project name
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnEditName_Click(object sender, EventArgs e)
         {
             ProjectName pn = new ProjectName();
@@ -61,46 +91,12 @@ namespace CodeGenerator
 
         private void HideFields()
         {
-            lblModels.Visible = false;
-            chkListModels.Visible = false;
-            btnCreate.Visible = false;
-            btnDelete.Visible = false;
-            btnNew.Visible = false;
-            btnEdit.Visible = false;
-            btnRead.Visible = false;
-            chkAPI.Visible = false;
-            chkDAL.Visible = false;
-            chkTable.Visible = false;
-            txtViewModel.Visible = false;
-            chkModel.Visible = false;
-            lblRows.Visible = false;
-            chkRelation.Visible = false;
-            chkService.Visible = false;
-            chkTsModel.Visible = false;
-            chkTsStore.Visible = false;
-            chkTsService.Visible = false;
+            objectsToToggle.ForEach(x => x.Visible = false);
         }
 
         private void ShowFields()
         {
-            lblModels.Visible = true;
-            chkListModels.Visible = true;
-            btnCreate.Visible = true;
-            btnDelete.Visible = true;
-            btnNew.Visible = true;
-            btnEdit.Visible = true;
-            btnRead.Visible = true;
-            chkAPI.Visible = true;
-            chkDAL.Visible = true;
-            chkTable.Visible = true;
-            txtViewModel.Visible = true;
-            chkModel.Visible = true;
-            lblRows.Visible = true;
-            chkRelation.Visible = true;
-            chkService.Visible = true;
-            chkTsModel.Visible = true;
-            chkTsStore.Visible = true;
-            chkTsService.Visible = true;
+            objectsToToggle.ForEach(x => x.Visible = true);
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -117,32 +113,43 @@ namespace CodeGenerator
             {
                 AddExtension = true,
                 RestoreDirectory = true,
-                FileName = "save"
+                FileName = DateTime.Now.ToString("yyyy-MM-dd-HH-mm")
             };
 
-            if (dialog.ShowDialog() == DialogResult.OK)
+            if (dialog.ShowDialog() != DialogResult.OK)
             {
-                string path = "";
+                return;
+            }
 
-                var aux = dialog.FileName.Split('\\');
-                for (int i = 0; i < aux.Length - 1; i++)
-                    path += aux[i] + "\\";
+            string path = "";
 
-                foreach (Model m in Program.project.Models)
-                {
-                    if (chkTable.Checked)
-                        TableGenerator.Generate(m, path);
-                    if (chkModel.Checked)
-                        ModelGenerator.Generate(m, path);
-                    if (chkAPI.Checked)
-                        APIControllerGenerator.Generate(m, path);
-                    if (chkDAL.Checked)
-                        RepositoryGenerator.Generate(m, path);
-                    if (chkService.Checked)
-                        ServiceGenerator.Generate(m, path);
-                    if (chkTsModel.Checked)
-                        ModelTsGenerator.Generate(m, path);
-                }
+            var aux = dialog.FileName.Split('\\');
+
+            //create folder selected on the dialog
+            DirectoryInfo di = new DirectoryInfo(dialog.FileName);
+
+            if(di.Exists == false)
+            {
+                di.Create();
+            }
+
+            for (int i = 0; i < aux.Length; i++)
+                path += aux[i] + "\\";
+
+            foreach (Model m in Program.project.Models)
+            {
+                if (chkTable.Checked)
+                    TableGenerator.Generate(m, path);
+                if (chkModel.Checked)
+                    ModelGenerator.Generate(m, path);
+                if (chkAPI.Checked)
+                    APIControllerGenerator.Generate(m, path);
+                if (chkDAL.Checked)
+                    RepositoryGenerator.Generate(m, path);
+                if (chkService.Checked)
+                    ServiceGenerator.Generate(m, path);
+                if (chkTsModel.Checked)
+                    ModelTsGenerator.Generate(m, path);
             }
 
             foreach (var c in Program.project.Controllers)
