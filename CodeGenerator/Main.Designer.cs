@@ -48,6 +48,7 @@
             this.chkTsModel = new System.Windows.Forms.CheckBox();
             this.chkTsStore = new System.Windows.Forms.CheckBox();
             this.chkTsService = new System.Windows.Forms.CheckBox();
+            this.linkSelectAll = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // lblProjectName
@@ -64,7 +65,7 @@
             // 
             this.btnCreate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCreate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCreate.Location = new System.Drawing.Point(556, 574);
+            this.btnCreate.Location = new System.Drawing.Point(556, 460);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(166, 48);
             this.btnCreate.TabIndex = 2;
@@ -92,7 +93,8 @@
             this.chkListModels.FormattingEnabled = true;
             this.chkListModels.Location = new System.Drawing.Point(17, 100);
             this.chkListModels.Name = "chkListModels";
-            this.chkListModels.Size = new System.Drawing.Size(350, 466);
+            this.chkListModels.ScrollAlwaysVisible = true;
+            this.chkListModels.Size = new System.Drawing.Size(350, 340);
             this.chkListModels.TabIndex = 4;
             this.chkListModels.SelectedIndexChanged += new System.EventHandler(this.chkListModels_SelectedIndexChanged);
             // 
@@ -109,7 +111,7 @@
             // btnNew
             // 
             this.btnNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnNew.Location = new System.Drawing.Point(17, 574);
+            this.btnNew.Location = new System.Drawing.Point(17, 460);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(75, 23);
             this.btnNew.TabIndex = 6;
@@ -120,7 +122,7 @@
             // btnEdit
             // 
             this.btnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnEdit.Location = new System.Drawing.Point(179, 574);
+            this.btnEdit.Location = new System.Drawing.Point(179, 460);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(75, 23);
             this.btnEdit.TabIndex = 7;
@@ -131,7 +133,7 @@
             // btnDelete
             // 
             this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnDelete.Location = new System.Drawing.Point(98, 574);
+            this.btnDelete.Location = new System.Drawing.Point(98, 460);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 8;
@@ -145,7 +147,7 @@
             this.chkTable.AutoSize = true;
             this.chkTable.Checked = true;
             this.chkTable.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkTable.Location = new System.Drawing.Point(372, 577);
+            this.chkTable.Location = new System.Drawing.Point(372, 463);
             this.chkTable.Name = "chkTable";
             this.chkTable.Size = new System.Drawing.Size(53, 17);
             this.chkTable.TabIndex = 58;
@@ -158,7 +160,7 @@
             this.chkAPI.AutoSize = true;
             this.chkAPI.Checked = true;
             this.chkAPI.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAPI.Location = new System.Drawing.Point(323, 577);
+            this.chkAPI.Location = new System.Drawing.Point(323, 463);
             this.chkAPI.Name = "chkAPI";
             this.chkAPI.Size = new System.Drawing.Size(43, 17);
             this.chkAPI.TabIndex = 56;
@@ -171,7 +173,7 @@
             this.chkDAL.AutoSize = true;
             this.chkDAL.Checked = true;
             this.chkDAL.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkDAL.Location = new System.Drawing.Point(270, 577);
+            this.chkDAL.Location = new System.Drawing.Point(270, 463);
             this.chkDAL.Name = "chkDAL";
             this.chkDAL.Size = new System.Drawing.Size(47, 17);
             this.chkDAL.TabIndex = 54;
@@ -198,7 +200,7 @@
             this.txtViewModel.Location = new System.Drawing.Point(372, 100);
             this.txtViewModel.Name = "txtViewModel";
             this.txtViewModel.ReadOnly = true;
-            this.txtViewModel.Size = new System.Drawing.Size(350, 466);
+            this.txtViewModel.Size = new System.Drawing.Size(350, 340);
             this.txtViewModel.TabIndex = 60;
             this.txtViewModel.Text = "";
             // 
@@ -207,7 +209,7 @@
             this.chkModel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkModel.AutoSize = true;
             this.chkModel.Enabled = false;
-            this.chkModel.Location = new System.Drawing.Point(495, 577);
+            this.chkModel.Location = new System.Drawing.Point(495, 463);
             this.chkModel.Name = "chkModel";
             this.chkModel.Size = new System.Drawing.Size(55, 17);
             this.chkModel.TabIndex = 61;
@@ -231,7 +233,7 @@
             this.chkService.AutoSize = true;
             this.chkService.Checked = true;
             this.chkService.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkService.Location = new System.Drawing.Point(431, 577);
+            this.chkService.Location = new System.Drawing.Point(431, 463);
             this.chkService.Name = "chkService";
             this.chkService.Size = new System.Drawing.Size(62, 17);
             this.chkService.TabIndex = 63;
@@ -243,7 +245,7 @@
             // 
             this.chkRelation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkRelation.AutoSize = true;
-            this.chkRelation.Location = new System.Drawing.Point(17, 605);
+            this.chkRelation.Location = new System.Drawing.Point(17, 491);
             this.chkRelation.Name = "chkRelation";
             this.chkRelation.Size = new System.Drawing.Size(103, 17);
             this.chkRelation.TabIndex = 64;
@@ -258,7 +260,7 @@
             this.chkTsModel.Checked = true;
             this.chkTsModel.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkTsModel.Cursor = System.Windows.Forms.Cursors.Default;
-            this.chkTsModel.Location = new System.Drawing.Point(270, 605);
+            this.chkTsModel.Location = new System.Drawing.Point(270, 491);
             this.chkTsModel.Name = "chkTsModel";
             this.chkTsModel.Size = new System.Drawing.Size(72, 17);
             this.chkTsModel.TabIndex = 65;
@@ -270,7 +272,7 @@
             this.chkTsStore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkTsStore.AutoSize = true;
             this.chkTsStore.Enabled = false;
-            this.chkTsStore.Location = new System.Drawing.Point(347, 605);
+            this.chkTsStore.Location = new System.Drawing.Point(347, 491);
             this.chkTsStore.Name = "chkTsStore";
             this.chkTsStore.Size = new System.Drawing.Size(68, 17);
             this.chkTsStore.TabIndex = 66;
@@ -282,18 +284,31 @@
             this.chkTsService.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkTsService.AutoSize = true;
             this.chkTsService.Enabled = false;
-            this.chkTsService.Location = new System.Drawing.Point(418, 605);
+            this.chkTsService.Location = new System.Drawing.Point(418, 491);
             this.chkTsService.Name = "chkTsService";
             this.chkTsService.Size = new System.Drawing.Size(79, 17);
             this.chkTsService.TabIndex = 67;
             this.chkTsService.Text = "TS Service";
             this.chkTsService.UseVisualStyleBackColor = true;
             // 
+            // linkSelectAll
+            // 
+            this.linkSelectAll.AutoSize = true;
+            this.linkSelectAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
+            this.linkSelectAll.Location = new System.Drawing.Point(102, 73);
+            this.linkSelectAll.Name = "linkSelectAll";
+            this.linkSelectAll.Size = new System.Drawing.Size(88, 24);
+            this.linkSelectAll.TabIndex = 68;
+            this.linkSelectAll.TabStop = true;
+            this.linkSelectAll.Text = "Select All";
+            this.linkSelectAll.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkSelectAll_LinkClicked);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(734, 629);
+            this.ClientSize = new System.Drawing.Size(734, 515);
+            this.Controls.Add(this.linkSelectAll);
             this.Controls.Add(this.chkTsService);
             this.Controls.Add(this.chkTsStore);
             this.Controls.Add(this.chkTsModel);
@@ -346,5 +361,6 @@
         private System.Windows.Forms.CheckBox chkTsModel;
         private System.Windows.Forms.CheckBox chkTsStore;
         private System.Windows.Forms.CheckBox chkTsService;
+        private System.Windows.Forms.LinkLabel linkSelectAll;
     }
 }

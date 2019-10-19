@@ -16,6 +16,7 @@ namespace CodeGenerator
     public partial class Main : Form
     {
         private List<Control> objectsToToggle;
+        private bool toggleAll = false;
 
         public Main()
         {
@@ -42,6 +43,7 @@ namespace CodeGenerator
                 chkTsModel,
                 chkTsStore,
                 chkTsService,
+                linkSelectAll
             };
 
             HideFields();
@@ -272,6 +274,18 @@ namespace CodeGenerator
         private void chkTeste_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void linkSelectAll_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            toggleAll = !toggleAll;
+
+            for (int i = 0; i < chkListModels.Items.Count; i++)
+            {
+                chkListModels.SetItemChecked(i, toggleAll);
+            }
+
+            linkSelectAll.Text = toggleAll ? "Unselect All" : "Select All";
         }
     }
 }
