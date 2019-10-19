@@ -138,18 +138,24 @@ namespace CodeGenerator
 
             foreach (Model m in Program.project.Models)
             {
+                var modelPath = path + m.Name + "\\";
+
+                //create model directory
+                di = new DirectoryInfo(modelPath);
+                if(di.Exists == false) { di.Create(); }
+
                 if (chkTable.Checked)
-                    TableGenerator.Generate(m, path);
+                    TableGenerator.Generate(m, path); // scripts are created as a single file
                 if (chkModel.Checked)
-                    ModelGenerator.Generate(m, path);
+                    ModelGenerator.Generate(m, modelPath);
                 if (chkAPI.Checked)
-                    APIControllerGenerator.Generate(m, path);
+                    APIControllerGenerator.Generate(m, modelPath);
                 if (chkDAL.Checked)
-                    RepositoryGenerator.Generate(m, path);
+                    RepositoryGenerator.Generate(m, modelPath);
                 if (chkService.Checked)
-                    ServiceGenerator.Generate(m, path);
+                    ServiceGenerator.Generate(m, modelPath);
                 if (chkTsModel.Checked)
-                    ModelTsGenerator.Generate(m, path);
+                    ModelTsGenerator.Generate(m, modelPath);
             }
 
             foreach (var c in Program.project.Controllers)
@@ -164,21 +170,24 @@ namespace CodeGenerator
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Multiselect = true;
 
-            if (dialog.ShowDialog() == DialogResult.OK)
+            // dialog has been cancelled
+            if(dialog.ShowDialog() != DialogResult.OK)
             {
-                foreach (string file in dialog.FileNames)
-                {
-                    string result = "";
+                return;
+            }
 
-                    var sr = new StreamReader(file);
-                    result = sr.ReadToEnd();
-                    sr.Close();
+            foreach (string file in dialog.FileNames)
+            {
+                string result = "";
 
-                    if (file.Contains("Controller"))
-                        ReadControllerFromFile(result);
-                    else
-                        ReadModelFromFile(result);
-                }
+                var sr = new StreamReader(file);
+                result = sr.ReadToEnd();
+                sr.Close();
+
+                if (file.Contains("Controller"))
+                    ReadControllerFromFile(result);
+                else
+                    ReadModelFromFile(result);
             }
         }
 
