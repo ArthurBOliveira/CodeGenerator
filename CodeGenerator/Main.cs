@@ -109,68 +109,6 @@ namespace CodeGenerator
             RefreshModels();
         }
 
-        private void btnCreate_Click(object sender, EventArgs e)
-        {
-            var dialog = new SaveFileDialog()
-            {
-                AddExtension = true,
-                RestoreDirectory = true,
-                FileName = DateTime.Now.ToString("yyyy-MM-dd-HH-mm")
-            };
-
-            if (dialog.ShowDialog() != DialogResult.OK)
-            {
-                return;
-            }
-
-            string path = "";
-
-            var aux = dialog.FileName.Split('\\');
-
-            //create folder selected on the dialog
-            DirectoryInfo di = new DirectoryInfo(dialog.FileName);
-
-            if(di.Exists == false)
-            {
-                di.Create();
-            }
-
-            for (int i = 0; i < aux.Length; i++)
-                path += aux[i] + "\\";
-
-            var tsPath = path + "TypeScript\\";
-            di = new DirectoryInfo(tsPath);
-            if (di.Exists == false) { di.Create(); }
-
-            foreach (Model m in Program.project.Models)
-            {
-                var modelPath = path + m.Name + "\\";
-
-                //create model directory
-                di = new DirectoryInfo(modelPath);
-                if(di.Exists == false) { di.Create(); }
-
-                if (chkTable.Checked)
-                    TableGenerator.Generate(m, path); // scripts are created as a single file
-                if (chkModel.Checked)
-                    ModelGenerator.Generate(m, modelPath);
-                if (chkAPI.Checked)
-                    APIControllerGenerator.Generate(m, modelPath);
-                if (chkDAL.Checked)
-                    RepositoryGenerator.Generate(m, modelPath);
-                if (chkService.Checked)
-                    ServiceGenerator.Generate(m, modelPath);
-                if (chkTsModel.Checked)
-                    ModelTsGenerator.Generate(m, tsPath);
-            }
-
-            foreach (var c in Program.project.Controllers)
-            {
-                if (chkTsService.Checked)
-                    ServiceTsGenerator.Generate(c);
-            }
-        }
-
         private void btnRead_Click(object sender, EventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
@@ -286,6 +224,68 @@ namespace CodeGenerator
             }
 
             linkSelectAll.Text = toggleAll ? "Unselect All" : "Select All";
+        }
+
+        private void btnCreate_Click(object sender, EventArgs e)
+        {
+            var dialog = new SaveFileDialog()
+            {
+                AddExtension = true,
+                RestoreDirectory = true,
+                FileName = DateTime.Now.ToString("yyyy-MM-dd-HH-mm")
+            };
+
+            if (dialog.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+
+            string path = "";
+
+            var aux = dialog.FileName.Split('\\');
+
+            //create folder selected on the dialog
+            DirectoryInfo di = new DirectoryInfo(dialog.FileName);
+
+            if (di.Exists == false)
+            {
+                di.Create();
+            }
+
+            for (int i = 0; i < aux.Length; i++)
+                path += aux[i] + "\\";
+
+            var tsPath = path + "TypeScript\\";
+            di = new DirectoryInfo(tsPath);
+            if (di.Exists == false) { di.Create(); }
+
+            foreach (Model m in Program.project.Models)
+            {
+                var modelPath = path + m.Name + "\\";
+
+                //create model directory
+                di = new DirectoryInfo(modelPath);
+                if (di.Exists == false) { di.Create(); }
+
+                if (chkTable.Checked)
+                    TableGenerator.Generate(m, path); // scripts are created as a single file
+                if (chkModel.Checked)
+                    ModelGenerator.Generate(m, modelPath);
+                if (chkAPI.Checked)
+                    APIControllerGenerator.Generate(m, modelPath);
+                if (chkDAL.Checked)
+                    RepositoryGenerator.Generate(m, modelPath);
+                if (chkService.Checked)
+                    ServiceGenerator.Generate(m, modelPath);
+                if (chkTsModel.Checked)
+                    ModelTsGenerator.Generate(m, tsPath);
+            }
+
+            foreach (var c in Program.project.Controllers)
+            {
+                if (chkTsService.Checked)
+                    ServiceTsGenerator.Generate(c);
+            }
         }
     }
 }

@@ -8,12 +8,19 @@ namespace CodeGenerator
 {
     class Generator
     {
+        /// <summary>
+        /// This gets a parent for a model
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         protected static Model GetParent(Model model)
         {
-            if (model.Parent != "")
-                return Program.project.Models.Find(item => item.Name == model.Parent);
+            if (model == null || string.IsNullOrEmpty(model.Parent))
+            {
+                return null;
+            }
 
-            return null;
+            return Program.project.Models.Find(item => item.Name == model.Parent);
         }
 
         protected static List<Model> GetAllParents(Model model)
