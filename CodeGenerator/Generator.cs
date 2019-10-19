@@ -8,6 +8,29 @@ namespace CodeGenerator
 {
     class Generator
     {
+        protected static Model GetParent(Model model)
+        {
+            if (model.Parent != "")
+                return Program.project.Models.Find(item => item.Name == model.Parent);
+
+            return null;
+        }
+
+        protected static List<Model> GetAllParents(Model model)
+        {
+            List<Model> parentsAndGrandParents = new List<Model>();
+
+            var currentParent = GetParent(model);
+
+            while(currentParent != null)
+            {
+                parentsAndGrandParents.Add(currentParent);
+                currentParent = GetParent(currentParent);
+            }
+
+            return parentsAndGrandParents;
+        }
+
         protected static string UppercaseFirst(string s)
         {
             // Return char and concat substring.

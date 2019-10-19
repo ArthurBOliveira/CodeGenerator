@@ -136,6 +136,10 @@ namespace CodeGenerator
             for (int i = 0; i < aux.Length; i++)
                 path += aux[i] + "\\";
 
+            var tsPath = path + "TypeScript\\";
+            di = new DirectoryInfo(tsPath);
+            if (di.Exists == false) { di.Create(); }
+
             foreach (Model m in Program.project.Models)
             {
                 var modelPath = path + m.Name + "\\";
@@ -155,7 +159,7 @@ namespace CodeGenerator
                 if (chkService.Checked)
                     ServiceGenerator.Generate(m, modelPath);
                 if (chkTsModel.Checked)
-                    ModelTsGenerator.Generate(m, modelPath);
+                    ModelTsGenerator.Generate(m, tsPath);
             }
 
             foreach (var c in Program.project.Controllers)

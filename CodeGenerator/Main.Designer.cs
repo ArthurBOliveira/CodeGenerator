@@ -255,7 +255,9 @@
             // 
             this.chkTsModel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkTsModel.AutoSize = true;
-            this.chkTsModel.Enabled = false;
+            this.chkTsModel.Checked = true;
+            this.chkTsModel.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkTsModel.Cursor = System.Windows.Forms.Cursors.Default;
             this.chkTsModel.Location = new System.Drawing.Point(270, 605);
             this.chkTsModel.Name = "chkTsModel";
             this.chkTsModel.Size = new System.Drawing.Size(72, 17);

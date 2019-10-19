@@ -15,15 +15,7 @@ namespace CodeGenerator
                 return false;
 
             bool result = false;
-            Model parent = null;
-            Model grandParent = null;
-
-            if (m.Parent != "")
-                parent = Program.project.Models.Find(item => item.Name == m.Parent);
-
-            if (parent != null)
-                if (parent.Parent != "")
-                    grandParent = Program.project.Models.Find(item => item.Name == parent.Parent);
+            List<Model> parents = GetAllParents(m);
 
             string fileName = "Scripts.sql";
             string text = "";
@@ -47,21 +39,12 @@ namespace CodeGenerator
                 }
             }
 
-            if (parent != null)
+            foreach(Model parent in parents)
             {
                 for (int i = 0; i < parent.Properties.Count; i++)
                 {
                     if (ConvertTypeToSQL(parent.Properties[i].Type) != "")
                         text += ",\r\n\t[" + parent.Properties[i].Name + "] " + ConvertTypeToSQL(parent.Properties[i].Type) + " NULL";
-                }
-            }
-
-            if (grandParent != null)
-            {
-                for (int i = 0; i < grandParent.Properties.Count; i++)
-                {
-                    if (ConvertTypeToSQL(grandParent.Properties[i].Type) != "")
-                        text += ",\r\n\t[" + grandParent.Properties[i].Name + "] " + ConvertTypeToSQL(grandParent.Properties[i].Type) + " NULL";
                 }
             }
 
