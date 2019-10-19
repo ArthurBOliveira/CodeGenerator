@@ -279,6 +279,8 @@ namespace CodeGenerator
                     ServiceGenerator.Generate(m, modelPath);
                 if (chkTsModel.Checked)
                     ModelTsGenerator.Generate(m, tsPath);
+                if (chkTsStore.Checked && m.Name != "BaseModel")
+                    StoreTsGeneratorcs.Generate(m, tsPath);
             }
 
             foreach (var c in Program.project.Controllers)

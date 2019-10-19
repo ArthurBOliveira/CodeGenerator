@@ -271,7 +271,8 @@
             // 
             this.chkTsStore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkTsStore.AutoSize = true;
-            this.chkTsStore.Enabled = false;
+            this.chkTsStore.Checked = true;
+            this.chkTsStore.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkTsStore.Location = new System.Drawing.Point(347, 491);
             this.chkTsStore.Name = "chkTsStore";
             this.chkTsStore.Size = new System.Drawing.Size(68, 17);

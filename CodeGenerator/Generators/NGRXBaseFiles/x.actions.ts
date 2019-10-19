@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
-import { ModelClass } from 'modelClass.model.ts';
+import { ModelClass } from 'modelClassFile.model.ts';
 
 export enum ModelClassActionTypes { 
     LoadModelClasss = '[ModelClass] Load ModelClasss',

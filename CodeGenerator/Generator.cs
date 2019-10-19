@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace CodeGenerator
 {
@@ -36,6 +38,15 @@ namespace CodeGenerator
             }
 
             return parentsAndGrandParents;
+        }
+
+        protected static string GetBaseFile(string relativePath)
+        {
+            string basePath = Path.GetDirectoryName(Application.ExecutablePath);
+
+            basePath += relativePath;
+
+            return File.ReadAllText(relativePath);
         }
 
         protected static string UppercaseFirst(string s)

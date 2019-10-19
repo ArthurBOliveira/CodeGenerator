@@ -6,7 +6,9 @@ export interface ModelClassState extends EntityState<ModelClass> {
   // additional entities state properties
 }
 
-export const adapter: EntityAdapter<ModelClass> = createEntityAdapter<ModelClass>();
+export const adapter: EntityAdapter<ModelClass> = createEntityAdapter<ModelClass>({
+    selectId: (model: ModelClass) => model.idHist
+});
 
 export const initialModelClassState: ModelClassState = adapter.getInitialState({
   // additional entity state properties
