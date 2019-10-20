@@ -1,13 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace CodeGenerator
 {
     class Generator
     {
+        /// <summary>
+        /// This gets a parent for a model
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        protected static Model GetParent(Model model)
+        {
+            if (model == null || string.IsNullOrEmpty(model.Parent))
+            {
+                return null;
+            }
+
+            return Program.project.Models.Find(item => item.Name == model.Parent);
+        }
+
+        protected static List<Model> GetAllParents(Model model)
+        {
+            List<Model> parentsAndGrandParents = new List<Model>();
+
+            var currentParent = GetParent(model);
+
+            while(currentParent != null)
+            {
+                parentsAndGrandParents.Add(currentParent);
+                currentParent = GetParent(currentParent);
+            }
+
+            return parentsAndGrandParents;
+        }
+
+        protected static string GetBaseFile(string relativePath)
+        {
+            string basePath = Path.GetDirectoryName(Application.ExecutablePath);
+
+            basePath += relativePath;
+
+            return File.ReadAllText(relativePath);
+        }
+
         protected static string UppercaseFirst(string s)
         {
             // Return char and concat substring.

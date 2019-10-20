@@ -15,13 +15,45 @@ namespace CodeGenerator
 {
     public partial class Main : Form
     {
+        private List<Control> objectsToToggle;
+        private bool toggleAll = false;
+
         public Main()
         {
             InitializeComponent();
 
+            this.objectsToToggle = new List<Control>()
+            {
+                lblProjectName,
+                lblModels,
+                chkListModels,
+                btnCreate,
+                btnDelete,
+                btnNew,
+                btnEdit,
+                btnRead,
+                chkAPI,
+                chkDAL,
+                chkTable,
+                txtViewModel,
+                chkModel,
+                lblRows,
+                chkRelation,
+                chkService,
+                chkTsModel,
+                chkTsStore,
+                chkTsService,
+                linkSelectAll
+            };
+
             HideFields();
         }
 
+        /// <summary>
+        /// Edit project name
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnEditName_Click(object sender, EventArgs e)
         {
             ProjectName pn = new ProjectName();
@@ -61,46 +93,12 @@ namespace CodeGenerator
 
         private void HideFields()
         {
-            lblModels.Visible = false;
-            chkListModels.Visible = false;
-            btnCreate.Visible = false;
-            btnDelete.Visible = false;
-            btnNew.Visible = false;
-            btnEdit.Visible = false;
-            btnRead.Visible = false;
-            chkAPI.Visible = false;
-            chkDAL.Visible = false;
-            chkTable.Visible = false;
-            txtViewModel.Visible = false;
-            chkModel.Visible = false;
-            lblRows.Visible = false;
-            chkRelation.Visible = false;
-            chkService.Visible = false;
-            chkTsModel.Visible = false;
-            chkTsStore.Visible = false;
-            chkTsService.Visible = false;
+            objectsToToggle.ForEach(x => x.Visible = false);
         }
 
         private void ShowFields()
         {
-            lblModels.Visible = true;
-            chkListModels.Visible = true;
-            btnCreate.Visible = true;
-            btnDelete.Visible = true;
-            btnNew.Visible = true;
-            btnEdit.Visible = true;
-            btnRead.Visible = true;
-            chkAPI.Visible = true;
-            chkDAL.Visible = true;
-            chkTable.Visible = true;
-            txtViewModel.Visible = true;
-            chkModel.Visible = true;
-            lblRows.Visible = true;
-            chkRelation.Visible = true;
-            chkService.Visible = true;
-            chkTsModel.Visible = true;
-            chkTsStore.Visible = true;
-            chkTsService.Visible = true;
+            objectsToToggle.ForEach(x => x.Visible = true);
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -111,67 +109,29 @@ namespace CodeGenerator
             RefreshModels();
         }
 
-        private void btnCreate_Click(object sender, EventArgs e)
-        {
-            var dialog = new SaveFileDialog()
-            {
-                AddExtension = true,
-                RestoreDirectory = true,
-                FileName = "save"
-            };
-
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                string path = "";
-
-                var aux = dialog.FileName.Split('\\');
-                for (int i = 0; i < aux.Length - 1; i++)
-                    path += aux[i] + "\\";
-
-                foreach (Model m in Program.project.Models)
-                {
-                    if (chkTable.Checked)
-                        TableGenerator.Generate(m, path);
-                    if (chkModel.Checked)
-                        ModelGenerator.Generate(m, path);
-                    if (chkAPI.Checked)
-                        APIControllerGenerator.Generate(m, path);
-                    if (chkDAL.Checked)
-                        RepositoryGenerator.Generate(m, path);
-                    if (chkService.Checked)
-                        ServiceGenerator.Generate(m, path);
-                    if (chkTsModel.Checked)
-                        ModelTsGenerator.Generate(m, path);
-                }
-            }
-
-            foreach (var c in Program.project.Controllers)
-            {
-                if (chkTsService.Checked)
-                    ServiceTsGenerator.Generate(c);
-            }
-        }
-
         private void btnRead_Click(object sender, EventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Multiselect = true;
 
-            if (dialog.ShowDialog() == DialogResult.OK)
+            // dialog has been cancelled
+            if(dialog.ShowDialog() != DialogResult.OK)
             {
-                foreach (string file in dialog.FileNames)
-                {
-                    string result = "";
+                return;
+            }
 
-                    var sr = new StreamReader(file);
-                    result = sr.ReadToEnd();
-                    sr.Close();
+            foreach (string file in dialog.FileNames)
+            {
+                string result = "";
 
-                    if (file.Contains("Controller"))
-                        ReadControllerFromFile(result);
-                    else
-                        ReadModelFromFile(result);
-                }
+                var sr = new StreamReader(file);
+                result = sr.ReadToEnd();
+                sr.Close();
+
+                if (file.Contains("Controller"))
+                    ReadControllerFromFile(result);
+                else
+                    ReadModelFromFile(result);
             }
         }
 
@@ -252,6 +212,82 @@ namespace CodeGenerator
         private void chkTeste_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void linkSelectAll_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            toggleAll = !toggleAll;
+
+            for (int i = 0; i < chkListModels.Items.Count; i++)
+            {
+                chkListModels.SetItemChecked(i, toggleAll);
+            }
+
+            linkSelectAll.Text = toggleAll ? "Unselect All" : "Select All";
+        }
+
+        private void btnCreate_Click(object sender, EventArgs e)
+        {
+            var dialog = new SaveFileDialog()
+            {
+                AddExtension = true,
+                RestoreDirectory = true,
+                FileName = DateTime.Now.ToString("yyyy-MM-dd-HH-mm")
+            };
+
+            if (dialog.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+
+            string path = "";
+
+            var aux = dialog.FileName.Split('\\');
+
+            //create folder selected on the dialog
+            DirectoryInfo di = new DirectoryInfo(dialog.FileName);
+
+            if (di.Exists == false)
+            {
+                di.Create();
+            }
+
+            for (int i = 0; i < aux.Length; i++)
+                path += aux[i] + "\\";
+
+            var tsPath = path + "TypeScript\\";
+            di = new DirectoryInfo(tsPath);
+            if (di.Exists == false) { di.Create(); }
+
+            foreach (Model m in Program.project.Models)
+            {
+                var modelPath = path + m.Name + "\\";
+
+                //create model directory
+                di = new DirectoryInfo(modelPath);
+                if (di.Exists == false) { di.Create(); }
+
+                if (chkTable.Checked)
+                    TableGenerator.Generate(m, path); // scripts are created as a single file
+                if (chkModel.Checked)
+                    ModelGenerator.Generate(m, modelPath);
+                if (chkAPI.Checked)
+                    APIControllerGenerator.Generate(m, modelPath);
+                if (chkDAL.Checked)
+                    RepositoryGenerator.Generate(m, modelPath);
+                if (chkService.Checked)
+                    ServiceGenerator.Generate(m, modelPath);
+                if (chkTsModel.Checked)
+                    ModelTsGenerator.Generate(m, tsPath);
+                if (chkTsStore.Checked && m.Name != "BaseModel")
+                    StoreTsGeneratorcs.Generate(m, tsPath);
+            }
+
+            foreach (var c in Program.project.Controllers)
+            {
+                if (chkTsService.Checked)
+                    ServiceTsGenerator.Generate(c);
+            }
         }
     }
 }
