@@ -56,6 +56,8 @@
       <DependentUpon>CodeGenerator.cs</DependentUpon>
     </Compile>
     <Compile Include="Generator.cs" />
+    <Compile Include="Generators\JoMDM\JoMDMControllerGenerator.cs" />
+    <Compile Include="Generators\JoMDM\JoMDMViewGenerator.cs" />
     <Compile Include="Generators\ModelTsGenerator.cs" />
     <Compile Include="Generators\PostmanTesterGenerator.cs" />
     <Compile Include="Generators\RepositoryGenerator.cs" />
@@ -134,6 +136,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

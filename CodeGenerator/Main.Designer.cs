@@ -49,6 +49,7 @@
             this.chkTsStore = new System.Windows.Forms.CheckBox();
             this.chkTsService = new System.Windows.Forms.CheckBox();
             this.linkSelectAll = new System.Windows.Forms.LinkLabel();
+            this.chkJoMDM = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // lblProjectName
@@ -273,7 +274,7 @@
             this.chkTsStore.AutoSize = true;
             this.chkTsStore.Checked = true;
             this.chkTsStore.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkTsStore.Location = new System.Drawing.Point(347, 491);
+            this.chkTsStore.Location = new System.Drawing.Point(344, 491);
             this.chkTsStore.Name = "chkTsStore";
             this.chkTsStore.Size = new System.Drawing.Size(68, 17);
             this.chkTsStore.TabIndex = 66;
@@ -285,7 +286,7 @@
             this.chkTsService.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkTsService.AutoSize = true;
             this.chkTsService.Enabled = false;
-            this.chkTsService.Location = new System.Drawing.Point(418, 491);
+            this.chkTsService.Location = new System.Drawing.Point(410, 491);
             this.chkTsService.Name = "chkTsService";
             this.chkTsService.Size = new System.Drawing.Size(79, 17);
             this.chkTsService.TabIndex = 67;
@@ -304,11 +305,23 @@
             this.linkSelectAll.Text = "Select All";
             this.linkSelectAll.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkSelectAll_LinkClicked);
             // 
+            // chkJoMDM
+            // 
+            this.chkJoMDM.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkJoMDM.AutoSize = true;
+            this.chkJoMDM.Location = new System.Drawing.Point(488, 491);
+            this.chkJoMDM.Name = "chkJoMDM";
+            this.chkJoMDM.Size = new System.Drawing.Size(63, 17);
+            this.chkJoMDM.TabIndex = 69;
+            this.chkJoMDM.Text = "JoMDM";
+            this.chkJoMDM.UseVisualStyleBackColor = true;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(734, 515);
+            this.Controls.Add(this.chkJoMDM);
             this.Controls.Add(this.linkSelectAll);
             this.Controls.Add(this.chkTsService);
             this.Controls.Add(this.chkTsStore);
@@ -363,5 +376,6 @@
         private System.Windows.Forms.CheckBox chkTsStore;
         private System.Windows.Forms.CheckBox chkTsService;
         private System.Windows.Forms.LinkLabel linkSelectAll;
+        private System.Windows.Forms.CheckBox chkJoMDM;
     }
 }

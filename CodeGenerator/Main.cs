@@ -1,15 +1,8 @@
-﻿using System;
+﻿using CodeGenerator.Generators.JoMDM;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.ListBox;
 
 namespace CodeGenerator
 {
@@ -22,7 +15,7 @@ namespace CodeGenerator
         {
             InitializeComponent();
 
-            this.objectsToToggle = new List<Control>()
+            objectsToToggle = new List<Control>()
             {
                 lblProjectName,
                 lblModels,
@@ -43,7 +36,8 @@ namespace CodeGenerator
                 chkTsModel,
                 chkTsStore,
                 chkTsService,
-                linkSelectAll
+                linkSelectAll,
+                chkJoMDM,
             };
 
             HideFields();
@@ -115,7 +109,7 @@ namespace CodeGenerator
             dialog.Multiselect = true;
 
             // dialog has been cancelled
-            if(dialog.ShowDialog() != DialogResult.OK)
+            if (dialog.ShowDialog() != DialogResult.OK)
             {
                 return;
             }
@@ -259,6 +253,14 @@ namespace CodeGenerator
             di = new DirectoryInfo(tsPath);
             if (di.Exists == false) { di.Create(); }
 
+            string joMDMPath = "";
+            if (chkJoMDM.Checked)
+            {
+                joMDMPath = path + "JoMDM\\";
+                di = new DirectoryInfo(joMDMPath);
+                if (di.Exists == false) { di.Create(); }
+            }
+
             foreach (Model m in Program.project.Models)
             {
                 var modelPath = path + m.Name + "\\";
@@ -281,6 +283,11 @@ namespace CodeGenerator
                     ModelTsGenerator.Generate(m, tsPath);
                 if (chkTsStore.Checked && m.Name != "BaseModel")
                     StoreTsGeneratorcs.Generate(m, tsPath);
+                if (chkJoMDM.Checked)
+                {
+                    JoMDMControllerGenerator.Generate(m, joMDMPath);
+                    JoMDMViewGenerator.Generate(m, joMDMPath);
+                }
             }
 
             foreach (var c in Program.project.Controllers)
